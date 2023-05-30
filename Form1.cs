@@ -93,7 +93,7 @@ namespace VisualizzatoreBinario
             }
             return myRedStyle;
         }
-        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW
+        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW  
         {
             DataGridViewTextBoxCell myCell = getByteCell(data);
             myCell.Style = RedStyle();
