@@ -21,16 +21,6 @@ namespace VisualizzatoreBinario
             InitializeComponent();
         }
 
-        private void openFile(ref byte[] fd, ref Label lb)//NEW
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.ShowDialog();
-            if (System.IO.File.Exists(ofd.FileName))
-            {
-                fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = fd.Length.ToString();
-            }
-        }
         private void ProcessFile(byte[] inData,DataGridView dgvH,DataGridView dgvD,int Header)
         {
             try
@@ -57,7 +47,7 @@ namespace VisualizzatoreBinario
                     for (int i = 0; dCounter < Header && i < 20; i++)
                     {
                         if (fData.Length > dCounter && fData[dCounter] != inData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter], true));
+                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
                         else
                             dgvr.Cells.Add(getByteCell(inData[dCounter]));
                         dCounter++;
@@ -78,7 +68,7 @@ namespace VisualizzatoreBinario
                     for (int i = 0; dCounter < inData.Length && i < nColonne; i++)
                     {
                         if (fData.Length + traslHeader > dCounter && fData[dCounter - traslHeader] != inData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter], true));
+                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
                         else
                             dgvr.Cells.Add(getByteCell(inData[dCounter]));
                         dCounter++;
@@ -93,7 +83,6 @@ namespace VisualizzatoreBinario
 
             }
         }
-
         private DataGridViewCellStyle myRedStyle;
         private DataGridViewCellStyle RedStyle()
         {
@@ -104,11 +93,10 @@ namespace VisualizzatoreBinario
             }
             return myRedStyle;
         }
-        private DataGridViewTextBoxCell getByteCellChanged(byte data, bool changed)
+        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW
         {
             DataGridViewTextBoxCell myCell = getByteCell(data);
-            if (changed)
-                myCell.Style = RedStyle();
+            myCell.Style = RedStyle();
             return myCell;
         }
         private DataGridViewTextBoxCell getByteCell(byte data)
@@ -153,17 +141,25 @@ namespace VisualizzatoreBinario
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
-        private void btOpen_Click(object sender, EventArgs e)
+        private void openFile(ref byte[] fd, ref Label lb)//NEW
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            if (System.IO.File.Exists(ofd.FileName))
+            {
+                fd = System.IO.File.ReadAllBytes(ofd.FileName);
+                lb.Text = fd.Length.ToString();
+            }
+        }
+        private void btOpen_Click(object sender, EventArgs e)//NEW
         {
             openFile(ref fData, ref lbF1Len);
         }
-        private void btOpen2_Click(object sender, EventArgs e)
+        private void btOpen2_Click(object sender, EventArgs e)//NEW
         {
             idDiff = new List<int>();
             openFile(ref fData2, ref lbF2Len);
         }
-        private void dgvHeader2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
         private void processSelection(DataGridView dgv)
         {
             try
@@ -194,6 +190,8 @@ namespace VisualizzatoreBinario
         }
         private void dgvHeader_CellContentClick(object sender, DataGridViewCellEventArgs e)
         { }
+        private void dgvHeader2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        { }
         private void selectionChanged(object sender, EventArgs e)//NEW
         {
             processSelection((DataGridView)sender); 
@@ -204,10 +202,10 @@ namespace VisualizzatoreBinario
             //ProcessFile(fData2, dgvHeader2, dgvData2);
             ProcessAll();
         }
-        private void btSalva1_Click(object sender, EventArgs e)
+        private void salvaFile(DataGridView data)//NEW
         {
             List<byte> b = new List<byte>();
-            foreach(DataGridViewRow r in dgvHeader.Rows)
+            foreach (DataGridViewRow r in data.Rows)
             {
                 foreach (DataGridViewCell c in r.Cells)
                 {
@@ -219,32 +217,6 @@ namespace VisualizzatoreBinario
             {
                 foreach (DataGridViewCell c in r.Cells)
                 {
-                    if(c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
-
-            SaveFileDialog s = new SaveFileDialog();
-            //s.Filter = "Txt|.txt";
-            s.Filter = "VDTD|.VDTD";
-            if (s.ShowDialog() != DialogResult.No)
-                System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
-        }
-        private void btSalva2_Click(object sender, EventArgs e)
-        {
-            List<byte> b = new List<byte>();
-            foreach (DataGridViewRow r in dgvHeader2.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
-                    if (c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
-            foreach (DataGridViewRow r in dgvData2.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
                     if (c.Value != null)
                         b.Add(Convert.ToByte(c.Value));
                 }
@@ -252,8 +224,17 @@ namespace VisualizzatoreBinario
 
             SaveFileDialog s = new SaveFileDialog();
             s.Filter = "Txt|.txt";
+            //s.Filter = "VDTD|.VDTD";
             if (s.ShowDialog() != DialogResult.No)
                 System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
+        }
+        private void btSalva1_Click(object sender, EventArgs e)//NEW
+        {
+            salvaFile(dgvHeader);
+        }
+        private void btSalva2_Click(object sender, EventArgs e)//NEW
+        {
+            salvaFile(dgvHeader2);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -279,9 +260,7 @@ namespace VisualizzatoreBinario
 
         }
         private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+        { }
         private void button4_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();
