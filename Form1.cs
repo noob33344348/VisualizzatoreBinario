@@ -1,14 +1,8 @@
-﻿using DevComponents.AdvTree;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VisualizzatoreBinario
@@ -112,10 +106,8 @@ namespace VisualizzatoreBinario
 
             return bCell;
         }
-        private void txHeader_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
+        private void noChanged(object sender, EventArgs e)//NEW
+        { }
         private void ProcessAll()
         {
             int Header = Math.Min(fData.Length, int.Parse(txHeader.Text));
@@ -124,24 +116,17 @@ namespace VisualizzatoreBinario
                 Header2 = Math.Min(fData2.Length, int.Parse(txHeader2.Text));
             else
                 Header2 = Header;
-            idDiff.Clear();
+
             int iDiff = Header2 - Header;
             int nDiff = 0;
             for (int i = 0; i < Math.Min(fData.Length, fData2.Length); i++)
-            {
                 if (i+ iDiff>= 0 && i+ iDiff<fData2.Length && fData[i] != fData2[i+ iDiff])
-                {
-                    idDiff.Add(i);
                     nDiff++;
-                }
-            }
+
             lbNDiff.Text = "NDiff:" + nDiff.ToString();
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
-        private void txColonne_TextChanged(object sender, EventArgs e)
-        { }
-        List<int> idDiff = new List<int>();
         private void openFile(ref byte[] fd, ref Label lb)//NEW
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -188,18 +173,12 @@ namespace VisualizzatoreBinario
             catch(Exception ex)
             { }
         }
-        private void dgvHeader_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
-        private void dgvHeader2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
         private void selectionChanged(object sender, EventArgs e)//NEW
         {
             processSelection((DataGridView)sender); 
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ProcessFile(fData, dgvHeader, dgvData, header);
-            //ProcessFile(fData2, dgvHeader2, dgvData2);
             ProcessAll();
         }
         private void salvaFile(DataGridView data)//NEW
@@ -243,24 +222,16 @@ namespace VisualizzatoreBinario
             byte[] newData = new byte[finoA + fData2.Length - Da];
             int o = 0;
             for (int i = 0; i < finoA; i++)
-            {
                 newData[o++] = fData[i];
-            }
+
             for (int i = Da; i < fData2.Length; i++)
-            {
                 newData[o++] = fData2[i];
-            }
+            
             using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
-            {
                 if (sfd.ShowDialog() == DialogResult.OK)
-                {
                     System.IO.File.WriteAllBytes(sfd.FileName, newData);
-                }
-            }
 
         }
-        private void Form1_Load(object sender, EventArgs e)
-        { }
         private void button4_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();
