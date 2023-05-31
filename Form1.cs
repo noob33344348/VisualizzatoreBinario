@@ -133,9 +133,6 @@ namespace VisualizzatoreBinario
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
-        private void txColonne_TextChanged(object sender, EventArgs e)
-        { }
-        //List<int> idDiff = new List<int>();
         private void openFile(ref byte[] fd, ref Label lb)//NEW
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -247,8 +244,6 @@ namespace VisualizzatoreBinario
                     System.IO.File.WriteAllBytes(sfd.FileName, newData);
 
         }
-        private void Form1_Load(object sender, EventArgs e)
-        { }
         private void button4_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();
