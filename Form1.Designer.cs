@@ -32,10 +32,8 @@ namespace VisualizzatoreBinario
 
         private void InitializeComponent()
         {
-            this.pictureBox1 = new PictureBox();
-            // label per la regolazione delle finestre di Data1 e Data2
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btDvgData = new System.Windows.Forms.Button();
-
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.txHeader = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -119,7 +117,8 @@ namespace VisualizzatoreBinario
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 48);
+            this.label2.Location = new System.Drawing.Point(12, 59);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 4;
@@ -127,9 +126,10 @@ namespace VisualizzatoreBinario
             // 
             // txColonne
             // 
-            this.txColonne.Location = new System.Drawing.Point(12, 64);
+            this.txColonne.Location = new System.Drawing.Point(16, 79);
+            this.txColonne.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txColonne.Name = "txColonne";
-            this.txColonne.Size = new System.Drawing.Size(100, 20);
+            this.txColonne.Size = new System.Drawing.Size(132, 22);
             this.txColonne.TabIndex = 3;
             this.txColonne.Text = "24";
             this.txColonne.TextChanged += new System.EventHandler(this.txColonne_TextChanged);

@@ -340,5 +340,10 @@ namespace VisualizzatoreBinario
                 }
             }
         }
+
+        private void btDvgData_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
