@@ -158,7 +158,6 @@ namespace VisualizzatoreBinario
         }
         private void btOpen2_Click(object sender, EventArgs e)//NEW
         {
-            idDiff = new List<int>();
             openFile(ref fData2, ref lbF2Len);
         }
         private void processSelection(DataGridView dgv)
