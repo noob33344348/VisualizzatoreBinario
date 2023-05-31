@@ -286,7 +286,7 @@ namespace VisualizzatoreBinario
             if (s.ShowDialog() != DialogResult.No)
                 System.IO.File.WriteAllText(s.FileName, mystring);
         }
-        private void search(DataGridView data) //NEW
+        private void search(DataGridView data)//NEW
         {
             //Convert tbCerca.Text to char array
             char[] c = new char[tbCerca.Text.Length];
@@ -314,7 +314,7 @@ namespace VisualizzatoreBinario
                 }
             }
         }
-        private void btCerca_Click(object sender, EventArgs e) //NEW
+        private void btCerca_Click(object sender, EventArgs e)//NEW
         {
             search(dgvData);
             search(dgvData2);
