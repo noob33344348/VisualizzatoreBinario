@@ -1,5 +1,6 @@
 ﻿using DevComponents.AdvTree;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -93,7 +94,7 @@ namespace VisualizzatoreBinario
             }
             return myRedStyle;
         }
-        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW  
+        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW
         {
             DataGridViewTextBoxCell myCell = getByteCell(data);
             myCell.Style = RedStyle();
@@ -288,12 +289,19 @@ namespace VisualizzatoreBinario
         }
         private void search(DataGridView data)//NEW
         {
-            //Convert tbCerca.Text to char array
-            char[] c = new char[tbCerca.Text.Length];
-            for (int i = 0; i < c.Length; i++)
-                c[i] = tbCerca.Text[i];
+            //Remove spaces if searching in Hex or Int.
+            string[] c;
+            if (comboBox1.Text == "String")
+            {
+                c = new string[tbCerca.Text.Length];
+                for(int i=0; i<c.Length; i++)
+                    c[i] = Convert.ToString(tbCerca.Text[i]);
+            }    
+            
+            else
+                c = tbCerca.Text.Split(' ');
 
-            char[] s = new char[c.Length];
+            string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
                 //Set every color to white
@@ -305,7 +313,7 @@ namespace VisualizzatoreBinario
                 for (int i = 0; i <= row.Cells.Count - c.Length; i++)
                 {
                     for (int j = 0; j < c.Length; j++)
-                        s[j] = Convert.ToChar(row.Cells[i + j].Value);
+                        s[j] = Convert.ToString(row.Cells[i + j].Value);
 
                     //Change color
                     if (s.SequenceEqual(c))
@@ -313,6 +321,7 @@ namespace VisualizzatoreBinario
                             row.Cells[i + j].Style = new DataGridViewCellStyle() { BackColor = Color.LightGreen };
                 }
             }
+
         }
         private void btCerca_Click(object sender, EventArgs e)//NEW
         {
