@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -106,7 +106,7 @@ namespace VisualizzatoreBinario
 
             return bCell;
         }
-        private void txHeader_TextChanged(object sender, EventArgs e)
+        private void noChanged(object sender, EventArgs e)//NEW
         { }
         private void ProcessAll()
         {
@@ -173,18 +173,12 @@ namespace VisualizzatoreBinario
             catch(Exception ex)
             { }
         }
-        private void dgvHeader_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
-        private void dgvHeader2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
         private void selectionChanged(object sender, EventArgs e)//NEW
         {
             processSelection((DataGridView)sender); 
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //ProcessFile(fData, dgvHeader, dgvData, header);
-            //ProcessFile(fData2, dgvHeader2, dgvData2);
             ProcessAll();
         }
         private void salvaFile(DataGridView data)//NEW
