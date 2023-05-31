@@ -1,10 +1,7 @@
-﻿using DevComponents.AdvTree;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,6 +10,7 @@ using System.Windows.Forms;
 
 namespace VisualizzatoreBinario
 {
+
     public partial class Form1 : Form
     {
         byte[] fData;
@@ -22,7 +20,31 @@ namespace VisualizzatoreBinario
             InitializeComponent();
         }
 
-        private void ProcessFile(byte[] inData,DataGridView dgvH,DataGridView dgvD,int Header)
+        private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b) //NEW function
+        {
+
+            foreach (DataGridViewRow r in dgvGeneral.Rows)
+            {
+                foreach (DataGridViewCell c in r.Cells)
+                {
+                    if (c.Value != null)
+                        b.Add(Convert.ToByte(c.Value));
+                }
+            }
+        }
+
+        private void btOpen_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.ShowDialog();
+            if (System.IO.File.Exists(ofd.FileName))
+            {
+                fData = System.IO.File.ReadAllBytes(ofd.FileName);
+                lbF1Len.Text = fData.Length.ToString();
+            }
+        }
+
+        private void ProcessFile(byte[] inData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
             {
@@ -38,7 +60,7 @@ namespace VisualizzatoreBinario
                 for (int i = 0; i < 20; i++)
                 {
                     DataGridViewTextBoxColumn dgvc = new DataGridViewTextBoxColumn();
-                    dgvc.Width = 28;          
+                    dgvc.Width = 28;
                     dgvH.Columns.Add(dgvc);
                 }
                 while (dCounter < Header)
@@ -48,7 +70,7 @@ namespace VisualizzatoreBinario
                     for (int i = 0; dCounter < Header && i < 20; i++)
                     {
                         if (fData.Length > dCounter && fData[dCounter] != inData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
+                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter], true));
                         else
                             dgvr.Cells.Add(getByteCell(inData[dCounter]));
                         dCounter++;
@@ -69,7 +91,7 @@ namespace VisualizzatoreBinario
                     for (int i = 0; dCounter < inData.Length && i < nColonne; i++)
                     {
                         if (fData.Length + traslHeader > dCounter && fData[dCounter - traslHeader] != inData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
+                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter], true));
                         else
                             dgvr.Cells.Add(getByteCell(inData[dCounter]));
                         dCounter++;
@@ -84,6 +106,29 @@ namespace VisualizzatoreBinario
 
             }
         }
+
+        // movimenti del mouse traccati
+
+        private Point MouseDownLocation;
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                MouseDownLocation = e.Location;
+            }
+        }
+
+        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                pictureBox1.Left = e.X + pictureBox1.Left - MouseDownLocation.X;
+
+            }
+        }
+
+        //
         private DataGridViewCellStyle myRedStyle;
         private DataGridViewCellStyle RedStyle()
         {
@@ -94,10 +139,11 @@ namespace VisualizzatoreBinario
             }
             return myRedStyle;
         }
-        private DataGridViewTextBoxCell getByteCellChanged(byte data)//NEW
+        private DataGridViewTextBoxCell getByteCellChanged(byte data, bool changed)
         {
             DataGridViewTextBoxCell myCell = getByteCell(data);
-            myCell.Style = RedStyle();
+            if (changed)
+                myCell.Style = RedStyle();
             return myCell;
         }
         private DataGridViewTextBoxCell getByteCell(byte data)
@@ -112,10 +158,12 @@ namespace VisualizzatoreBinario
 
             return bCell;
         }
+
         private void txHeader_TextChanged(object sender, EventArgs e)
         {
-            
+
         }
+
         private void ProcessAll()
         {
             int Header = Math.Min(fData.Length, int.Parse(txHeader.Text));
@@ -129,7 +177,7 @@ namespace VisualizzatoreBinario
             int nDiff = 0;
             for (int i = 0; i < Math.Min(fData.Length, fData2.Length); i++)
             {
-                if (i+ iDiff>= 0 && i+ iDiff<fData2.Length && fData[i] != fData2[i+ iDiff])
+                if (i + iDiff >= 0 && i + iDiff < fData2.Length && fData[i] != fData2[i + iDiff])
                 {
                     idDiff.Add(i);
                     nDiff++;
@@ -139,26 +187,22 @@ namespace VisualizzatoreBinario
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
+
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
-        private void openFile(ref byte[] fd, ref Label lb)//NEW
+        private void btOpen2_Click(object sender, EventArgs e)
         {
+            idDiff = new List<int>();
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
             if (System.IO.File.Exists(ofd.FileName))
             {
-                fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = fd.Length.ToString();
+                fData2 = System.IO.File.ReadAllBytes(ofd.FileName);
+                lbF2Len.Text = fData2.Length.ToString();
             }
-        }
-        private void btOpen_Click(object sender, EventArgs e)//NEW
-        {
-            openFile(ref fData, ref lbF1Len);
-        }
-        private void btOpen2_Click(object sender, EventArgs e)//NEW
-        {
-            openFile(ref fData2, ref lbF2Len);
+            if (fData == null) return;
+
         }
         private void processSelection(DataGridView dgv)
         {
@@ -185,57 +229,50 @@ namespace VisualizzatoreBinario
                     //lbFloat.Text = BitConverter.ToDouble(data, 0).ToString();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             { }
         }
-        private void dgvHeader_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        private void dgvHeaderGeneral_CellContentClick(object sender, DataGridViewCellEventArgs e) // CHANGES : funzione generale che agisce su Form1.Designer
         { }
-        private void dgvHeader2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        { }
-        private void selectionChanged(object sender, EventArgs e)//NEW
+        private void dgvGeneral_SelectionChanged(object sender, EventArgs e) // CHANGES : funzione generale che agisce su Form1.Designer
         {
-            processSelection((DataGridView)sender); 
+            processSelection((DataGridView)sender);
         }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //ProcessFile(fData, dgvHeader, dgvData, header);
             //ProcessFile(fData2, dgvHeader2, dgvData2);
             ProcessAll();
         }
-        private void salvaFile(DataGridView data)//NEW
+        private void btSalva1_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();
-            foreach (DataGridViewRow r in data.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
-                    if (c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
-            foreach (DataGridViewRow r in dgvData.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
-                    if (c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
+
+            ForEachRIn(ref dgvHeader, ref b);//CHANGES
+            ForEachRIn(ref dgvData, ref b);//CHANGES
 
             SaveFileDialog s = new SaveFileDialog();
-            s.Filter = "Txt|.txt";
-            //s.Filter = "VDTD|.VDTD";
+            //s.Filter = "Txt|.txt";
+            s.Filter = "VDTD|.VDTD";
             if (s.ShowDialog() != DialogResult.No)
                 System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
         }
-        private void btSalva1_Click(object sender, EventArgs e)//NEW
+
+        private void btSalva2_Click(object sender, EventArgs e)
         {
-            salvaFile(dgvHeader);
+            List<byte> b = new List<byte>();
+
+            ForEachRIn(ref dgvHeader2, ref b);//CHANGES
+            ForEachRIn(ref dgvData2, ref b);//CHANGES
+
+            SaveFileDialog s = new SaveFileDialog();
+            s.Filter = "Txt|.txt";
+            if (s.ShowDialog() != DialogResult.No)
+                System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
         }
-        private void btSalva2_Click(object sender, EventArgs e)//NEW
-        {
-            salvaFile(dgvHeader2);
-        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             int finoA = int.Parse(txFinoA.Text);
@@ -259,73 +296,49 @@ namespace VisualizzatoreBinario
             }
 
         }
+
         private void Form1_Load(object sender, EventArgs e)
-        { }
+        {
+
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();
-            foreach (DataGridViewRow r in dgvHeader.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
-                    if (c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
-            foreach (DataGridViewRow r in dgvData.Rows)
-            {
-                foreach (DataGridViewCell c in r.Cells)
-                {
-                    if (c.Value != null)
-                        b.Add(Convert.ToByte(c.Value));
-                }
-            }
+
+            ForEachRIn(ref dgvHeader, ref b);//CHANGES
+            ForEachRIn(ref dgvData, ref b);//CHANGES
 
             SaveFileDialog s = new SaveFileDialog();
             string mystring = Encoding.Unicode.GetString(b.ToArray());
             if (s.ShowDialog() != DialogResult.No)
                 System.IO.File.WriteAllText(s.FileName, mystring);
         }
-        private void search(DataGridView data)//NEW
+
+        private void btCerca_Click(object sender, EventArgs e)
         {
-            //Remove spaces if searching in Hex or Int.
-            string[] c;
-            if (comboBox1.Text == "String")
+            string c = tbCerca.Text;
+            if (string.IsNullOrEmpty(c))
             {
-                c = new string[tbCerca.Text.Length];
-                for(int i=0; i<c.Length; i++)
-                    c[i] = Convert.ToString(tbCerca.Text[i]);
-            }    
-            
-            else
-                c = tbCerca.Text.Split(' ');
-
-            string[] s = new string[c.Length];
-            foreach (DataGridViewRow row in data.Rows)
-            {
-                //Set every color to white
-                foreach (DataGridViewCell cell in row.Cells)
-                    cell.Style = new DataGridViewCellStyle() { BackColor = Color.White };
-
-
-                //Search c
-                for (int i = 0; i <= row.Cells.Count - c.Length; i++)
+                foreach (DataGridViewRow row in dgvData.Rows)
                 {
-                    for (int j = 0; j < c.Length; j++)
-                        s[j] = Convert.ToString(row.Cells[i + j].Value);
-
-                    //Change color
-                    if (s.SequenceEqual(c))
-                        for (int j = 0; j < c.Length; j++)
-                            row.Cells[i + j].Style = new DataGridViewCellStyle() { BackColor = Color.LightGreen };
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        cell.Style = new DataGridViewCellStyle() { BackColor = Color.White };
+                    }
                 }
             }
-
-        }
-        private void btCerca_Click(object sender, EventArgs e)//NEW
-        {
-            search(dgvData);
-            search(dgvData2);
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    string s = Convert.ToString(cell.Value);
+                    if (s.Equals(c))
+                        cell.Style = new DataGridViewCellStyle() { BackColor = Color.LightGreen };
+                    else
+                        cell.Style = new DataGridViewCellStyle() { BackColor = Color.White };
+                }
+            }
         }
     }
 }
