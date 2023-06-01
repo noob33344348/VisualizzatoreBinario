@@ -350,7 +350,7 @@ namespace VisualizzatoreBinario
         {
             if (this._mousePos.HasValue)
             {
-                this.btDgvData.Left = e.X + this.btDgvData.Left - this.btDgvData.Location.X;
+                this.btDgvData.Left = e.X + this.btDgvData.Left - this._mousePos.Value.X;
             }
         }
         void btDgvData_MouseUp(object sender, MouseEventArgs e)
