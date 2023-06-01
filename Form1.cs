@@ -107,18 +107,6 @@ namespace VisualizzatoreBinario
             }
         }
 
-        // movimenti del mouse traccati
-
-        private Point MouseDownLocation;
-
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                MouseDownLocation = e.Location;
-            }
-        }
-
 
         //
         private DataGridViewCellStyle myRedStyle;
@@ -335,7 +323,7 @@ namespace VisualizzatoreBinario
 
 
         int xPos = 1025;
-        
+
         private Point? _mousePos;
 
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
@@ -345,20 +333,21 @@ namespace VisualizzatoreBinario
                 this.btDgvData.Left = e.X + this.btDgvData.Left - this._mousePos.Value.X;
             }
         }
+        /*
         void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
         }
-            
+        */
         void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             //Check if you've left-clicked if you want
             this._mousePos = e.Location;
-            
+
         }
-        
+
     }
 
-        
+
 }
 

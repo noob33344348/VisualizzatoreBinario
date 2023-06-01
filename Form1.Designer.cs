@@ -75,7 +75,9 @@ namespace VisualizzatoreBinario
             this.btDgvData.Size = new System.Drawing.Size(42, 26);
             this.btDgvData.TabIndex = 27;
             this.btDgvData.Text = " = ";
-            this.btDgvData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btDgvData_Click);
+            this.btDgvData.MouseDown += this.btDgvData_MouseDown;
+            //this.btDgvData.MouseUp += this.btDgvData_MouseUp;
+            this.btDgvData.MouseMove += this.btDgvData_MouseMove;
             // 
             // dgvData
             // 
