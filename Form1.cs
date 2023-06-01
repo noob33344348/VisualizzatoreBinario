@@ -352,12 +352,12 @@ namespace VisualizzatoreBinario
 
 
                     dgvData.Size = new System.Drawing.Size(total * perc / 1000, dgvData.Size.Height);
-                    dgvHeader.Size = new System.Drawing.Size(total * perc / 1000, dgvHeader.Size.Height);
+                    dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
 
                     dgvData2.Left = btDgvData.Right;
                     dgvHeader2.Left = btDgvData.Right;
                     dgvData2.Size = new System.Drawing.Size(total * (1000-perc) / 1000, dgvData2.Size.Height);
-                    dgvHeader2.Size = new System.Drawing.Size(total * (1000 - perc) / 1000, dgvHeader2.Size.Height);
+                    dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
                     
             }
