@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using System;
 using System.Drawing;
 
@@ -69,19 +69,21 @@ namespace VisualizzatoreBinario
             // btDgvData
             // 
             this.btDgvData.AutoSize = true;
-            this.btDgvData.Location = new System.Drawing.Point(xPos, 369);
+            this.btDgvData.Location = new System.Drawing.Point(1025, 369);
             this.btDgvData.Margin = new System.Windows.Forms.Padding(4);
             this.btDgvData.Name = "btDgvData";
             this.btDgvData.Size = new System.Drawing.Size(42, 26);
             this.btDgvData.TabIndex = 27;
             this.btDgvData.Text = " = ";
-            this.btDgvData.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btDgvData_Click);
+            this.btDgvData.MouseDown += this.btDgvData_MouseDown;
+            this.btDgvData.MouseUp += this.btDgvData_MouseUp;
+            this.btDgvData.MouseMove += this.btDgvData_MouseMove;
             // 
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
             this.dgvData.AllowUserToDeleteRows = false;
-            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Location = new System.Drawing.Point(16, 241);
@@ -177,7 +179,7 @@ namespace VisualizzatoreBinario
             // 
             this.dgvData2.AllowUserToAddRows = false;
             this.dgvData2.AllowUserToDeleteRows = false;
-            this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData2.Location = new System.Drawing.Point(1048, 241);
