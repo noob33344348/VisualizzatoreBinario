@@ -345,7 +345,7 @@ namespace VisualizzatoreBinario
             if (this._mousePos.HasValue)
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
-                if (futPos > MINX && futPos < MAXX)
+                if (futPos > MINX && futPos < MAXX && (futPos-btDgvData.Left > 100  || futPos - btDgvData.Left < -100))
                 {
                     btDgvData.Left = futPos;
                     perc = btDgvData.Left * 500 / start;
