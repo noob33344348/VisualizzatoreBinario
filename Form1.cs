@@ -336,15 +336,27 @@ namespace VisualizzatoreBinario
 
         int xPos = 1025;
         
-        private void btDgvData_Click(object sender, MouseEventArgs e)
+        private Point? _mousePos;
+
+        void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
+            if (this._mousePos.HasValue)
+            {
+                this.btDgvData.Left = e.X + this.btDgvData.Left - this._mousePos.Value.X;
+            }
+        }
+        void btDgvData_MouseUp(object sender, MouseEventArgs e)
+        {
+            this._mousePos = null;
+        }
             
-            Dispose();
-            xPos = Control.MousePosition.X ;
+        void btDgvData_MouseDown(object sender, MouseEventArgs e)
+        {
+            //Check if you've left-clicked if you want
+            this._mousePos = e.Location;
             
         }
         
-
     }
 
         
