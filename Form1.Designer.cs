@@ -68,7 +68,7 @@ namespace VisualizzatoreBinario
             //pitctureBox1 
             //
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 196);
+            this.pictureBox1.Location = new Point(pictureBox1XPos,pictureBox1YPos);
             this.pictureBox1.Size = new System.Drawing.Size(240, 240);
             this.pictureBox1.TabStop = false;
             this.pictureBox1.BorderStyle = BorderStyle.Fixed3D;
@@ -78,11 +78,13 @@ namespace VisualizzatoreBinario
             //
             this.btDvgData.AutoSize = true;
             this.btDvgData.Location = new System.Drawing.Point(9, 9);
+            this.btDvgData.Margin = new System.Windows.Forms.Padding(4);
             this.btDvgData.Name = "btDvgData";
             this.btDvgData.Size = new System.Drawing.Size(42, 13);
             this.btDvgData.TabIndex = 27;
-            this.btDvgData.Text = "btDvgData";
-
+            this.btDvgData.Text = " = ";
+            this.btDvgData.Click += new System.EventHandler(this.btDvgData_Click);
+            // 
             // dgvData
             // 
             this.dgvData.AllowUserToAddRows = false;
@@ -179,7 +181,8 @@ namespace VisualizzatoreBinario
             this.dgvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData2.Location = new System.Drawing.Point(786, 196);
             this.dgvData2.Name = "dgvData2";
-            this.dgvData2.Size = new System.Drawing.Size(874, 448);
+            this.dgvData2.RowHeadersWidth = 51;
+            this.dgvData2.Size = new System.Drawing.Size(1165, 551);
             this.dgvData2.TabIndex = 7;
             this.dgvData2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
@@ -245,9 +248,10 @@ namespace VisualizzatoreBinario
             "Numero",
             "Hex",
             "String"});
-            this.comboBox1.Location = new System.Drawing.Point(635, 6);
+            this.comboBox1.Location = new System.Drawing.Point(847, 7);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.Size = new System.Drawing.Size(160, 24);
             this.comboBox1.TabIndex = 16;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 

@@ -119,14 +119,6 @@ namespace VisualizzatoreBinario
             }
         }
 
-        private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                pictureBox1.Left = e.X + pictureBox1.Left - MouseDownLocation.X;
-
-            }
-        }
 
         //
         private DataGridViewCellStyle myRedStyle;
@@ -346,4 +338,3 @@ namespace VisualizzatoreBinario
 
         }
     }
-}
