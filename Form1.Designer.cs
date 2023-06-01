@@ -69,12 +69,12 @@ namespace VisualizzatoreBinario
             // btDgvData
             // 
             this.btDgvData.AutoSize = true;
-            this.btDgvData.Location = new System.Drawing.Point(1025, 369);
+            this.btDgvData.Location = new System.Drawing.Point(1033, 369);
             this.btDgvData.Margin = new System.Windows.Forms.Padding(4);
             this.btDgvData.Name = "btDgvData";
-            this.btDgvData.Size = new System.Drawing.Size(42, 26);
+            this.btDgvData.Size = new System.Drawing.Size(1, 26);
             this.btDgvData.TabIndex = 27;
-            this.btDgvData.Text = " = ";
+            this.btDgvData.Text = "=";
             this.btDgvData.MouseDown += this.btDgvData_MouseDown;
             this.btDgvData.MouseUp += this.btDgvData_MouseUp;
             this.btDgvData.MouseMove += this.btDgvData_MouseMove;
