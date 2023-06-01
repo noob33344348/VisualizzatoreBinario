@@ -307,7 +307,7 @@ namespace VisualizzatoreBinario
                 System.IO.File.WriteAllText(s.FileName, mystring);
         }
 
-        private void btCerca_Click(object sender, EventArgs e)
+        private void BtCerca_Click(object sender, EventArgs e)
         {
             string c = tbCerca.Text;
             if (string.IsNullOrEmpty(c))
@@ -333,8 +333,20 @@ namespace VisualizzatoreBinario
             }
         }
 
-        private void btDvgData_Click(object sender, EventArgs e)
-        {
 
+        int xPos = 1025;
+        
+        private void btDgvData_Click(object sender, MouseEventArgs e)
+        {
+            
+            Dispose();
+            xPos = Control.MousePosition.X ;
+            
         }
+        
+
     }
+
+        
+}
+
