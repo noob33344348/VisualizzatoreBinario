@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -335,18 +335,37 @@ namespace VisualizzatoreBinario
 
 
         int xPos = 1025;
-        
+        /*
         private void btDgvData_Click(object sender, MouseEventArgs e)
         {
-            
+
             Dispose();
-            xPos = Control.MousePosition.X ;
-            
+            xPos = Control.MousePosition.X;
+
+        }*/
+
+        private Point? _mousePos;
+
+        void btDgvData_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this._mousePos.HasValue)
+            {
+                this.btDgvData.Left = e.X + this.btDgvData.Left - this.btDgvData.Location.X;
+            }
         }
-        
+        void btDgvData_MouseUp(object sender, MouseEventArgs e)
+        {
+            this._mousePos = null;
+        }
+
+        void btDgvData_MouseDown(object sender, MouseEventArgs e)
+        {
+            //Check if you've left-clicked if you want
+            this._mousePos = e.Location;
+
+        }
 
     }
 
-        
-}
 
+}
