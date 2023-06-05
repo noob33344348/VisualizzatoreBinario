@@ -32,7 +32,6 @@ namespace VisualizzatoreBinario
                 }
             }
         }
-
         private void ProcessFile(byte[] inData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
@@ -95,18 +94,6 @@ namespace VisualizzatoreBinario
 
             }
         }
-
-        // movimenti del mouse traccati
-
-        private Point MouseDownLocation;
-        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
-        {
-            if (e.Button == System.Windows.Forms.MouseButtons.Left)
-            {
-                MouseDownLocation = e.Location;
-            }
-        }
-
         private DataGridViewCellStyle myRedStyle;
         private DataGridViewCellStyle RedStyle()
         {
@@ -135,7 +122,6 @@ namespace VisualizzatoreBinario
 
             return bCell;
         }
-
         private void noChanged(object sender, EventArgs e)//CHANGES
         { }
         private void ProcessAll()
@@ -161,7 +147,6 @@ namespace VisualizzatoreBinario
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
-
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
@@ -265,8 +250,6 @@ namespace VisualizzatoreBinario
             }
 
         }
-        private void Form1_Load(object sender, EventArgs e)
-        { }
         private void button4_Click(object sender, EventArgs e)
         {
             List<byte> b = new List<byte>();

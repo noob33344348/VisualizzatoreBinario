@@ -390,7 +390,7 @@ namespace VisualizzatoreBinario
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.noChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader2)).EndInit();
