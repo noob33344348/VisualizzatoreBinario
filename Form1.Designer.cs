@@ -168,8 +168,6 @@ namespace VisualizzatoreBinario
             this.dgvHeader2.AllowUserToAddRows = false;
             this.dgvHeader2.AllowUserToDeleteRows = false;
             this.dgvData2.AutoSize = false;
-            this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvHeader2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvHeader2.Location = new System.Drawing.Point(970, 111);
             this.dgvHeader2.Margin = new System.Windows.Forms.Padding(4);
@@ -187,7 +185,7 @@ namespace VisualizzatoreBinario
             this.dgvData2.AllowUserToDeleteRows = false;
             this.dgvData2.AutoSize = false;
             this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData2.Location = new System.Drawing.Point(970, 241);
             this.dgvData2.Margin = new System.Windows.Forms.Padding(4);
