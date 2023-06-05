@@ -332,56 +332,51 @@ namespace VisualizzatoreBinario
         {
             this._mousePos = e.Location;
         }
-        private void btNext(object sender, MouseEventArgs e)
+        private void btNext(object sender, EventArgs e)
         {
             bool found = false;
-            hcIndex++;
-            for (;!found && hrIndex < dgvHeader.RowCount && hrIndex < dgvHeader2.RowCount; hrIndex++)
+
+            for (; !found && hrIndex < dgvHeader.Rows[0].Cells.Count && cIndex < dgvHeader2.Rows[0].Cells.Count; hrIndex++)
             {
-                for (; !found && hcIndex < dgvHeader.Rows[hrIndex].Cells.Count && cIndex < dgvHeader2.Rows[hrIndex].Cells.Count; hcIndex++)
+                if (dgvHeader.Rows[0].Cells[hrIndex].Value != dgvHeader2.Rows[0].Cells[hrIndex].Value)
                 {
-                    if (dgvHeader.Rows[hrIndex].Cells[hcIndex].Value != dgvHeader2.Rows[hrIndex].Cells[hcIndex].Value) ;
-                    {
-                        dgvHeader.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        dgvHeader2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        found = true;
-                    }
+                    dgvHeader2.Rows[0].Cells[hrIndex].Style = SelectedRedStyle;
+                    found = true;
                 }
-                hcIndex = 0;
             }
             if(!found)
             {
-                cIndex++;
-                for (; !found && rIndex < dgvData.RowCount && rIndex < dgvData2.RowCount; rIndex++)
-                {
-                    for (; !found && cIndex < dgvData.Rows[rIndex].Cells.Count && cIndex < dgvData2.Rows[rIndex].Cells.Count; cIndex++)
-                    {
-                        if (dgvData.Rows[rIndex].Cells[cIndex].Value != dgvData2.Rows[rIndex].Cells[cIndex].Value)
-                        {
-                            dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                            found = true;
-                        }
-                    }
-                    cIndex = 0;
-                }
+                //cIndex++;
+                //for (; !found && rIndex < dgvData.RowCount && rIndex < dgvData2.RowCount; rIndex++)
+                //{
+                //    for (; !found && cIndex < dgvData.Rows[rIndex].Cells.Count && cIndex < dgvData2.Rows[rIndex].Cells.Count; cIndex++)
+                //    {
+                //        if (dgvData.Rows[rIndex].Cells[cIndex].Value != dgvData2.Rows[rIndex].Cells[cIndex].Value)
+                //        {
+                //            dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                //            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                //            found = true;
+                //        }
+                //    }
+                //    cIndex = 0;
+                //}
             }
             
                 
         }
 
-        private void btPrevious(object sender, MouseEventArgs e)
+        private void btPrevious(object sender, EventArgs e)
         {
             bool found = false;
             hcIndex--;
-            for (; !found && hrIndex >= 0; hrIndex--)
+            for (; !found && hrIndex > 0; hrIndex--)
             {
-                for (; !found && hcIndex >= 0; hcIndex--)
+                for (; !found && hcIndex > 0; hcIndex--)
                 {
-                    if (dgvHeader.Rows[hrIndex].Cells[hcIndex].Value != dgvHeader2.Rows[hrIndex].Cells[hcIndex].Value) ;
+                    if (dgvHeader.Rows[hrIndex].Cells[hcIndex].Value != dgvHeader2.Rows[hrIndex].Cells[hcIndex].Value)
                     {
-                        dgvHeader.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        dgvHeader2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        dgvHeader.Rows[hrIndex].Cells[hcIndex].Style = SelectedRedStyle;
+                        dgvHeader2.Rows[hrIndex].Cells[hcIndex].Style = SelectedRedStyle;
                         found = true;
                     }
                 }

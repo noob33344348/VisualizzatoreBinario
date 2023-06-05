@@ -267,7 +267,7 @@ namespace VisualizzatoreBinario
             this.btNextDiff.TabIndex = 31;
             this.btNextDiff.Text = "Next";
             this.btNextDiff.UseVisualStyleBackColor = true;
-            this.btNextDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
+            this.btNextDiff.Click += new System.EventHandler(this.btNext);//CHANGE
             // 
             // btPreviousDiff
             // 
@@ -278,7 +278,7 @@ namespace VisualizzatoreBinario
             this.btPreviousDiff.TabIndex = 30;
             this.btPreviousDiff.Text = "Previous";
             this.btPreviousDiff.UseVisualStyleBackColor = true;
-            this.btPreviousDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
+            this.btPreviousDiff.Click += new System.EventHandler(this.btPrevious);//CHANGE
             // 
             // comboBox1
             // 
