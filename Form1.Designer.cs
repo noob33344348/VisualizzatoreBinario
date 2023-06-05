@@ -1,4 +1,4 @@
-﻿using System.Windows.Forms;
+using System.Windows.Forms;
 using System;
 using System.Drawing;
 
@@ -52,7 +52,9 @@ namespace VisualizzatoreBinario
             this.lbNDiff = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.labelFinoA = new System.Windows.Forms.Label();
             this.txFinoA = new System.Windows.Forms.TextBox();
+            this.labelDa = new System.Windows.Forms.Label();
             this.txDa = new System.Windows.Forms.TextBox();
             this.txHeader2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -68,45 +70,30 @@ namespace VisualizzatoreBinario
             // btDgvData
             // 
             this.btDgvData.AutoSize = true;
-            this.btDgvData.Location = new System.Drawing.Point(1033, 240);
+            this.btDgvData.Location = new System.Drawing.Point(968, 111);
             this.btDgvData.Margin = new System.Windows.Forms.Padding(4);
             this.btDgvData.Name = "btDgvData";
-            this.btDgvData.Size = new System.Drawing.Size(40, 600);
+            this.btDgvData.Size = new System.Drawing.Size(1, 913);
             this.btDgvData.TabIndex = 27;
             this.btDgvData.Text = "=";
             this.btDgvData.MouseDown += this.btDgvData_MouseDown;
             this.btDgvData.MouseUp += this.btDgvData_MouseUp;
             this.btDgvData.MouseMove += this.btDgvData_MouseMove;
             // 
-            // dgvData
-            // 
-            this.dgvData.AllowUserToAddRows = false;
-            this.dgvData.AllowUserToDeleteRows = false;
-            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData.Location = new System.Drawing.Point(16, 241);
-            this.dgvData.Margin = new System.Windows.Forms.Padding(4);
-            this.dgvData.Name = "dgvData";
-            this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(1024, 551);
-            this.dgvData.TabIndex = 0;
-            this.dgvData.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
-            // 
             // txHeader
             // 
-            this.txHeader.Location = new System.Drawing.Point(16, 31);
+            this.txHeader.Location = new System.Drawing.Point(171, 27);
             this.txHeader.Margin = new System.Windows.Forms.Padding(4);
             this.txHeader.Name = "txHeader";
             this.txHeader.Size = new System.Drawing.Size(132, 22);
             this.txHeader.TabIndex = 1;
             this.txHeader.Text = "100";
-            this.txHeader.TextChanged += new System.EventHandler(this.txHeader_TextChanged);
+            this.txHeader.TextChanged += new System.EventHandler(this.noChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Location = new System.Drawing.Point(207, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 16);
@@ -116,16 +103,16 @@ namespace VisualizzatoreBinario
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 59);
+            this.label2.Location = new System.Drawing.Point(29, 7);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 16);
             this.label2.TabIndex = 4;
-            this.label2.Text = "numColonne";
+            this.label2.Text = "Numero Colonne";
             // 
             // txColonne
             // 
-            this.txColonne.Location = new System.Drawing.Point(16, 79);
+            this.txColonne.Location = new System.Drawing.Point(16, 34);
             this.txColonne.Margin = new System.Windows.Forms.Padding(4);
             this.txColonne.Name = "txColonne";
             this.txColonne.Size = new System.Drawing.Size(132, 22);
@@ -137,20 +124,37 @@ namespace VisualizzatoreBinario
             // 
             this.dgvHeader.AllowUserToAddRows = false;
             this.dgvHeader.AllowUserToDeleteRows = false;
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvHeader.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHeader.Location = new System.Drawing.Point(16, 111);
+            this.dgvHeader.Location = new System.Drawing.Point(5, 111);
             this.dgvHeader.Margin = new System.Windows.Forms.Padding(4);
             this.dgvHeader.Name = "dgvHeader";
             this.dgvHeader.ReadOnly = true;
             this.dgvHeader.RowHeadersWidth = 51;
-            this.dgvHeader.Size = new System.Drawing.Size(1024, 123);
+            this.dgvHeader.Size = new System.Drawing.Size(968, 123);
             this.dgvHeader.TabIndex = 5;
-            this.dgvHeader.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHeaderGeneral_CellContentClick);
+            this.dgvHeader.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.noChanged);
             this.dgvHeader.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Location = new System.Drawing.Point(5, 241);
+            this.dgvData.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.RowHeadersWidth = 51;
+            this.dgvData.Size = new System.Drawing.Size(968, 551);
+            this.dgvData.TabIndex = 0;
+            this.dgvData.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
             // btOpen
             // 
-            this.btOpen.Location = new System.Drawing.Point(307, 30);
+            this.btOpen.Location = new System.Drawing.Point(311, 26);
             this.btOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btOpen.Name = "btOpen";
             this.btOpen.Size = new System.Drawing.Size(100, 28);
@@ -163,35 +167,37 @@ namespace VisualizzatoreBinario
             // 
             this.dgvHeader2.AllowUserToAddRows = false;
             this.dgvHeader2.AllowUserToDeleteRows = false;
+            this.dgvData2.AutoSize = false;
             this.dgvHeader2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvHeader2.Location = new System.Drawing.Point(1048, 111);
+            this.dgvHeader2.Location = new System.Drawing.Point(970, 111);
             this.dgvHeader2.Margin = new System.Windows.Forms.Padding(4);
             this.dgvHeader2.Name = "dgvHeader2";
             this.dgvHeader2.ReadOnly = true;
             this.dgvHeader2.RowHeadersWidth = 51;
-            this.dgvHeader2.Size = new System.Drawing.Size(1165, 123);
+            this.dgvHeader2.Size = new System.Drawing.Size(730, 123);
             this.dgvHeader2.TabIndex = 8;
-            this.dgvHeader2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHeaderGeneral_CellContentClick);
+            this.dgvHeader2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.noChanged);
             this.dgvHeader2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
             // dgvData2
             // 
             this.dgvData2.AllowUserToAddRows = false;
             this.dgvData2.AllowUserToDeleteRows = false;
+            this.dgvData2.AutoSize = false;
             this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvData2.Location = new System.Drawing.Point(1048, 241);
+            this.dgvData2.Location = new System.Drawing.Point(970, 241);
             this.dgvData2.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData2.Name = "dgvData2";
             this.dgvData2.RowHeadersWidth = 51;
-            this.dgvData2.Size = new System.Drawing.Size(500, 551);
+            this.dgvData2.Size = new System.Drawing.Size(730, 551);
             this.dgvData2.TabIndex = 7;
             this.dgvData2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
             // btOpen2
             // 
-            this.btOpen2.Location = new System.Drawing.Point(307, 75);
+            this.btOpen2.Location = new System.Drawing.Point(311, 57);
             this.btOpen2.Margin = new System.Windows.Forms.Padding(4);
             this.btOpen2.Name = "btOpen2";
             this.btOpen2.Size = new System.Drawing.Size(100, 28);
@@ -203,47 +209,47 @@ namespace VisualizzatoreBinario
             // lbInt
             // 
             this.lbInt.AutoSize = true;
-            this.lbInt.Location = new System.Drawing.Point(427, 34);
+            this.lbInt.Location = new System.Drawing.Point(431, 31);
             this.lbInt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbInt.Name = "lbInt";
             this.lbInt.Size = new System.Drawing.Size(69, 16);
             this.lbInt.TabIndex = 11;
-            this.lbInt.Text = "Header int";
+            this.lbInt.Text = "file 1";
             // 
             // lbFloat
             // 
             this.lbFloat.AutoSize = true;
-            this.lbFloat.Location = new System.Drawing.Point(427, 58);
+            this.lbFloat.Location = new System.Drawing.Point(431, 65);
             this.lbFloat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFloat.Name = "lbFloat";
             this.lbFloat.Size = new System.Drawing.Size(81, 16);
             this.lbFloat.TabIndex = 12;
-            this.lbFloat.Text = "Header float";
+            this.lbFloat.Text = "file 2";
             // 
             // lbF1Len
             // 
             this.lbF1Len.AutoSize = true;
-            this.lbF1Len.Location = new System.Drawing.Point(563, 30);
+            this.lbF1Len.Location = new System.Drawing.Point(567, 30);
             this.lbF1Len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbF1Len.Name = "lbF1Len";
-            this.lbF1Len.Size = new System.Drawing.Size(60, 16);
+            this.lbF1Len.Size = new System.Drawing.Size(53, 16);
             this.lbF1Len.TabIndex = 13;
-            this.lbF1Len.Text = "byte file1";
+            this.lbF1Len.Text = "";
             // 
             // lbF2Len
             // 
             this.lbF2Len.AutoSize = true;
-            this.lbF2Len.Location = new System.Drawing.Point(563, 59);
+            this.lbF2Len.Location = new System.Drawing.Point(567, 64);
             this.lbF2Len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbF2Len.Name = "lbF2Len";
-            this.lbF2Len.Size = new System.Drawing.Size(60, 16);
+            this.lbF2Len.Size = new System.Drawing.Size(53, 16);
             this.lbF2Len.TabIndex = 14;
-            this.lbF2Len.Text = "byte file2";
+            this.lbF2Len.Text = "";
             // 
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(691, 34);
+            this.lbNDiff.Location = new System.Drawing.Point(682, 40);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(33, 16);
@@ -252,9 +258,10 @@ namespace VisualizzatoreBinario
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Numero",
+            "Integer",
             "Hex",
             "String"});
             this.comboBox1.Location = new System.Drawing.Point(809, 27);
@@ -275,6 +282,16 @@ namespace VisualizzatoreBinario
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // labelFinoA
+            // 
+            this.labelFinoA.AutoSize = true;
+            this.labelFinoA.Location = new System.Drawing.Point(1101, 23);
+            this.labelFinoA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelFinoA.Name = "labelFinoA";
+            this.labelFinoA.Size = new System.Drawing.Size(82, 16);
+            this.labelFinoA.TabIndex = 4;
+            this.labelFinoA.Text = "Fino a";
+            // 
             // txFinoA
             // 
             this.txFinoA.Location = new System.Drawing.Point(1153, 20);
@@ -282,7 +299,17 @@ namespace VisualizzatoreBinario
             this.txFinoA.Name = "txFinoA";
             this.txFinoA.Size = new System.Drawing.Size(132, 22);
             this.txFinoA.TabIndex = 18;
-            this.txFinoA.Text = "Fino A";
+            this.txFinoA.Text = "";
+            // 
+            // labelDa
+            // 
+            this.labelDa.AutoSize = true;
+            this.labelDa.Location = new System.Drawing.Point(1120, 53);
+            this.labelDa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDa.Name = "labelDa";
+            this.labelDa.Size = new System.Drawing.Size(82, 16);
+            this.labelDa.TabIndex = 4;
+            this.labelDa.Text = "Da";
             // 
             // txDa
             // 
@@ -291,11 +318,11 @@ namespace VisualizzatoreBinario
             this.txDa.Name = "txDa";
             this.txDa.Size = new System.Drawing.Size(132, 22);
             this.txDa.TabIndex = 19;
-            this.txDa.Text = "Da";
+            this.txDa.Text = "";
             // 
             // txHeader2
             // 
-            this.txHeader2.Location = new System.Drawing.Point(157, 31);
+            this.txHeader2.Location = new System.Drawing.Point(171, 58);
             this.txHeader2.Margin = new System.Windows.Forms.Padding(4);
             this.txHeader2.Name = "txHeader2";
             this.txHeader2.Size = new System.Drawing.Size(132, 22);
@@ -341,7 +368,7 @@ namespace VisualizzatoreBinario
             this.btCerca.TabIndex = 25;
             this.btCerca.Text = "Cerca";
             this.btCerca.UseVisualStyleBackColor = true;
-            this.btCerca.Click += new System.EventHandler(this.BtCerca_Click);
+            this.btCerca.Click += new System.EventHandler(this.btCerca_Click);
             // 
             // Form1
             // 
@@ -355,7 +382,9 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txHeader2);
             this.Controls.Add(this.txDa);
+            this.Controls.Add(this.labelDa);
             this.Controls.Add(this.txFinoA);
+            this.Controls.Add(this.labelFinoA);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.lbNDiff);
@@ -376,14 +405,13 @@ namespace VisualizzatoreBinario
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.noChanged);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -404,13 +432,14 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Label lbNDiff;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labelFinoA;
         private System.Windows.Forms.TextBox txFinoA;
+        private System.Windows.Forms.Label labelDa;
         private System.Windows.Forms.TextBox txDa;
         private System.Windows.Forms.Label lbFloat;
         private System.Windows.Forms.TextBox txHeader2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox tbCerca;
         private System.Windows.Forms.Button btCerca;
 
