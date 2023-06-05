@@ -50,6 +50,8 @@ namespace VisualizzatoreBinario
             this.lbF1Len = new System.Windows.Forms.Label();
             this.lbF2Len = new System.Windows.Forms.Label();
             this.lbNDiff = new System.Windows.Forms.Label();
+            this.btNextDiff = new System.Windows.Forms.Button();
+            this.btPreviousDiff = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.labelFinoA = new System.Windows.Forms.Label();
@@ -249,12 +251,34 @@ namespace VisualizzatoreBinario
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(682, 40);
+            this.lbNDiff.Location = new System.Drawing.Point(667, 9);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(33, 16);
             this.lbNDiff.TabIndex = 15;
-            this.lbNDiff.Text = "nDiff";
+            this.lbNDiff.Text = "Differences";
+            // 
+            // btNextDiff
+            // 
+            this.btNextDiff.Location = new System.Drawing.Point(653, 34);
+            this.btNextDiff.Margin = new System.Windows.Forms.Padding(4);
+            this.btNextDiff.Name = "btNextDiff";
+            this.btNextDiff.Size = new System.Drawing.Size(100, 28);
+            this.btNextDiff.TabIndex = 31;
+            this.btNextDiff.Text = "Next";
+            this.btNextDiff.UseVisualStyleBackColor = true;
+            this.btNextDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
+            // 
+            // btPreviousDiff
+            // 
+            this.btPreviousDiff.Location = new System.Drawing.Point(653, 65);
+            this.btPreviousDiff.Margin = new System.Windows.Forms.Padding(4);
+            this.btPreviousDiff.Name = "btPreviousDiff";
+            this.btPreviousDiff.Size = new System.Drawing.Size(100, 28);
+            this.btPreviousDiff.TabIndex = 30;
+            this.btPreviousDiff.Text = "Previous";
+            this.btPreviousDiff.UseVisualStyleBackColor = true;
+            this.btPreviousDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
             // 
             // comboBox1
             // 
@@ -264,7 +288,7 @@ namespace VisualizzatoreBinario
             "Integer",
             "Hex",
             "String"});
-            this.comboBox1.Location = new System.Drawing.Point(809, 27);
+            this.comboBox1.Location = new System.Drawing.Point(869, 27);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
@@ -331,7 +355,7 @@ namespace VisualizzatoreBinario
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(779, 59);
+            this.button2.Location = new System.Drawing.Point(839, 59);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
@@ -342,7 +366,7 @@ namespace VisualizzatoreBinario
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(912, 59);
+            this.button3.Location = new System.Drawing.Point(972, 59);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
@@ -387,6 +411,8 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.labelFinoA);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.btPreviousDiff);
+            this.Controls.Add(this.btNextDiff);
             this.Controls.Add(this.lbNDiff);
             this.Controls.Add(this.lbF2Len);
             this.Controls.Add(this.lbF1Len);
@@ -430,8 +456,10 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Label lbF1Len;
         private System.Windows.Forms.Label lbF2Len;
         private System.Windows.Forms.Label lbNDiff;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btNextDiff;
+        private System.Windows.Forms.Button btPreviousDiff;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label labelFinoA;
         private System.Windows.Forms.TextBox txFinoA;
         private System.Windows.Forms.Label labelDa;
