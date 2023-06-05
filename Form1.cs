@@ -153,7 +153,7 @@ namespace VisualizzatoreBinario
             if (System.IO.File.Exists(ofd.FileName))
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = "n. byte: " + fd.Length.ToString();
+                lb.Text = "n. byte: "+fd.Length.ToString();
                 FileInfo fi = new FileInfo(ofd.FileName);
                 lbName.Text = fi.Name;
             }
@@ -256,7 +256,7 @@ namespace VisualizzatoreBinario
             }
             else
                 MessageBox.Show("I file devono essere caricati!");
-
+            
 
         }
         private void search(DataGridView data)
@@ -271,7 +271,7 @@ namespace VisualizzatoreBinario
 
             else
                 c = tbCerca.Text.Split(' ');
-
+  
             string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
@@ -301,7 +301,7 @@ namespace VisualizzatoreBinario
         }
         private Point? _mousePos;
         int perc = 500;
-        const int TOTAL = 1250, START = TOTAL / 2, MINX = 100, MAXX = TOTAL - MINX;
+        const int TOTAL = 1250, START = TOTAL/2, MINX = 100, MAXX = TOTAL-MINX;
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
@@ -317,7 +317,7 @@ namespace VisualizzatoreBinario
 
                     dgvData2.Left = btDgvData.Right;
                     dgvHeader2.Left = btDgvData.Right;
-                    dgvData2.Size = new System.Drawing.Size(TOTAL - dgvData.Size.Width, dgvData2.Size.Height);
+                    dgvData2.Size = new System.Drawing.Size(TOTAL- dgvData.Size.Width, dgvData2.Size.Height);
                     dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
             }
