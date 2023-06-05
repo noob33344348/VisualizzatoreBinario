@@ -260,7 +260,7 @@ namespace VisualizzatoreBinario
 
             else
                 c = tbCerca.Text.Split(' ');
-
+  
             string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
@@ -290,13 +290,13 @@ namespace VisualizzatoreBinario
         }
         private Point? _mousePos;
         int perc = 500;
-        const int MINX = 100, MAXX = 1100, START = 1032, TOTAL = 2048;
+        const int MINX = 100, MAXX = 1200, TOTAL = 1946, START = TOTAL/2;
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
-                if (futPos > MINX && futPos < MAXX && (futPos - btDgvData.Left > 100 || futPos - btDgvData.Left < -100))
+                if (futPos > MINX && futPos < MAXX && (futPos - btDgvData.Left > 50 || futPos - btDgvData.Left < -50))
                 {
                     btDgvData.Left = futPos;
                     perc = btDgvData.Left * 500 / START;
@@ -307,8 +307,8 @@ namespace VisualizzatoreBinario
 
                     dgvData2.Left = btDgvData.Right;
                     dgvHeader2.Left = btDgvData.Right;
-                    dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
-                    dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
+                    //dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
+                    //dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
             }
         }
