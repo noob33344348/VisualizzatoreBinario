@@ -146,25 +146,41 @@ namespace VisualizzatoreBinario
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
+<<<<<<< HEAD
         private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
+=======
+        private void openFile(ref byte[] fd, ref Label lb)
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
             if (System.IO.File.Exists(ofd.FileName))
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
+<<<<<<< HEAD
                 lb.Text = "n. byte: " + fd.Length.ToString();
                 FileInfo fi = new FileInfo(ofd.FileName);
                 lbName.Text = fi.Name;
+=======
+                lb.Text = "n. byte: "+fd.Length.ToString();
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
             }
         }
         private void btOpen_Click(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             openFile(ref fData, ref lbF1Len, ref lbInt);
         }
         private void btOpen2_Click(object sender, EventArgs e)
         {
             openFile(ref fData2, ref lbF2Len, ref lbFloat);
+=======
+            openFile(ref fData, ref lbF1Len);
+        }
+        private void btOpen2_Click(object sender, EventArgs e)
+        {
+            openFile(ref fData2, ref lbF2Len);
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
         }
         private void processSelection(DataGridView dgv)
         {
@@ -175,7 +191,11 @@ namespace VisualizzatoreBinario
                     byte[] data = new byte[4];
                     for (int i = 0; i < dgv.SelectedCells.Count; i++)
                         data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                     lbInt.Text = BitConverter.ToInt32(data, 0).ToString();
                 }
                 if (dgv.SelectedCells.Count == 8)
@@ -183,7 +203,11 @@ namespace VisualizzatoreBinario
                     byte[] data = new byte[8];
                     for (int i = 0; i < dgv.SelectedCells.Count; i++)
                         data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
+<<<<<<< HEAD
 
+=======
+                    
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                     lbInt.Text = BitConverter.ToInt64(data, 0).ToString();
                 }
             }
@@ -213,7 +237,11 @@ namespace VisualizzatoreBinario
                     System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
                 }
                 catch (Exception ex) { }
+<<<<<<< HEAD
             }
+=======
+            } 
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
         }
         private void btSalva1_Click(object sender, EventArgs e)
         {
@@ -227,6 +255,7 @@ namespace VisualizzatoreBinario
         {
             int finoA = int.Parse(txFinoA.Text);
             int Da = int.Parse(txDa.Text);
+<<<<<<< HEAD
             if (fData != null && fData2 != null)
             {
                 if (finoA + fData2.Length - Da > 0 && Da < fData.Length && finoA >= 0 && Da >= 0)
@@ -249,14 +278,39 @@ namespace VisualizzatoreBinario
                             }
                             catch (Exception ex) { }
                         }
+=======
+            if (fData != null && fData2 != null && finoA + fData2.Length - Da > 0 && Da < fData.Length)
+            {
+                byte[] newData = new byte[finoA + fData2.Length - Da];
+                int o = 0;
+                for (int i = 0; i < finoA; i++)
+                    newData[o++] = fData[i];
+
+                for (int i = Da; i < fData2.Length; i++)
+                    newData[o++] = fData2[i];
+                
+                using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            System.IO.File.WriteAllBytes(sfd.FileName, newData);
+                        }
+                        catch(Exception ex) { }
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                     }
                 }
                 else
                     MessageBox.Show("Input inseriti errati!");
             }
+<<<<<<< HEAD
             else
                 MessageBox.Show("I file devono essere caricati!");
 
+=======
+            
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
 
         }
         private void search(DataGridView data)
@@ -301,23 +355,39 @@ namespace VisualizzatoreBinario
         }
         private Point? _mousePos;
         int perc = 500;
+<<<<<<< HEAD
         const int TOTAL = 1250, START = TOTAL / 2, MINX = 100, MAXX = TOTAL - MINX;
+=======
+        const int MINX = 100, MAXX = 1100, START = 1032, TOTAL = 2048;
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
+<<<<<<< HEAD
                 if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 100)
+=======
+                if (futPos > MINX && futPos < MAXX && (futPos - btDgvData.Left > 100 || futPos - btDgvData.Left < -100))
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                 {
                     btDgvData.Left = futPos;
                     perc = btDgvData.Left * 500 / START;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                     dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
                     dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
 
                     dgvData2.Left = btDgvData.Right;
                     dgvHeader2.Left = btDgvData.Right;
+<<<<<<< HEAD
                     dgvData2.Size = new System.Drawing.Size(TOTAL - dgvData.Size.Width, dgvData2.Size.Height);
+=======
+                    dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
                     dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
             }

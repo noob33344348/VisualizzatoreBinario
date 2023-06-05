@@ -70,7 +70,11 @@ namespace VisualizzatoreBinario
             // btDgvData
             // 
             this.btDgvData.AutoSize = true;
+<<<<<<< HEAD
             this.btDgvData.Location = new System.Drawing.Point(968, 111);
+=======
+            this.btDgvData.Location = new System.Drawing.Point(1033, 111);
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
             this.btDgvData.Margin = new System.Windows.Forms.Padding(4);
             this.btDgvData.Name = "btDgvData";
             this.btDgvData.Size = new System.Drawing.Size(1, 913);
@@ -79,6 +83,24 @@ namespace VisualizzatoreBinario
             this.btDgvData.MouseDown += this.btDgvData_MouseDown;
             this.btDgvData.MouseUp += this.btDgvData_MouseUp;
             this.btDgvData.MouseMove += this.btDgvData_MouseMove;
+<<<<<<< HEAD
+=======
+            // 
+            // dgvData
+            // 
+            this.dgvData.AllowUserToAddRows = false;
+            this.dgvData.AllowUserToDeleteRows = false;
+            this.dgvData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvData.Location = new System.Drawing.Point(16, 241);
+            this.dgvData.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvData.Name = "dgvData";
+            this.dgvData.RowHeadersWidth = 51;
+            this.dgvData.Size = new System.Drawing.Size(1024, 551);
+            this.dgvData.TabIndex = 0;
+            this.dgvData.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
             // 
             // txHeader
             // 
@@ -183,7 +205,10 @@ namespace VisualizzatoreBinario
             // 
             this.dgvData2.AllowUserToAddRows = false;
             this.dgvData2.AllowUserToDeleteRows = false;
+<<<<<<< HEAD
             this.dgvData2.AutoSize = false;
+=======
+>>>>>>> 4abf168a66cf14e0ba701cc636b8915274e07136
             this.dgvData2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvData2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
