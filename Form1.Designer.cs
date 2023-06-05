@@ -102,7 +102,7 @@ namespace VisualizzatoreBinario
             this.txHeader.Size = new System.Drawing.Size(132, 22);
             this.txHeader.TabIndex = 1;
             this.txHeader.Text = "100";
-            this.txHeader.TextChanged += new System.EventHandler(this.txHeader_TextChanged);
+            this.txHeader.TextChanged += new System.EventHandler(this.noChanged);
             // 
             // label1
             // 
@@ -146,7 +146,7 @@ namespace VisualizzatoreBinario
             this.dgvHeader.RowHeadersWidth = 51;
             this.dgvHeader.Size = new System.Drawing.Size(1024, 123);
             this.dgvHeader.TabIndex = 5;
-            this.dgvHeader.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHeaderGeneral_CellContentClick);
+            this.dgvHeader.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.noChanged);
             this.dgvHeader.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
             // btOpen
@@ -172,7 +172,7 @@ namespace VisualizzatoreBinario
             this.dgvHeader2.RowHeadersWidth = 51;
             this.dgvHeader2.Size = new System.Drawing.Size(1165, 123);
             this.dgvHeader2.TabIndex = 8;
-            this.dgvHeader2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHeaderGeneral_CellContentClick);
+            this.dgvHeader2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.noChanged);
             this.dgvHeader2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
             // dgvData2
@@ -253,9 +253,10 @@ namespace VisualizzatoreBinario
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Numero",
+            "Integer",
             "Hex",
             "String"});
             this.comboBox1.Location = new System.Drawing.Point(847, 7);
@@ -353,7 +354,7 @@ namespace VisualizzatoreBinario
             this.btCerca.TabIndex = 25;
             this.btCerca.Text = "Cerca";
             this.btCerca.UseVisualStyleBackColor = true;
-            this.btCerca.Click += new System.EventHandler(this.BtCerca_Click);
+            this.btCerca.Click += new System.EventHandler(this.btCerca_Click);
             // 
             // Form1
             // 
