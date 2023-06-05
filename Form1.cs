@@ -16,9 +16,18 @@ namespace VisualizzatoreBinario
     {
         byte[] fData;
         byte[] fData2;
+        private int cIndex;
+        private int rIndex;
+        private DataGridViewCellStyle RedStyle;
+        private DataGridViewCellStyle SelectedRedStyle;
         public Form1()
         {
             InitializeComponent();
+            cIndex = rIndex = 0;
+            RedStyle = new DataGridViewCellStyle();
+            RedStyle.BackColor = Color.Red;
+            SelectedRedStyle = new DataGridViewCellStyle();
+            SelectedRedStyle.BackColor = Color.DarkRed;
         }
 
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
@@ -90,20 +99,10 @@ namespace VisualizzatoreBinario
 
             }
         }
-        private DataGridViewCellStyle myRedStyle;
-        private DataGridViewCellStyle RedStyle()
-        {
-            if (myRedStyle == null)
-            {
-                myRedStyle = new DataGridViewCellStyle();
-                myRedStyle.BackColor = Color.Red;
-            }
-            return myRedStyle;
-        }
         private DataGridViewTextBoxCell getByteCellChanged(byte data)
         {
             DataGridViewTextBoxCell myCell = getByteCell(data);
-            myCell.Style = RedStyle();
+            myCell.Style = RedStyle;
             return myCell;
         }
         private DataGridViewTextBoxCell getByteCell(byte data)
@@ -223,7 +222,7 @@ namespace VisualizzatoreBinario
         {
             salvaFile(dgvHeader2, dgvData2);
         }
-        private void button1_Click(object sender, EventArgs e)//CHANGES
+        private void button1_Click(object sender, EventArgs e)
         {
             int finoA = int.Parse(txFinoA.Text);
             int Da = int.Parse(txDa.Text);
@@ -300,9 +299,9 @@ namespace VisualizzatoreBinario
             search(dgvData2);
         }
         private Point? _mousePos;
-        int perc = 500;
-        const int TOTAL = 1250, START = TOTAL/2, MINX = 100, MAXX = TOTAL-MINX;
-        void btDgvData_MouseMove(object sender, MouseEventArgs e)
+        private int perc = 500;
+        private const int TOTAL = 1250, START = TOTAL/2, MINX = 100, MAXX = TOTAL-MINX;
+        private void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
             {
@@ -322,13 +321,54 @@ namespace VisualizzatoreBinario
                 }
             }
         }
-        void btDgvData_MouseUp(object sender, MouseEventArgs e)
+        private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
         }
-        void btDgvData_MouseDown(object sender, MouseEventArgs e)
+        private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
+        }
+        private void btNext(object sender, MouseEventArgs e)
+        {
+            bool found = false;
+            for(;!found && rIndex < dgvData.RowCount && rIndex < dgvData2.RowCount; rIndex++)
+                for (cIndex++;!found && cIndex < dgvData.RowCount && cIndex < dgvData2.RowCount; cIndex++)
+                {
+                    if (dgvData.Rows[rIndex].Cells[cIndex].Value != dgvData2.Rows[rIndex].Cells[cIndex].Value)
+                    {
+                        dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        found = true;
+                    }
+                    if (dgvHeader.Rows[rIndex].Cells[cIndex].Value != dgvHeader2.Rows[rIndex].Cells[cIndex].Value)
+                    {
+                        dgvHeader.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        dgvHeader2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        found = true;
+                    }                                 
+                }
+        }
+
+        private void btPrevious(object sender, MouseEventArgs e)
+        {
+            bool found = false;
+            for (;!found && rIndex >= 0 && rIndex < dgvData.RowCount && rIndex < dgvData2.RowCount; rIndex--)
+                for (cIndex--; !found && cIndex >= 0 && cIndex < dgvData.RowCount && cIndex < dgvData2.RowCount; cIndex--)
+                {
+                    if (dgvData.Rows[rIndex].Cells[cIndex].Value != dgvData2.Rows[rIndex].Cells[cIndex].Value)
+                    {
+                        dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        found = true;
+                    }
+                    if (dgvHeader.Rows[rIndex].Cells[cIndex].Value != dgvHeader2.Rows[rIndex].Cells[cIndex].Value)
+                    {
+                        dgvHeader.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        dgvHeader2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                        found = true;
+                    }
+                }
         }
     }
 }
