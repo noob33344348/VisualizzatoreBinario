@@ -45,7 +45,7 @@ namespace VisualizzatoreBinario
                 int nColonne = int.Parse(txColonne.Text);
                 int dCounter = 0;
                 int traslHeader = inData == fData ? 0 : int.Parse(txHeader2.Text) - int.Parse(txHeader.Text);
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < Header; i++)
                 {
                     DataGridViewTextBoxColumn dgvc = new DataGridViewTextBoxColumn();
                     dgvc.Width = 28;
@@ -204,11 +204,13 @@ namespace VisualizzatoreBinario
         {
             ProcessAll();
         }
-        private void salvaFile(DataGridView data)//CHANGES
+        private void salvaFile(DataGridView header, DataGridView data)//CHANGES
         {
             List<byte> b = new List<byte>();
-            ForEachRIn(ref dgvHeader2, ref b);
-            ForEachRIn(ref dgvData2, ref b);
+            ForEachRIn(ref header, ref b);
+            ForEachRIn(ref data, ref b);
+
+            //ForEachRIn(ref dgvData2, ref b);
 
             SaveFileDialog s = new SaveFileDialog();
             s.Filter = "Txt|.txt";
@@ -221,11 +223,11 @@ namespace VisualizzatoreBinario
         }
         private void btSalva1_Click(object sender, EventArgs e)//CHANGES
         {
-            salvaFile(dgvHeader);
+            salvaFile(dgvHeader, dgvData);
         }
         private void btSalva2_Click(object sender, EventArgs e)//CHANGES
         {
-            salvaFile(dgvHeader2);
+            salvaFile(dgvHeader2, dgvData2);
         }
         private void button1_Click(object sender, EventArgs e)
         {
