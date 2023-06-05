@@ -227,28 +227,35 @@ namespace VisualizzatoreBinario
         {
             int finoA = int.Parse(txFinoA.Text);
             int Da = int.Parse(txDa.Text);
-            if (fData != null && fData2 != null && finoA + fData2.Length - Da > 0 && Da < fData.Length)
+            if (fData != null && fData2 != null)
             {
-                byte[] newData = new byte[finoA + fData2.Length - Da];
-                int o = 0;
-                for (int i = 0; i < finoA; i++)
-                    newData[o++] = fData[i];
-
-                for (int i = Da; i < fData2.Length; i++)
-                    newData[o++] = fData2[i];
-                
-                using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
+                if (finoA + fData2.Length - Da > 0 && Da < fData.Length && finoA >= 0 && Da >= 0)
                 {
-                    if (sfd.ShowDialog() == DialogResult.OK)
+                    byte[] newData = new byte[finoA + fData2.Length - Da];
+                    int o = 0;
+                    for (int i = 0; i < finoA; i++)
+                        newData[o++] = fData[i];
+
+                    for (int i = Da; i < fData2.Length; i++)
+                        newData[o++] = fData2[i];
+
+                    using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
                     {
-                        try
+                        if (sfd.ShowDialog() == DialogResult.OK)
                         {
-                            System.IO.File.WriteAllBytes(sfd.FileName, newData);
+                            try
+                            {
+                                System.IO.File.WriteAllBytes(sfd.FileName, newData);
+                            }
+                            catch (Exception ex) { }
                         }
-                        catch(Exception ex) { }
                     }
                 }
+                else
+                    MessageBox.Show("Input inseriti errati!");
             }
+            else
+                MessageBox.Show("I file devono essere caricati!");
             
 
         }
