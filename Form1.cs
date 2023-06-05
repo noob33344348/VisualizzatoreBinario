@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,7 +146,7 @@ namespace VisualizzatoreBinario
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
-        private void openFile(ref byte[] fd, ref Label lb)
+        private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
@@ -152,15 +154,17 @@ namespace VisualizzatoreBinario
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
                 lb.Text = "n. byte: "+fd.Length.ToString();
+                FileInfo fi = new FileInfo(ofd.FileName);
+                lbName.Text = fi.Name;
             }
         }
         private void btOpen_Click(object sender, EventArgs e)
         {
-            openFile(ref fData, ref lbF1Len);
+            openFile(ref fData, ref lbF1Len, ref lbInt);
         }
         private void btOpen2_Click(object sender, EventArgs e)
         {
-            openFile(ref fData2, ref lbF2Len);
+            openFile(ref fData2, ref lbF2Len, ref lbFloat);
         }
         private void processSelection(DataGridView dgv)
         {
