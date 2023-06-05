@@ -57,7 +57,6 @@ namespace VisualizzatoreBinario
             this.txHeader2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.tbCerca = new System.Windows.Forms.TextBox();
             this.btCerca = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
@@ -229,7 +228,7 @@ namespace VisualizzatoreBinario
             this.lbF1Len.Name = "lbF1Len";
             this.lbF1Len.Size = new System.Drawing.Size(53, 16);
             this.lbF1Len.TabIndex = 13;
-            this.lbF1Len.Text = "Header";
+            this.lbF1Len.Text = "";
             // 
             // lbF2Len
             // 
@@ -239,7 +238,7 @@ namespace VisualizzatoreBinario
             this.lbF2Len.Name = "lbF2Len";
             this.lbF2Len.Size = new System.Drawing.Size(53, 16);
             this.lbF2Len.TabIndex = 14;
-            this.lbF2Len.Text = "Header";
+            this.lbF2Len.Text = "";
             // 
             // lbNDiff
             // 
@@ -326,17 +325,6 @@ namespace VisualizzatoreBinario
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.btSalva2_Click);
             // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(1149, 46);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(155, 28);
-            this.button4.TabIndex = 23;
-            this.button4.Text = "Salva1 come numeri";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // tbCerca
             // 
             this.tbCerca.Location = new System.Drawing.Point(1347, 50);
@@ -364,7 +352,6 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.btDgvData);
             this.Controls.Add(this.btCerca);
             this.Controls.Add(this.tbCerca);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txHeader2);
@@ -397,7 +384,6 @@ namespace VisualizzatoreBinario
             ((System.ComponentModel.ISupportInitialize)(this.dgvData2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -424,7 +410,6 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.TextBox txHeader2;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox tbCerca;
         private System.Windows.Forms.Button btCerca;
 

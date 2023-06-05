@@ -10,7 +10,6 @@ using System.Windows.Forms;
 
 namespace VisualizzatoreBinario
 {
-
     public partial class Form1 : Form
     {
         byte[] fData;
@@ -20,17 +19,12 @@ namespace VisualizzatoreBinario
             InitializeComponent();
         }
 
-        private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b) //NEW function
+        private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b) //CHANGES
         {
-
             foreach (DataGridViewRow r in dgvGeneral.Rows)
-            {
                 foreach (DataGridViewCell c in r.Cells)
-                {
                     if (c.Value != null)
                         b.Add(Convert.ToByte(c.Value));
-                }
-            }
         }
         private void ProcessFile(byte[] inData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
@@ -157,7 +151,7 @@ namespace VisualizzatoreBinario
             if (System.IO.File.Exists(ofd.FileName))
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = fd.Length.ToString();
+                lb.Text = "n. byte: "+fd.Length.ToString();
             }
         }
         private void btOpen_Click(object sender, EventArgs e)//CHANGES
@@ -176,21 +170,17 @@ namespace VisualizzatoreBinario
                 {
                     byte[] data = new byte[4];
                     for (int i = 0; i < dgv.SelectedCells.Count; i++)
-                    {
                         data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
-                    }
+                    
                     lbInt.Text = BitConverter.ToInt32(data, 0).ToString();
-                    //lbFloat.Text = BitConverter.ToSingle(data, 0).ToString();
                 }
                 if (dgv.SelectedCells.Count == 8)
                 {
                     byte[] data = new byte[8];
                     for (int i = 0; i < dgv.SelectedCells.Count; i++)
-                    {
                         data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
-                    }
+                    
                     lbInt.Text = BitConverter.ToInt64(data, 0).ToString();
-                    //lbFloat.Text = BitConverter.ToDouble(data, 0).ToString();
                 }
             }
             catch (Exception ex)
@@ -215,11 +205,13 @@ namespace VisualizzatoreBinario
             SaveFileDialog s = new SaveFileDialog();
             s.Filter = "Txt|.txt";
             if (s.ShowDialog() != DialogResult.No)
+            {
                 try
                 {
                     System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
                 }
                 catch (Exception ex) { }
+            } 
         }
         private void btSalva1_Click(object sender, EventArgs e)//CHANGES
         {
@@ -251,18 +243,6 @@ namespace VisualizzatoreBinario
                 }
             }
 
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            List<byte> b = new List<byte>();
-
-            ForEachRIn(ref dgvHeader, ref b);//CHANGES
-            ForEachRIn(ref dgvData, ref b);//CHANGES
-
-            SaveFileDialog s = new SaveFileDialog();
-            string mystring = Encoding.Unicode.GetString(b.ToArray());
-            if (s.ShowDialog() != DialogResult.No)
-                System.IO.File.WriteAllText(s.FileName, mystring);
         }
         private void search(DataGridView data)//CHANGES
         {
@@ -305,11 +285,10 @@ namespace VisualizzatoreBinario
             search(dgvData);
             search(dgvData2);
         }
-
+        //CHANGES
         private Point? _mousePos;
         int perc = 500;
         const int MINX = 100, MAXX = 1100, START = 1032, TOTAL = 2048;
-
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
