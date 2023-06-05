@@ -108,6 +108,7 @@ namespace VisualizzatoreBinario
         }
 
 
+
         //
         private DataGridViewCellStyle myRedStyle;
         private DataGridViewCellStyle RedStyle()
@@ -282,19 +283,6 @@ namespace VisualizzatoreBinario
 
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            List<byte> b = new List<byte>();
-
-            ForEachRIn(ref dgvHeader, ref b);//CHANGES
-            ForEachRIn(ref dgvData, ref b);//CHANGES
-
-            SaveFileDialog s = new SaveFileDialog();
-            string mystring = Encoding.Unicode.GetString(b.ToArray());
-            if (s.ShowDialog() != DialogResult.No)
-                System.IO.File.WriteAllText(s.FileName, mystring);
-        }
-
         private void BtCerca_Click(object sender, EventArgs e)
         {
             string c = tbCerca.Text;
@@ -322,26 +310,42 @@ namespace VisualizzatoreBinario
         }
 
 
-        int xPos = 1025;
+
 
         private Point? _mousePos;
+        int perc = 500, start = 1032, total = 2048;
+        const int MINX = 100, MAXX = 1100;
 
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
             {
-                this.btDgvData.Left = e.X + this.btDgvData.Left - this._mousePos.Value.X;
+                int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
+                if (futPos > MINX && futPos < MAXX)
+                {
+                    btDgvData.Left = futPos;
+                    perc = btDgvData.Left * 500 / start;
+
+
+                    dgvData.Size = new System.Drawing.Size(total * perc / 1000, dgvData.Size.Height);
+                    dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
+
+                    dgvData2.Left = btDgvData.Right;
+                    dgvHeader2.Left = btDgvData.Right;
+                    dgvData2.Size = new System.Drawing.Size(total * (1000 - perc) / 1000, dgvData2.Size.Height);
+                    dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
+                }
+
             }
+
         }
-        /*
         void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
         }
-        */
+
         void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
-            //Check if you've left-clicked if you want
             this._mousePos = e.Location;
 
         }
@@ -350,4 +354,3 @@ namespace VisualizzatoreBinario
 
 
 }
-
