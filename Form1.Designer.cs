@@ -52,7 +52,9 @@ namespace VisualizzatoreBinario
             this.lbNDiff = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.labelFinoA = new System.Windows.Forms.Label();
             this.txFinoA = new System.Windows.Forms.TextBox();
+            this.labelDa = new System.Windows.Forms.Label();
             this.txDa = new System.Windows.Forms.TextBox();
             this.txHeader2 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -80,7 +82,7 @@ namespace VisualizzatoreBinario
             // 
             // txHeader
             // 
-            this.txHeader.Location = new System.Drawing.Point(16, 31);
+            this.txHeader.Location = new System.Drawing.Point(171, 27);
             this.txHeader.Margin = new System.Windows.Forms.Padding(4);
             this.txHeader.Name = "txHeader";
             this.txHeader.Size = new System.Drawing.Size(132, 22);
@@ -91,7 +93,7 @@ namespace VisualizzatoreBinario
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 11);
+            this.label1.Location = new System.Drawing.Point(207, 7);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 16);
@@ -101,16 +103,16 @@ namespace VisualizzatoreBinario
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 59);
+            this.label2.Location = new System.Drawing.Point(29,7);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 16);
             this.label2.TabIndex = 4;
-            this.label2.Text = "numColonne";
+            this.label2.Text = "Numero Colonne";
             // 
             // txColonne
             // 
-            this.txColonne.Location = new System.Drawing.Point(16, 79);
+            this.txColonne.Location = new System.Drawing.Point(16, 34);
             this.txColonne.Margin = new System.Windows.Forms.Padding(4);
             this.txColonne.Name = "txColonne";
             this.txColonne.Size = new System.Drawing.Size(132, 22);
@@ -152,7 +154,7 @@ namespace VisualizzatoreBinario
             // 
             // btOpen
             // 
-            this.btOpen.Location = new System.Drawing.Point(307, 30);
+            this.btOpen.Location = new System.Drawing.Point(311, 26);
             this.btOpen.Margin = new System.Windows.Forms.Padding(4);
             this.btOpen.Name = "btOpen";
             this.btOpen.Size = new System.Drawing.Size(100, 28);
@@ -197,7 +199,7 @@ namespace VisualizzatoreBinario
             // 
             // btOpen2
             // 
-            this.btOpen2.Location = new System.Drawing.Point(307, 75);
+            this.btOpen2.Location = new System.Drawing.Point(311, 57);
             this.btOpen2.Margin = new System.Windows.Forms.Padding(4);
             this.btOpen2.Name = "btOpen2";
             this.btOpen2.Size = new System.Drawing.Size(100, 28);
@@ -209,27 +211,27 @@ namespace VisualizzatoreBinario
             // lbInt
             // 
             this.lbInt.AutoSize = true;
-            this.lbInt.Location = new System.Drawing.Point(427, 34);
+            this.lbInt.Location = new System.Drawing.Point(431, 31);
             this.lbInt.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbInt.Name = "lbInt";
             this.lbInt.Size = new System.Drawing.Size(69, 16);
             this.lbInt.TabIndex = 11;
-            this.lbInt.Text = "Header int";
+            this.lbInt.Text = "file 1";
             // 
             // lbFloat
             // 
             this.lbFloat.AutoSize = true;
-            this.lbFloat.Location = new System.Drawing.Point(427, 58);
+            this.lbFloat.Location = new System.Drawing.Point(431, 65);
             this.lbFloat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbFloat.Name = "lbFloat";
             this.lbFloat.Size = new System.Drawing.Size(81, 16);
             this.lbFloat.TabIndex = 12;
-            this.lbFloat.Text = "Header float";
+            this.lbFloat.Text = "file 2";
             // 
             // lbF1Len
             // 
             this.lbF1Len.AutoSize = true;
-            this.lbF1Len.Location = new System.Drawing.Point(843, 87);
+            this.lbF1Len.Location = new System.Drawing.Point(567, 30);
             this.lbF1Len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbF1Len.Name = "lbF1Len";
             this.lbF1Len.Size = new System.Drawing.Size(53, 16);
@@ -239,7 +241,7 @@ namespace VisualizzatoreBinario
             // lbF2Len
             // 
             this.lbF2Len.AutoSize = true;
-            this.lbF2Len.Location = new System.Drawing.Point(1092, 91);
+            this.lbF2Len.Location = new System.Drawing.Point(567, 64);
             this.lbF2Len.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbF2Len.Name = "lbF2Len";
             this.lbF2Len.Size = new System.Drawing.Size(53, 16);
@@ -249,7 +251,7 @@ namespace VisualizzatoreBinario
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(691, 34);
+            this.lbNDiff.Location = new System.Drawing.Point(682, 40);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(33, 16);
@@ -264,7 +266,7 @@ namespace VisualizzatoreBinario
             "Integer",
             "Hex",
             "String"});
-            this.comboBox1.Location = new System.Drawing.Point(847, 7);
+            this.comboBox1.Location = new System.Drawing.Point(809, 27);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
@@ -273,7 +275,7 @@ namespace VisualizzatoreBinario
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1432, 0);
+            this.button1.Location = new System.Drawing.Point(1168, 75);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -282,27 +284,47 @@ namespace VisualizzatoreBinario
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // labelFinoA
+            // 
+            this.labelFinoA.AutoSize = true;
+            this.labelFinoA.Location = new System.Drawing.Point(1101, 23);
+            this.labelFinoA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelFinoA.Name = "labelFinoA";
+            this.labelFinoA.Size = new System.Drawing.Size(82, 16);
+            this.labelFinoA.TabIndex = 4;
+            this.labelFinoA.Text = "Fino a";
+            // 
             // txFinoA
             // 
-            this.txFinoA.Location = new System.Drawing.Point(1149, 2);
+            this.txFinoA.Location = new System.Drawing.Point(1153, 20);
             this.txFinoA.Margin = new System.Windows.Forms.Padding(4);
             this.txFinoA.Name = "txFinoA";
             this.txFinoA.Size = new System.Drawing.Size(132, 22);
             this.txFinoA.TabIndex = 18;
-            this.txFinoA.Text = "Fino A";
+            this.txFinoA.Text = "";
+            // 
+            // labelDa
+            // 
+            this.labelDa.AutoSize = true;
+            this.labelDa.Location = new System.Drawing.Point(1120, 53);
+            this.labelDa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelDa.Name = "labelDa";
+            this.labelDa.Size = new System.Drawing.Size(82, 16);
+            this.labelDa.TabIndex = 4;
+            this.labelDa.Text = "Da";
             // 
             // txDa
             // 
-            this.txDa.Location = new System.Drawing.Point(1291, 2);
+            this.txDa.Location = new System.Drawing.Point(1153, 50);
             this.txDa.Margin = new System.Windows.Forms.Padding(4);
             this.txDa.Name = "txDa";
             this.txDa.Size = new System.Drawing.Size(132, 22);
             this.txDa.TabIndex = 19;
-            this.txDa.Text = "Da";
+            this.txDa.Text = "";
             // 
             // txHeader2
             // 
-            this.txHeader2.Location = new System.Drawing.Point(157, 31);
+            this.txHeader2.Location = new System.Drawing.Point(171, 58);
             this.txHeader2.Margin = new System.Windows.Forms.Padding(4);
             this.txHeader2.Name = "txHeader2";
             this.txHeader2.Size = new System.Drawing.Size(132, 22);
@@ -311,7 +333,7 @@ namespace VisualizzatoreBinario
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(847, 46);
+            this.button2.Location = new System.Drawing.Point(779, 59);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
@@ -322,7 +344,7 @@ namespace VisualizzatoreBinario
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(955, 46);
+            this.button3.Location = new System.Drawing.Point(912, 59);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
@@ -362,7 +384,9 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.button2);
             this.Controls.Add(this.txHeader2);
             this.Controls.Add(this.txDa);
+            this.Controls.Add(this.labelDa);
             this.Controls.Add(this.txFinoA);
+            this.Controls.Add(this.labelFinoA);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.lbNDiff);
@@ -410,7 +434,9 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Label lbNDiff;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labelFinoA;
         private System.Windows.Forms.TextBox txFinoA;
+        private System.Windows.Forms.Label labelDa;
         private System.Windows.Forms.TextBox txDa;
         private System.Windows.Forms.Label lbFloat;
         private System.Windows.Forms.TextBox txHeader2;
