@@ -174,7 +174,7 @@ namespace VisualizzatoreBinario
             this.dgvHeader2.Name = "dgvHeader2";
             this.dgvHeader2.ReadOnly = true;
             this.dgvHeader2.RowHeadersWidth = 51;
-            this.dgvHeader2.Size = new System.Drawing.Size(968, 123);
+            this.dgvHeader2.Size = new System.Drawing.Size(730, 123);
             this.dgvHeader2.TabIndex = 8;
             this.dgvHeader2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.noChanged);
             this.dgvHeader2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
@@ -191,7 +191,7 @@ namespace VisualizzatoreBinario
             this.dgvData2.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData2.Name = "dgvData2";
             this.dgvData2.RowHeadersWidth = 51;
-            this.dgvData2.Size = new System.Drawing.Size(968, 551);
+            this.dgvData2.Size = new System.Drawing.Size(730, 551);
             this.dgvData2.TabIndex = 7;
             this.dgvData2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
