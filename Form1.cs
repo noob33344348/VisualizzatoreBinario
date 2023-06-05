@@ -249,7 +249,10 @@ namespace VisualizzatoreBinario
             //s.Filter = "Txt|.txt";
             s.Filter = "VDTD|.VDTD";
             if (s.ShowDialog() != DialogResult.No)
-                System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
+                try
+                {
+                    System.IO.File.WriteAllBytes(s.FileName, b.ToArray());
+                }catch (Exception ex) { }
         }
 
         private void btSalva2_Click(object sender, EventArgs e)
