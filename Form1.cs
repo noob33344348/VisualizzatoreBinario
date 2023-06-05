@@ -348,7 +348,6 @@ namespace VisualizzatoreBinario
                     }
                 }
                 hcIndex = 0;
-                    
             }
             if(!found)
             {
