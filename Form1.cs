@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Odbc;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,7 +146,7 @@ namespace VisualizzatoreBinario
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
-        private void openFile(ref byte[] fd, ref Label lb)
+        private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
@@ -152,15 +154,17 @@ namespace VisualizzatoreBinario
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
                 lb.Text = "n. byte: "+fd.Length.ToString();
+                FileInfo fi = new FileInfo(ofd.FileName);
+                lbName.Text = fi.Name;
             }
         }
         private void btOpen_Click(object sender, EventArgs e)
         {
-            openFile(ref fData, ref lbF1Len);
+            openFile(ref fData, ref lbF1Len, ref lbInt);
         }
         private void btOpen2_Click(object sender, EventArgs e)
         {
-            openFile(ref fData2, ref lbF2Len);
+            openFile(ref fData2, ref lbF2Len, ref lbFloat);
         }
         private void processSelection(DataGridView dgv)
         {
@@ -260,7 +264,7 @@ namespace VisualizzatoreBinario
 
             else
                 c = tbCerca.Text.Split(' ');
-
+  
             string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
@@ -290,17 +294,16 @@ namespace VisualizzatoreBinario
         }
         private Point? _mousePos;
         int perc = 500;
-        const int MINX = 100, MAXX = 1100, START = 1032, TOTAL = 2048;
+        const int MINX = 100, MAXX = 1200, TOTAL = 1946, START = TOTAL/2;
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
-                if (futPos > MINX && futPos < MAXX && (futPos - btDgvData.Left > 100 || futPos - btDgvData.Left < -100))
+                if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 100)
                 {
                     btDgvData.Left = futPos;
                     perc = btDgvData.Left * 500 / START;
-
 
                     dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
                     dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
