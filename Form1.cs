@@ -43,7 +43,6 @@ namespace VisualizzatoreBinario
             SelectedGreenStyle = new DataGridViewCellStyle();
             SelectedGreenStyle.BackColor = Color.DarkOliveGreen;
         }
-
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
         {
             foreach (DataGridViewRow r in dgvGeneral.Rows)

@@ -152,7 +152,7 @@ namespace VisualizzatoreBinario
             this.dgvData.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(968, 551);
+            this.dgvData.Size = new System.Drawing.Size(968, 450);
             this.dgvData.TabIndex = 0;
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
@@ -195,7 +195,7 @@ namespace VisualizzatoreBinario
             this.dgvData2.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData2.Name = "dgvData2";
             this.dgvData2.RowHeadersWidth = 51;
-            this.dgvData2.Size = new System.Drawing.Size(730, 551);
+            this.dgvData2.Size = new System.Drawing.Size(730, 450);
             this.dgvData2.TabIndex = 7;
             this.dgvData2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
