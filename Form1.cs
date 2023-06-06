@@ -402,10 +402,15 @@ namespace VisualizzatoreBinario
                 rIndex = 0;
             }
         }
+        private void btPrevious(object sender, EventArgs e) 
+        {
+            generalPrevious(isHeader ? dgvHeader : dgvData, isHeader ? dgvHeader2 : dgvData2, 
+                RedStyle, SelectedRedStyle, ref rIndex, true);
+        }
         private void generalPrevious(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex, bool usesHeader = false)
         {
             bool found = false;
-            if(usesHeader || (!usesHeader && data.Rows.Count > 0 && data2.Rows.Count > 0))
+            if (usesHeader || (!usesHeader && data.Rows.Count > 0 && data2.Rows.Count > 0))
             {
                 for (; !found && rIndex >= 0; rIndex--)
                     for (int cIndex = data2.Rows[rIndex].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
@@ -456,11 +461,6 @@ namespace VisualizzatoreBinario
                 else
                     rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
             }
-        }
-        private void btPrevious(object sender, EventArgs e) 
-        {
-            generalPrevious(isHeader ? dgvHeader : dgvData, isHeader ? dgvHeader2 : dgvData2, 
-                RedStyle, SelectedRedStyle, ref rIndex, true);
         }
     }
 }
