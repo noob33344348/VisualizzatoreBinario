@@ -18,13 +18,11 @@ namespace VisualizzatoreBinario
         byte[] fData;
         byte[] fData2;
 
-        //btNext e btPrevious Settati su comboBox1_SelectedIndexChanged
+        //Valori inizializzati su comboBox1_SelectedIndexChanged
         private int rIndex, frIndex;
         bool isHeader, wasHeader;
-
-        //searchNext e searchPrevious Settati su comboBox1_SelectedIndexChanged
         private int srIndex;
-
+        //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
         private DataGridViewCellStyle GreenStyle;
