@@ -28,16 +28,22 @@ namespace VisualizzatoreBinario
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
         private DataGridViewCellStyle GreenStyle;
+        private DataGridViewCellStyle SelectedGreenStyle;
         public Form1()
         {
             InitializeComponent();
 
             RedStyle = new DataGridViewCellStyle();
             RedStyle.BackColor = Color.Red;
+
             SelectedRedStyle = new DataGridViewCellStyle();
             SelectedRedStyle.BackColor = Color.DarkRed;
+
             GreenStyle = new DataGridViewCellStyle();
             GreenStyle.BackColor = Color.LightGreen;
+
+            SelectedGreenStyle = new DataGridViewCellStyle();
+            SelectedGreenStyle.BackColor = Color.DarkOliveGreen;
         }
 
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
