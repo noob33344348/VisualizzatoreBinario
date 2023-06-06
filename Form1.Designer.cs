@@ -1,4 +1,4 @@
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using System;
 using System.Drawing;
 
@@ -63,6 +63,8 @@ namespace VisualizzatoreBinario
             this.button3 = new System.Windows.Forms.Button();
             this.tbCerca = new System.Windows.Forms.TextBox();
             this.btCerca = new System.Windows.Forms.Button();
+            this.btCercaNext = new System.Windows.Forms.Button();
+            this.btCercaPrevious = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHeader2)).BeginInit();
@@ -394,13 +396,34 @@ namespace VisualizzatoreBinario
             this.btCerca.UseVisualStyleBackColor = true;
             this.btCerca.Click += new System.EventHandler(this.btCerca_Click);
             // 
+            // btCercaNext
+            // 
+            this.btCercaNext.Location = new System.Drawing.Point(1663, 59);
+            this.btCercaNext.Name = "btCercaNext";
+            this.btCercaNext.Size = new System.Drawing.Size(24, 32);
+            this.btCercaNext.TabIndex = 28;
+            this.btCercaNext.Text = "▼";
+            this.btCercaNext.Click += new System.EventHandler(this.btCerca_Click);
+            this.btCercaNext.UseVisualStyleBackColor = true;
+            // 
+            // btCercaPrevious
+            // 
+            this.btCercaPrevious.Location = new System.Drawing.Point(1663, 24);
+            this.btCercaPrevious.Name = "btCercaPrevious";
+            this.btCercaPrevious.Size = new System.Drawing.Size(24, 32);
+            this.btCercaPrevious.TabIndex = 29;
+            this.btCercaPrevious.Text = "▲";
+            this.btCercaPrevious.Click += new System.EventHandler(this.btCerca_Click);
+            this.btCercaPrevious.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
-            this.BackColor = Color.Ivory;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 807);
             this.Controls.Add(this.btDgvData);
+            this.Controls.Add(this.btCercaNext);
+            this.Controls.Add(this.btCercaPrevious);
             this.Controls.Add(this.btCerca);
             this.Controls.Add(this.tbCerca);
             this.Controls.Add(this.button3);
@@ -471,6 +494,7 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox tbCerca;
         private System.Windows.Forms.Button btCerca;
-
+        private System.Windows.Forms.Button btCercaNext;
+        private System.Windows.Forms.Button btCercaPrevious;
     }
 }
