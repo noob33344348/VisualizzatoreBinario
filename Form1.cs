@@ -384,6 +384,8 @@ namespace VisualizzatoreBinario
                 cIndex--;
                 frIndex = rIndex;
                 fcIndex = cIndex;
+                dgvData.FirstDisplayedScrollingRowIndex = rIndex;
+                dgvData2.FirstDisplayedScrollingRowIndex = rIndex;
             }
                 
             else
@@ -446,6 +448,8 @@ namespace VisualizzatoreBinario
                 cIndex++;
                 frIndex = rIndex;
                 fcIndex = cIndex;
+                dgvData.FirstDisplayedScrollingRowIndex = rIndex;
+                dgvData2.FirstDisplayedScrollingRowIndex = rIndex;
             }
             else
             {
