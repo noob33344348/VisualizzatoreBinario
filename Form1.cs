@@ -19,7 +19,7 @@ namespace VisualizzatoreBinario
         byte[] fData2;
 
         //btNext e btPrevious Settati su comboBox1_SelectedIndexChanged
-        private int cIndex, rIndex, fcIndex, frIndex;
+        private int rIndex, frIndex;
         bool isHeader, wasHeader;
 
         //searchNext e searchPrevious Settati su comboBox1_SelectedIndexChanged
@@ -206,9 +206,7 @@ namespace VisualizzatoreBinario
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             rIndex = 0;
-            cIndex = 0;
             frIndex = -2;
-            fcIndex = -2;
             isHeader = true;
             wasHeader = isHeader;
 
@@ -447,18 +445,25 @@ namespace VisualizzatoreBinario
             DataGridView data = isHeader ? dgvHeader : dgvData;
             DataGridView data2 = isHeader ? dgvHeader2 : dgvData2;
 
-            for (rIndex++; !found && rIndex < data.Rows.Count; rIndex++)
+            for (; !found && rIndex < data.Rows.Count; rIndex++)
                 for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
                     if (data2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
                         found = true;
 
             if (frIndex > -1)
-                changeColorRow(frIndex, data2, SelectedRedStyle, RedStyle);
+            {
+                if (wasHeader)
+                    changeColorRow(frIndex, dgvHeader2, SelectedRedStyle, RedStyle);
+                else
+                    changeColorRow(frIndex, dgvData2, SelectedRedStyle, RedStyle);
+            }
+                
 
             if (found)
             {
                 rIndex--;
                 frIndex = rIndex;
+                wasHeader = isHeader;
                 changeColorRow(rIndex, data2, RedStyle, SelectedRedStyle);
                 data.FirstDisplayedScrollingRowIndex = rIndex;
                 data2.FirstDisplayedScrollingRowIndex = rIndex;
@@ -479,18 +484,24 @@ namespace VisualizzatoreBinario
             DataGridView data = isHeader ? dgvHeader : dgvData;
             DataGridView data2 = isHeader ? dgvHeader2 : dgvData2;
             
-            for (rIndex--; !found && rIndex >= 0; rIndex--)
-                for (int cIndex = dgvData.Rows[rIndex].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
+            for (; !found && rIndex >= 0; rIndex--)
+                for (int cIndex = data2.Rows[rIndex].Cells.Count-1; !found && cIndex >= 0; cIndex--)
                     if (data2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
                         found = true;
 
-            if(frIndex > -1)
-                changeColorRow(rIndex, data2, SelectedRedStyle, RedStyle);
+            if (frIndex > -1)
+            {
+                if (wasHeader)
+                    changeColorRow(frIndex, dgvHeader2, SelectedRedStyle, RedStyle);
+                else
+                    changeColorRow(frIndex, dgvData2, SelectedRedStyle, RedStyle);
+            }
 
             if (found)
             {
                 rIndex++;
                 frIndex = rIndex;
+                wasHeader = isHeader;
                 changeColorRow(rIndex, data2, RedStyle, SelectedRedStyle);
                 data.FirstDisplayedScrollingRowIndex = rIndex;
                 data2.FirstDisplayedScrollingRowIndex = rIndex;
