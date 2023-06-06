@@ -201,8 +201,8 @@ namespace VisualizzatoreBinario
             cIndex = 0;
             frIndex = -2;
             fcIndex = -2;
-            srIndex = -1;
-            scIndex = -1;
+            srIndex = 0;
+            scIndex = 0;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -302,20 +302,38 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            bool found = false;
-            for (; !found && srIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); srIndex++)
+            bool found1 = false;
+            bool found2 = false;
+            int passo;
+            if (comboBox1.Text == "String")
+                passo = tbCerca.Text.Length;
+            else
+                passo = tbCerca.Text.Split(' ').Count();
+
+            for (; !found1 && !found2 && srIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); srIndex++)
             {
-                for (; !found && scIndex < Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count); scIndex++)
-                    if (dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                for (; !found1 && !found2 && scIndex < Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count); scIndex++)
+                {
+                    if (!found1 && dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
                     {
                         dgvData.FirstDisplayedScrollingRowIndex = srIndex;
-                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
-                        found = false;
+                        dgvData.Rows[srIndex].Cells[scIndex].Style = new DataGridViewCellStyle() { BackColor = Color.DarkSeaGreen };
+                        found1 = true;
                     }
-                scIndex = 0;
+                    if (!found2 && dgvData2.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                    {
+                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
+                        dgvData2.Rows[srIndex].Cells[scIndex].Style = new DataGridViewCellStyle() { BackColor = Color.DarkSeaGreen };
+                        found2 = true;
+                    }
+                    if (found1 || found2)
+                        scIndex += passo;
+                }
+                if(!found1 || !found2)
+                    scIndex = 0;
             }    
                 
-            if(found)
+            if(found1 && found2)
             {
                 srIndex--;
                 scIndex--;
@@ -328,28 +346,46 @@ namespace VisualizzatoreBinario
         }
         private void searchPrevious(object sender, EventArgs e)
         {
-            bool found = false;
-            for (; !found && srIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); srIndex--)
+            bool found1 = false;
+            bool found2 = false;
+            int passo;
+            if (comboBox1.Text == "String")
+                passo = tbCerca.Text.Length;
+            else
+                passo = tbCerca.Text.Split(' ').Count();
+
+            for (; !found1 && !found2 && srIndex >= 0; srIndex--)
             {
-                for (; !found && scIndex < Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count); scIndex--)
-                    if (dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                for (; !found1 && !found2 && scIndex >= 0; scIndex --)
+                {
+                    if (!found1 && dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
                     {
                         dgvData.FirstDisplayedScrollingRowIndex = srIndex;
-                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
-                        found = false;
+                        dgvData.Rows[srIndex].Cells[scIndex].Style = new DataGridViewCellStyle() { BackColor = Color.DarkSeaGreen };
+                        found1 = true;
                     }
-                scIndex = dgvData2.Rows[srIndex-1].Cells.Count-1;
+                    if (!found2 && dgvData2.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                    {
+                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
+                        dgvData2.Rows[srIndex].Cells[scIndex].Style = new DataGridViewCellStyle() { BackColor = Color.DarkSeaGreen };
+                        found2 = true;
+                    }
+                    if (found1 || found2)
+                        scIndex -= passo;
+                }
+                if (!found1 || !found2)
+                    scIndex = Math.Min(dgvData.Rows[srIndex-1].Cells.Count, dgvData2.Rows[srIndex-1].Cells.Count);
             }
 
-            if (found)
+            if (found1 && found2)
             {
                 srIndex++;
                 scIndex++;
             }
             else
             {
-                srIndex = dgvData2.RowCount;
-                scIndex = dgvData2.Rows[srIndex].Cells.Count - 1;
+                srIndex = Math.Min(dgvData.RowCount, dgvData2.RowCount);
+                scIndex = Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count);
             }
         }
         private void btCerca_Click(object sender, EventArgs e)
@@ -440,8 +476,7 @@ namespace VisualizzatoreBinario
                 fcIndex = cIndex;
                 dgvData.FirstDisplayedScrollingRowIndex = rIndex;
                 dgvData2.FirstDisplayedScrollingRowIndex = rIndex;
-            }
-                
+            }   
             else
                 rIndex = -1;
 
