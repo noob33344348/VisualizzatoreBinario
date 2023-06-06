@@ -484,56 +484,41 @@ namespace VisualizzatoreBinario
             bool found = false;
             DataGridView data = isHeader ? dgvHeader : dgvData;
             DataGridView data2 = isHeader ? dgvHeader2 : dgvData2;
-
-            for (; !found && rIndex >= 0; rIndex--)
-            {
-                for (; !found && cIndex >= 0; cIndex--)
-                {
+            
+            for (rIndex--; !found && rIndex >= 0; rIndex--)
+                for (int cIndex = dgvData.Rows[rIndex].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
                     if (data2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
-                    {
-                        data2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
                         found = true;
-                    }
-                }
-                if (!found && rIndex > 0)
-                    cIndex = dgvData.Rows[rIndex -1].Cells.Count - 1;
-            }
-            if (wasHeader)
-            {
-                if (frIndex > -2 && dgvHeader2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                    dgvHeader2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
-            }
-            else if (frIndex > -2 && dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
+
+            if(frIndex > -1)
+                for (int i = 0; i < data2.Rows[frIndex].Cells.Count; i++)
+                    if (data2.Rows[frIndex].Cells[i].Style == SelectedRedStyle)
+                        data2.Rows[frIndex].Cells[i].Style = RedStyle;
 
             if (found)
             {
                 rIndex++;
-                cIndex++;
                 frIndex = rIndex;
-                fcIndex = cIndex;
-                wasHeader = isHeader;
+
+                for(int i=0; i < data2.Rows[rIndex].Cells.Count; i++)
+                    if(data2.Rows[rIndex].Cells[i].Style == RedStyle)
+                        data2.Rows[rIndex].Cells[i].Style = SelectedRedStyle;
+
                 data.FirstDisplayedScrollingRowIndex = rIndex;
                 data2.FirstDisplayedScrollingRowIndex = rIndex;
             }
             else if (isHeader && dgvData.Rows.Count > 0)
             {
                 isHeader = false;
-                rIndex = dgvData.Rows.Count-1;
-                cIndex = dgvData.Rows[rIndex].Cells.Count - 1;
+                rIndex = dgvData.Rows.Count - 1;
             }
             else if (dgvHeader.Rows.Count > 0)
             {
                 isHeader = true;
-                rIndex = 0;
-                cIndex = 0;
+                rIndex = dgvHeader.Rows.Count - 1;
             }
             else
-            {
-                rIndex = dgvData.Rows.Count - 1;
-                cIndex = dgvData.Rows[rIndex].Cells.Count - 1;
-            }
-                
+                rIndex = data.Rows.Count - 1;
         }
     }
 }
