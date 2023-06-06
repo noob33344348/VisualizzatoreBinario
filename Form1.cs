@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI.Design;
 using System.Windows.Forms;
 
 namespace VisualizzatoreBinario
@@ -16,18 +17,31 @@ namespace VisualizzatoreBinario
     {
         byte[] fData;
         byte[] fData2;
-        private int cIndex, rIndex, fcIndex, frIndex;
-        private bool first;
+
+        //Valori inizializzati su comboBox1_SelectedIndexChanged
+        private int rIndex, frIndex;
+        bool isHeader, wasHeader;
+        private int srIndex;
+        //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
+        private DataGridViewCellStyle GreenStyle;
+        private DataGridViewCellStyle SelectedGreenStyle;
         public Form1()
         {
             InitializeComponent();
 
             RedStyle = new DataGridViewCellStyle();
             RedStyle.BackColor = Color.Red;
+
             SelectedRedStyle = new DataGridViewCellStyle();
             SelectedRedStyle.BackColor = Color.DarkRed;
+
+            GreenStyle = new DataGridViewCellStyle();
+            GreenStyle.BackColor = Color.LightGreen;
+
+            SelectedGreenStyle = new DataGridViewCellStyle();
+            SelectedGreenStyle.BackColor = Color.DarkOliveGreen;
         }
 
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
@@ -195,11 +209,12 @@ namespace VisualizzatoreBinario
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rIndex = -1;
-            cIndex = 0;
+            rIndex = 0;
             frIndex = -2;
-            fcIndex = -2;
-            first = true;
+            isHeader = true;
+            wasHeader = isHeader;
+
+            srIndex = 0;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -293,10 +308,17 @@ namespace VisualizzatoreBinario
                     //Change color
                     if (s.SequenceEqual(c))
                         for (int j = 0; j < c.Length; j++)
-                            row.Cells[i + j].Style = new DataGridViewCellStyle() { BackColor = Color.LightGreen };
+                            row.Cells[i + j].Style = GreenStyle;
                 }
             }
-
+        }
+        private void searchNext(object sender, EventArgs e)
+        {
+            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
+        }
+        private void searchPrevious(object sender, EventArgs e)
+        {
+            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -334,131 +356,128 @@ namespace VisualizzatoreBinario
         {
             this._mousePos = e.Location;
         }
+        private void changeColorRow(int row, DataGridView data, DataGridViewCellStyle start, DataGridViewCellStyle end)
+        {
+            for (int i = 0; i < data.Rows[row].Cells.Count; i++)
+                if (data.Rows[row].Cells[i].Style == start)
+                    data.Rows[row].Cells[i].Style = end;
+        }
         private void btNext(object sender, EventArgs e)
         {
-            bool found = false;
-
-            for (;!found && rIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); rIndex++)
-            {
-                if(rIndex > -1)
-                {
-                    for (;!found && cIndex < Math.Min(dgvData.Rows[rIndex].Cells.Count, dgvData2.Rows[rIndex].Cells.Count); cIndex++)
-                    {
-                        if(dgvData2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
-                        {
-                            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                            found = true;
-                        }
-                    }
-                }    
-                else if(dgvHeader.RowCount > 0)
-                {
-                    for (;!found && cIndex < Math.Min(dgvHeader.Rows[0].Cells.Count, dgvHeader2.Rows[0].Cells.Count); cIndex++)
-                    {
-                        if (dgvHeader2.Rows[0].Cells[cIndex].Style == RedStyle)
-                        {
-                            dgvHeader2.Rows[0].Cells[cIndex].Style = SelectedRedStyle;
-                            found = true;
-                        }
-                    }
-                }
-                if (!found)
-                    cIndex = 0;
-            }
-
-            if (frIndex > -2)
-            {
-                if (frIndex > -1)
-                {
-                    if (dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                        dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
-
-                }
-                else if (dgvHeader2.Rows[0].Cells[fcIndex].Style == SelectedRedStyle)
-                        dgvHeader2.Rows[0].Cells[fcIndex].Style = RedStyle;
-            }
-
-            if (found)
-            {
-                rIndex--;
-                cIndex--;
-                frIndex = rIndex;
-                fcIndex = cIndex;
-                dgvData.FirstDisplayedScrollingRowIndex = rIndex;
-                dgvData2.FirstDisplayedScrollingRowIndex = rIndex;
-            }
-                
-            else
-                rIndex = -1;
-
+            generalNext(isHeader ? dgvHeader : dgvData, isHeader ? dgvHeader2 : dgvData2,
+                RedStyle, SelectedRedStyle, ref rIndex, true);
         }
-
         private void btPrevious(object sender, EventArgs e) 
         {
+            generalPrevious(isHeader ? dgvHeader : dgvData, isHeader ? dgvHeader2 : dgvData2, 
+                RedStyle, SelectedRedStyle, ref rIndex, true);
+        }
+        private void generalPrevious(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex, bool usesHeader = false)
+        {
             bool found = false;
-
-            for (; !found && rIndex >= -1; rIndex--)
+            if (usesHeader || (!usesHeader && data.Rows.Count > 0 && data2.Rows.Count > 0))
             {
-                if (rIndex > -1)
-                {
-                    for (; !found  && cIndex >= 0; cIndex--)
-                    {
-                        if (dgvData2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
-                        {
-                            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                for (; !found && rIndex >= 0; rIndex--)
+                    for (int cIndex = data2.Rows[rIndex].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
+                        if (data2.Rows[rIndex].Cells[cIndex].Style == color)
                             found = true;
-                        }
-                    }
-                }
-                else if (dgvHeader.RowCount > 0)
-                {
-                    for (; !found && cIndex >= 0; cIndex--)
-                    {
-                        if (dgvHeader2.Rows[0].Cells[cIndex].Style == RedStyle)
-                        {
-                            dgvHeader2.Rows[0].Cells[cIndex].Style = SelectedRedStyle;
-                            found = true;
-                        }
-                    }
-                }
-                if(!found)
-                {
-                    if (rIndex > 0)
-                        cIndex = dgvData2.Rows[rIndex-1].Cells.Count - 1;
-                    else
-                        cIndex = dgvHeader2.Rows[0].Cells.Count - 1;
-                }
-                    
-            }
 
-            if (frIndex > -2)
-            {
                 if (frIndex > -1)
                 {
-                    if (dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                        dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
+                    if (usesHeader)
+                    {
+                        if (wasHeader)
+                            changeColorRow(frIndex, dgvHeader2, selectedColor, color);
+                        else
+                            changeColorRow(frIndex, dgvData2, selectedColor, color);
+                    }
+                    else
+                        changeColorRow(frIndex, data2, selectedColor, color);
                 }
-                else if (dgvHeader2.Rows[0].Cells[fcIndex].Style == SelectedRedStyle)
-                    dgvHeader2.Rows[0].Cells[fcIndex].Style = RedStyle;
-            }
 
-            if (found)
-            {
-                rIndex++;
-                cIndex++;
-                frIndex = rIndex;
-                fcIndex = cIndex;
-                dgvData.FirstDisplayedScrollingRowIndex = rIndex;
-                dgvData2.FirstDisplayedScrollingRowIndex = rIndex;
+
+                if (found)
+                {
+                    rIndex++;
+                    frIndex = rIndex;
+
+                    if (usesHeader)
+                        wasHeader = isHeader;
+
+                    changeColorRow(rIndex, data2, color, selectedColor);
+                    try
+                    {
+                        data.FirstDisplayedScrollingRowIndex = rIndex;
+                        data2.FirstDisplayedScrollingRowIndex = rIndex;
+                    }
+                    catch { }
+
+                }
+                else if (usesHeader && isHeader && dgvData.Rows.Count > 0 && dgvData2.Rows.Count > 0)
+                {
+                    isHeader = false;
+                    rIndex = Math.Max(dgvData.Rows.Count, dgvData2.Rows.Count) - 1;
+                }
+                else if (usesHeader && dgvHeader.Rows.Count > 0 && dgvHeader2.Rows.Count > 0)
+                {
+                    isHeader = true;
+                    rIndex = Math.Max(dgvHeader.Rows.Count, dgvHeader2.Rows.Count) - 1;
+                }
+                else
+                    rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
             }
-            else
+        }
+        private void generalNext(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex, bool usesHeader = false)
+        {
+            bool found = false;
+            if (usesHeader || (!usesHeader && data.Rows.Count > 0 && data2.Rows.Count > 0))
             {
-                rIndex = dgvData2.RowCount - 1;
-                cIndex = dgvData2.Rows[rIndex].Cells.Count - 1;
+                for (; !found && rIndex < data.Rows.Count; rIndex++)
+                    for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
+                        if (data2.Rows[rIndex].Cells[cIndex].Style == color)
+                            found = true;
+
+                if (frIndex > -1)
+                {
+                    if (usesHeader)
+                    {
+                        if (wasHeader)
+                            changeColorRow(frIndex, dgvHeader2, selectedColor, color);
+                        else
+                            changeColorRow(frIndex, dgvData2, selectedColor, color);
+                    }
+                    else
+                        changeColorRow(frIndex, data2, selectedColor, color);
+                }
+
+                if (found)
+                {
+                    rIndex--;
+                    frIndex = rIndex;
+
+                    if(usesHeader)
+                        wasHeader = isHeader;
+
+                    changeColorRow(rIndex, data2, color, selectedColor);
+
+                    try
+                    {
+                        data.FirstDisplayedScrollingRowIndex = rIndex;
+                        data2.FirstDisplayedScrollingRowIndex = rIndex;
+                    }
+                    catch { }
+                }
+                else if (usesHeader)
+                {
+                    if (isHeader && dgvData.Rows.Count > 0)
+                        isHeader = false;
+                    else if (dgvHeader.Rows.Count > 0)
+                        isHeader = true;
+                    rIndex = 0;
+                }
+                else
+                    rIndex = 0;
             }
-                
-            
-                               
         }
     }
 }
