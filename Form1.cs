@@ -139,25 +139,21 @@ namespace VisualizzatoreBinario
                     nDiff++;
                 }
             }
-            lbNDiff.Text = "NDiff:" + nDiff.ToString();
+            lbNDiff.Text = "Differences : " + nDiff.ToString();
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
         private void txColonne_TextChanged(object sender, EventArgs e)
         { }
         List<int> idDiff = new List<int>();
-<<<<<<< HEAD
-        private void openFile(ref byte[] fd, ref Label lb)
-=======
         private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
->>>>>>> ca23238e970dfb3ddf76cd6fc0dad30c79367d82
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
             if (System.IO.File.Exists(ofd.FileName))
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = "n. byte: " + fd.Length.ToString();
+                lb.Text = "n. byte: "+fd.Length.ToString();
                 FileInfo fi = new FileInfo(ofd.FileName);
                 lbName.Text = fi.Name;
             }
@@ -231,27 +227,6 @@ namespace VisualizzatoreBinario
         {
             int finoA = int.Parse(txFinoA.Text);
             int Da = int.Parse(txDa.Text);
-<<<<<<< HEAD
-            if (fData != null && fData2 != null && finoA + fData2.Length - Da > 0 && Da < fData.Length)
-            {
-                byte[] newData = new byte[finoA + fData2.Length - Da];
-                int o = 0;
-                for (int i = 0; i < finoA; i++)
-                    newData[o++] = fData[i];
-
-                for (int i = Da; i < fData2.Length; i++)
-                    newData[o++] = fData2[i];
-                
-                using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
-                {
-                    if (sfd.ShowDialog() == DialogResult.OK)
-                    {
-                        try
-                        {
-                            System.IO.File.WriteAllBytes(sfd.FileName, newData);
-                        }
-                        catch(Exception ex) { }
-=======
             if (fData != null && fData2 != null)
             {
                 if (finoA + fData2.Length - Da > 0 && Da < fData.Length && finoA >= 0 && Da >= 0)
@@ -274,19 +249,14 @@ namespace VisualizzatoreBinario
                             }
                             catch (Exception ex) { }
                         }
->>>>>>> ca23238e970dfb3ddf76cd6fc0dad30c79367d82
                     }
                 }
                 else
-                    MessageBox.Show("Input inseriti errati!");
+                    MessageBox.Show("Wrong or impossible inputs!");
             }
-<<<<<<< HEAD
-            
-=======
             else
-                MessageBox.Show("I file devono essere caricati!");
-
->>>>>>> ca23238e970dfb3ddf76cd6fc0dad30c79367d82
+                MessageBox.Show("Files need to be opened!");
+            
 
         }
         private void search(DataGridView data)
@@ -301,7 +271,7 @@ namespace VisualizzatoreBinario
 
             else
                 c = tbCerca.Text.Split(' ');
-
+  
             string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
@@ -331,7 +301,7 @@ namespace VisualizzatoreBinario
         }
         private Point? _mousePos;
         int perc = 500;
-        const int TOTAL = 1250, START = TOTAL / 2, MINX = 100, MAXX = TOTAL - MINX;
+        const int TOTAL = 1250, START = TOTAL/2, MINX = 100, MAXX = TOTAL-MINX;
         void btDgvData_MouseMove(object sender, MouseEventArgs e)
         {
             if (this._mousePos.HasValue)
@@ -347,7 +317,7 @@ namespace VisualizzatoreBinario
 
                     dgvData2.Left = btDgvData.Right;
                     dgvHeader2.Left = btDgvData.Right;
-                    dgvData2.Size = new System.Drawing.Size(TOTAL - dgvData.Size.Width, dgvData2.Size.Height);
+                    dgvData2.Size = new System.Drawing.Size(TOTAL- dgvData.Size.Width, dgvData2.Size.Height);
                     dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
             }
