@@ -314,7 +314,7 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            
+            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void searchPrevious(object sender, EventArgs e)
         {
@@ -364,41 +364,8 @@ namespace VisualizzatoreBinario
         }
         private void btNext(object sender, EventArgs e)
         {
-            bool found = false;
-            DataGridView data = isHeader ? dgvHeader : dgvData;
-            DataGridView data2 = isHeader ? dgvHeader2 : dgvData2;
-
-            for (; !found && rIndex < data.Rows.Count; rIndex++)
-                for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
-                    if (data2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
-                        found = true;
-
-            if (frIndex > -1)
-            {
-                if (wasHeader)
-                    changeColorRow(frIndex, dgvHeader2, SelectedRedStyle, RedStyle);
-                else
-                    changeColorRow(frIndex, dgvData2, SelectedRedStyle, RedStyle);
-            }
-                
-            if (found)
-            {
-                rIndex--;
-                frIndex = rIndex;
-                wasHeader = isHeader;
-                changeColorRow(rIndex, data2, RedStyle, SelectedRedStyle);
-                data.FirstDisplayedScrollingRowIndex = rIndex;
-                data2.FirstDisplayedScrollingRowIndex = rIndex;
-            }
-            else
-            {
-                if (isHeader && dgvData.Rows.Count > 0)
-                    isHeader = false;
-                else if (dgvHeader.Rows.Count > 0)
-                    isHeader = true;
-
-                rIndex = 0;
-            }
+            generalNext(isHeader ? dgvHeader : dgvData, isHeader ? dgvHeader2 : dgvData2,
+                RedStyle, SelectedRedStyle, ref rIndex, true);
         }
         private void btPrevious(object sender, EventArgs e) 
         {
@@ -458,6 +425,58 @@ namespace VisualizzatoreBinario
                 }
                 else
                     rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
+            }
+        }
+        private void generalNext(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex, bool usesHeader = false)
+        {
+            bool found = false;
+            if (usesHeader || (!usesHeader && data.Rows.Count > 0 && data2.Rows.Count > 0))
+            {
+                for (; !found && rIndex < data.Rows.Count; rIndex++)
+                    for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
+                        if (data2.Rows[rIndex].Cells[cIndex].Style == color)
+                            found = true;
+
+                if (frIndex > -1)
+                {
+                    if (usesHeader)
+                    {
+                        if (wasHeader)
+                            changeColorRow(frIndex, dgvHeader2, selectedColor, color);
+                        else
+                            changeColorRow(frIndex, dgvData2, selectedColor, color);
+                    }
+                    else
+                        changeColorRow(frIndex, data2, selectedColor, color);
+                }
+
+                if (found)
+                {
+                    rIndex--;
+                    frIndex = rIndex;
+
+                    if(usesHeader)
+                        wasHeader = isHeader;
+
+                    changeColorRow(rIndex, data2, color, selectedColor);
+
+                    try
+                    {
+                        data.FirstDisplayedScrollingRowIndex = rIndex;
+                        data2.FirstDisplayedScrollingRowIndex = rIndex;
+                    }
+                    catch { }
+                }
+                else if (usesHeader)
+                {
+                    if (isHeader && dgvData.Rows.Count > 0)
+                        isHeader = false;
+                    else if (dgvHeader.Rows.Count > 0)
+                        isHeader = true;
+                    rIndex = 0;
+                }
+                else
+                    rIndex = 0;
             }
         }
     }
