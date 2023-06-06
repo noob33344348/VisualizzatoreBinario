@@ -6,6 +6,7 @@ using System.Data.Odbc;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,16 +18,14 @@ namespace VisualizzatoreBinario
     {
         byte[] fData;
         byte[] fData2;
-        private int cIndex;
-        private int rIndex;
-        private int hcIndex;
+        private int cIndex, rIndex, fcIndex, frIndex;
+        private bool first;
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
         public Form1()
         {
             InitializeComponent();
-            rIndex = 0;
-            cIndex = hcIndex = -1;
+
             RedStyle = new DataGridViewCellStyle();
             RedStyle.BackColor = Color.Red;
             SelectedRedStyle = new DataGridViewCellStyle();
@@ -198,6 +197,11 @@ namespace VisualizzatoreBinario
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            rIndex = -1;
+            cIndex = 0;
+            frIndex = -2;
+            fcIndex = -2;
+            first = true;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -332,139 +336,127 @@ namespace VisualizzatoreBinario
         {
             this._mousePos = e.Location;
         }
-        private bool nextHeader()
-        {
-            try
-            {
-                dgvHeader.Rows[0].Cells[hcIndex].Style = RedStyle;
-                dgvHeader2.Rows[0].Cells[hcIndex].Style = RedStyle;
-            }
-            catch { }
-            try
-            {
-                while (hcIndex < dgvHeader.Rows[0].Cells.Count - 1 && hcIndex < dgvHeader2.Rows[0].Cells.Count - 1)
-                {
-                    if (dgvHeader2.Rows[0].Cells[++hcIndex].Style == RedStyle && dgvHeader2.Rows[0].Cells[hcIndex].Style != SelectedRedStyle)
-                    {
-                        dgvHeader.Rows[0].Cells[hcIndex].Style = SelectedRedStyle;
-                        dgvHeader2.Rows[0].Cells[hcIndex].Style = SelectedRedStyle;
-                        return true;
-                    }
-                }
-            }
-            catch { }
-            return false;
-        }
-        private bool nextData()
-        {
-            try
-            {
-                dgvData.Rows[rIndex].Cells[cIndex].Style = RedStyle;
-                dgvData2.Rows[rIndex].Cells[cIndex].Style = RedStyle;
-            }
-            catch { }
-
-            try
-            {
-                while (rIndex < dgvData.RowCount && rIndex < dgvData2.RowCount)
-                {
-                    if (cIndex >= dgvData.Rows[rIndex].Cells.Count - 1 || cIndex >= dgvData2.Rows[rIndex].Cells.Count - 1)
-                    {
-                        cIndex = -1;
-                        rIndex++;
-                        if (rIndex >= dgvData.RowCount || rIndex >= dgvData2.RowCount)
-                        {
-                            rIndex = 0;
-                            return false;
-                        }
-                    }
-                    
-                    if (dgvData2.Rows[rIndex].Cells[++cIndex].Style == RedStyle && dgvData2.Rows[rIndex].Cells[cIndex].Style != SelectedRedStyle)
-                    {
-                        dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        return true;
-                    }
-
-                }
-            }
-            catch { }
-            return false;
-        }
         private void btNext(object sender, EventArgs e)
         {
-            while (!nextHeader() && !nextData())
-            {
-                hcIndex = -1;
-            }
-        }
-        private bool previousHeader()
-        {
-            try
-            {
-                dgvHeader.Rows[0].Cells[hcIndex].Style = RedStyle;
-                dgvHeader2.Rows[0].Cells[hcIndex].Style = RedStyle;
-            }
-            catch { }
-            try
-            {
-                while (hcIndex > 0)
-                {
-                    if (dgvHeader2.Rows[0].Cells[--hcIndex].Style == RedStyle && dgvHeader2.Rows[0].Cells[hcIndex].Style != SelectedRedStyle)
-                    {
-                        dgvHeader.Rows[0].Cells[hcIndex].Style = SelectedRedStyle;
-                        dgvHeader2.Rows[0].Cells[hcIndex].Style = SelectedRedStyle;
-                        return true;
-                    }
-                }
-            }
-            catch { }
-            hcIndex = Math.Min(dgvHeader.Rows[0].Cells.Count, dgvHeader2.Rows[0].Cells.Count) + 1;
-            return false;
-        }
-        private bool previousData()
-        {
-            try
-            {
-                dgvData.Rows[rIndex].Cells[cIndex].Style = RedStyle;
-                dgvData2.Rows[rIndex].Cells[cIndex].Style = RedStyle;
-            }
-            catch { }
+            bool found = false;
 
-            try
+            for (;!found && rIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); rIndex++)
             {
-                while (rIndex >= 0)
+                if(rIndex > -1)
                 {
-                    if (cIndex < 0)
+                    for (;!found && cIndex < Math.Min(dgvData.Rows[rIndex].Cells.Count, dgvData2.Rows[rIndex].Cells.Count); cIndex++)
                     {
-                        rIndex--;
-                        if (rIndex < 0)
+                        if(dgvData2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
                         {
-                            return false;
+                            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                            found = true;
                         }
-
-                            
-
-                        cIndex = Math.Min(dgvData.Rows[rIndex].Cells.Count, dgvData2.Rows[rIndex].Cells.Count);
                     }
-                    if (dgvData2.Rows[rIndex].Cells[--cIndex].Style == RedStyle && dgvData2.Rows[rIndex].Cells[cIndex].Style != SelectedRedStyle)
+                }    
+                else if(dgvHeader.RowCount > 0)
+                {
+                    for (;!found && cIndex < Math.Min(dgvHeader.Rows[0].Cells.Count, dgvHeader2.Rows[0].Cells.Count); cIndex++)
                     {
-                        dgvData.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
-                        return true;
+                        if (dgvHeader2.Rows[0].Cells[cIndex].Style == RedStyle)
+                        {
+                            dgvHeader2.Rows[0].Cells[cIndex].Style = SelectedRedStyle;
+                            found = true;
+                        }
                     }
                 }
+                if (!found)
+                    cIndex = 0;
             }
-            catch { }
-            return false;
-        }
-        private void btPrevious(object sender, EventArgs e)
-        {
-            while (!previousData() && !previousHeader())
+
+            if (frIndex > -2)
             {
-                rIndex = Math.Min(dgvData.RowCount, dgvData2.RowCount)-1;
-                cIndex = Math.Min(dgvData.Rows[rIndex].Cells.Count, dgvData2.Rows[rIndex].Cells.Count);
+                if (frIndex > -1)
+                {
+                    if (dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
+                        dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
+
+                }
+                else if (dgvHeader2.Rows[0].Cells[fcIndex].Style == SelectedRedStyle)
+                        dgvHeader2.Rows[0].Cells[fcIndex].Style = RedStyle;
             }
+
+            if (found)
+            {
+                rIndex--;
+                cIndex--;
+                frIndex = rIndex;
+                fcIndex = cIndex;
+            }
+                
+            else
+                rIndex = -1;
+
+        }
+
+        private void btPrevious(object sender, EventArgs e) 
+        {
+            bool found = false;
+
+            for (; !found && rIndex >= -1; rIndex--)
+            {
+                if (rIndex > -1)
+                {
+                    for (; !found  && cIndex >= 0; cIndex--)
+                    {
+                        if (dgvData2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
+                        {
+                            dgvData2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
+                            found = true;
+                        }
+                    }
+                }
+                else if (dgvHeader.RowCount > 0)
+                {
+                    for (; !found && cIndex >= 0; cIndex--)
+                    {
+                        if (dgvHeader2.Rows[0].Cells[cIndex].Style == RedStyle)
+                        {
+                            dgvHeader2.Rows[0].Cells[cIndex].Style = SelectedRedStyle;
+                            found = true;
+                        }
+                    }
+                }
+                if(!found)
+                {
+                    if (rIndex > 0)
+                        cIndex = dgvData2.Rows[rIndex-1].Cells.Count - 1;
+                    else
+                        cIndex = dgvHeader2.Rows[0].Cells.Count - 1;
+                }
+                    
+            }
+
+            if (frIndex > -2)
+            {
+                if (frIndex > -1)
+                {
+                    if (dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
+                        dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
+                }
+                else if (dgvHeader2.Rows[0].Cells[fcIndex].Style == SelectedRedStyle)
+                    dgvHeader2.Rows[0].Cells[fcIndex].Style = RedStyle;
+            }
+
+            if (found)
+            {
+                rIndex++;
+                cIndex++;
+                frIndex = rIndex;
+                fcIndex = cIndex;
+            }
+            else
+            {
+                rIndex = dgvData2.RowCount - 1;
+                cIndex = dgvData2.Rows[rIndex].Cells.Count - 1;
+            }
+                
+            
+                               
         }
     }
 }
