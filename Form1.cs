@@ -435,49 +435,43 @@ namespace VisualizzatoreBinario
         {
             this._mousePos = e.Location;
         }
+        private void changeColorRow(int row, DataGridView data, DataGridViewCellStyle start, DataGridViewCellStyle end)
+        {
+            for (int i = 0; i < data.Rows[row].Cells.Count; i++)
+                if (data.Rows[row].Cells[i].Style == start)
+                    data.Rows[row].Cells[i].Style = end;
+        }
         private void btNext(object sender, EventArgs e)
         {
             bool found = false;
-            DataGridView data = isHeader ? dgvHeader:dgvData;
-            DataGridView data2 = isHeader ? dgvHeader2:dgvData2;
-            
-            for(; !found && rIndex  < data.Rows.Count; rIndex++)
-            {
-                for(; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
-                {
+            DataGridView data = isHeader ? dgvHeader : dgvData;
+            DataGridView data2 = isHeader ? dgvHeader2 : dgvData2;
+
+            for (rIndex++; !found && rIndex < data.Rows.Count; rIndex++)
+                for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
                     if (data2.Rows[rIndex].Cells[cIndex].Style == RedStyle)
-                    {
-                        data2.Rows[rIndex].Cells[cIndex].Style = SelectedRedStyle;
                         found = true;
-                    }    
-                }
-                if (!found)
-                    cIndex = 0;
-            }
-            if(wasHeader)
-            {
-                if (frIndex > -2 && dgvHeader2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                    dgvHeader2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
-            }
-            else if (frIndex > -2 && dgvData2.Rows[frIndex].Cells[fcIndex].Style == SelectedRedStyle)
-                dgvData2.Rows[frIndex].Cells[fcIndex].Style = RedStyle;
+
+            if (frIndex > -1)
+                changeColorRow(frIndex, data2, SelectedRedStyle, RedStyle);
 
             if (found)
             {
                 rIndex--;
-                cIndex--;
                 frIndex = rIndex;
-                fcIndex = cIndex;
-                wasHeader = isHeader;
+                changeColorRow(rIndex, data2, RedStyle, SelectedRedStyle);
                 data.FirstDisplayedScrollingRowIndex = rIndex;
                 data2.FirstDisplayedScrollingRowIndex = rIndex;
             }
-            else if (isHeader && dgvData.Rows.Count > 0)
-                isHeader = false;
-            else if (dgvHeader.Rows.Count > 0)
-                isHeader = true;
-            if(!found)
+            else
+            {
+                if (isHeader && dgvData.Rows.Count > 0)
+                    isHeader = false;
+                else if (dgvHeader.Rows.Count > 0)
+                    isHeader = true;
+
                 rIndex = 0;
+            }
         }
         private void btPrevious(object sender, EventArgs e) 
         {
@@ -491,19 +485,13 @@ namespace VisualizzatoreBinario
                         found = true;
 
             if(frIndex > -1)
-                for (int i = 0; i < data2.Rows[frIndex].Cells.Count; i++)
-                    if (data2.Rows[frIndex].Cells[i].Style == SelectedRedStyle)
-                        data2.Rows[frIndex].Cells[i].Style = RedStyle;
+                changeColorRow(rIndex, data2, SelectedRedStyle, RedStyle);
 
             if (found)
             {
                 rIndex++;
                 frIndex = rIndex;
-
-                for(int i=0; i < data2.Rows[rIndex].Cells.Count; i++)
-                    if(data2.Rows[rIndex].Cells[i].Style == RedStyle)
-                        data2.Rows[rIndex].Cells[i].Style = SelectedRedStyle;
-
+                changeColorRow(rIndex, data2, RedStyle, SelectedRedStyle);
                 data.FirstDisplayedScrollingRowIndex = rIndex;
                 data2.FirstDisplayedScrollingRowIndex = rIndex;
             }
