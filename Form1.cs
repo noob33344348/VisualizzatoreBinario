@@ -16,10 +16,10 @@ namespace VisualizzatoreBinario
     {
         byte[] fData;
         byte[] fData2;
-        private int cIndex, rIndex, fcIndex, frIndex;
-        private bool first;
+        private int cIndex, rIndex, fcIndex, frIndex, srIndex, scIndex;
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
+        private DataGridViewCellStyle GreenStyle;
         public Form1()
         {
             InitializeComponent();
@@ -28,6 +28,8 @@ namespace VisualizzatoreBinario
             RedStyle.BackColor = Color.Red;
             SelectedRedStyle = new DataGridViewCellStyle();
             SelectedRedStyle.BackColor = Color.DarkRed;
+            GreenStyle = new DataGridViewCellStyle();
+            GreenStyle.BackColor = Color.LightGreen;
         }
 
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
@@ -199,7 +201,8 @@ namespace VisualizzatoreBinario
             cIndex = 0;
             frIndex = -2;
             fcIndex = -2;
-            first = true;
+            srIndex = -1;
+            scIndex = -1;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -293,10 +296,35 @@ namespace VisualizzatoreBinario
                     //Change color
                     if (s.SequenceEqual(c))
                         for (int j = 0; j < c.Length; j++)
-                            row.Cells[i + j].Style = new DataGridViewCellStyle() { BackColor = Color.LightGreen };
+                            row.Cells[i + j].Style = GreenStyle;
                 }
             }
-
+        }
+        private void searchNext(object sender, EventArgs e)
+        {
+            bool found = false;
+            for (; !found && srIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); srIndex++)
+            {
+                for (; !found && scIndex < Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count); scIndex++)
+                    if (dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                    {
+                        dgvData.FirstDisplayedScrollingRowIndex = srIndex;
+                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
+                        found = false;
+                    }
+                scIndex = 0;
+            }    
+                
+            if(found)
+            {
+                srIndex--;
+                scIndex--;
+            }
+            else
+            {
+                scIndex = 0;
+                srIndex = 0;
+            }
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -392,7 +420,6 @@ namespace VisualizzatoreBinario
                 rIndex = -1;
 
         }
-
         private void btPrevious(object sender, EventArgs e) 
         {
             bool found = false;
