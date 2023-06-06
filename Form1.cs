@@ -6,8 +6,6 @@ using System.Data.Odbc;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -140,7 +138,7 @@ namespace VisualizzatoreBinario
                     nDiff++;
                 }
             }
-            lbNDiff.Text = "NDiff:" + nDiff.ToString();
+            lbNDiff.Text = "Differences : " + nDiff.ToString();
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
@@ -154,7 +152,7 @@ namespace VisualizzatoreBinario
             if (System.IO.File.Exists(ofd.FileName))
             {
                 fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = "n. byte: " + fd.Length.ToString();
+                lb.Text = "n. byte: "+fd.Length.ToString();
                 FileInfo fi = new FileInfo(ofd.FileName);
                 lbName.Text = fi.Name;
             }
@@ -258,11 +256,11 @@ namespace VisualizzatoreBinario
                     }
                 }
                 else
-                    MessageBox.Show("Input inseriti errati!");
+                    MessageBox.Show("Wrong or impossible inputs!");
             }
             else
-                MessageBox.Show("I file devono essere caricati!");
-
+                MessageBox.Show("Files need to be opened!");
+            
 
         }
         private void search(DataGridView data)

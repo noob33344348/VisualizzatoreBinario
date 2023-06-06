@@ -110,7 +110,7 @@ namespace VisualizzatoreBinario
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 16);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Numero Colonne";
+            this.label2.Text = "Colums number";
             // 
             // txColonne
             // 
@@ -251,7 +251,7 @@ namespace VisualizzatoreBinario
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(667, 9);
+            this.lbNDiff.Location = new System.Drawing.Point(1370, 14);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(33, 16);
@@ -260,25 +260,25 @@ namespace VisualizzatoreBinario
             // 
             // btNextDiff
             // 
-            this.btNextDiff.Location = new System.Drawing.Point(653, 34);
+            this.btNextDiff.Location = new System.Drawing.Point(1371, 39);
             this.btNextDiff.Margin = new System.Windows.Forms.Padding(4);
             this.btNextDiff.Name = "btNextDiff";
             this.btNextDiff.Size = new System.Drawing.Size(100, 28);
             this.btNextDiff.TabIndex = 31;
             this.btNextDiff.Text = "Next";
             this.btNextDiff.UseVisualStyleBackColor = true;
-            this.btNextDiff.Click += new System.EventHandler(this.btNext);//CHANGE
+            this.btNextDiff.Click += new System.EventHandler(this.btNext);
             // 
             // btPreviousDiff
             // 
-            this.btPreviousDiff.Location = new System.Drawing.Point(653, 65);
+            this.btPreviousDiff.Location = new System.Drawing.Point(1371, 70);
             this.btPreviousDiff.Margin = new System.Windows.Forms.Padding(4);
             this.btPreviousDiff.Name = "btPreviousDiff";
             this.btPreviousDiff.Size = new System.Drawing.Size(100, 28);
             this.btPreviousDiff.TabIndex = 30;
             this.btPreviousDiff.Text = "Previous";
             this.btPreviousDiff.UseVisualStyleBackColor = true;
-            this.btPreviousDiff.Click += new System.EventHandler(this.btPrevious);//CHANGE
+            this.btPreviousDiff.Click += new System.EventHandler(this.btPrevious);
             // 
             // comboBox1
             // 
@@ -288,7 +288,7 @@ namespace VisualizzatoreBinario
             "Integer",
             "Hex",
             "String"});
-            this.comboBox1.Location = new System.Drawing.Point(869, 27);
+            this.comboBox1.Location = new System.Drawing.Point(883, 23);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(160, 24);
@@ -297,7 +297,7 @@ namespace VisualizzatoreBinario
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(1168, 75);
+            this.button1.Location = new System.Drawing.Point(1189, 71);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 28);
@@ -309,16 +309,16 @@ namespace VisualizzatoreBinario
             // labelFinoA
             // 
             this.labelFinoA.AutoSize = true;
-            this.labelFinoA.Location = new System.Drawing.Point(1101, 23);
+            this.labelFinoA.Location = new System.Drawing.Point(1128, 19);
             this.labelFinoA.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFinoA.Name = "labelFinoA";
             this.labelFinoA.Size = new System.Drawing.Size(82, 16);
             this.labelFinoA.TabIndex = 4;
-            this.labelFinoA.Text = "Fino a";
+            this.labelFinoA.Text = "To";
             // 
             // txFinoA
             // 
-            this.txFinoA.Location = new System.Drawing.Point(1153, 20);
+            this.txFinoA.Location = new System.Drawing.Point(1174, 16);
             this.txFinoA.Margin = new System.Windows.Forms.Padding(4);
             this.txFinoA.Name = "txFinoA";
             this.txFinoA.Size = new System.Drawing.Size(132, 22);
@@ -328,16 +328,16 @@ namespace VisualizzatoreBinario
             // labelDa
             // 
             this.labelDa.AutoSize = true;
-            this.labelDa.Location = new System.Drawing.Point(1120, 53);
+            this.labelDa.Location = new System.Drawing.Point(1128, 49);
             this.labelDa.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDa.Name = "labelDa";
             this.labelDa.Size = new System.Drawing.Size(82, 16);
             this.labelDa.TabIndex = 4;
-            this.labelDa.Text = "Da";
+            this.labelDa.Text = "From";
             // 
             // txDa
             // 
-            this.txDa.Location = new System.Drawing.Point(1153, 50);
+            this.txDa.Location = new System.Drawing.Point(1174, 46);
             this.txDa.Margin = new System.Windows.Forms.Padding(4);
             this.txDa.Name = "txDa";
             this.txDa.Size = new System.Drawing.Size(132, 22);
@@ -355,29 +355,29 @@ namespace VisualizzatoreBinario
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(839, 59);
+            this.button2.Location = new System.Drawing.Point(858, 55);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
             this.button2.TabIndex = 21;
-            this.button2.Text = "Salva1";
+            this.button2.Text = "Save 1";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.btSalva1_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(972, 59);
+            this.button3.Location = new System.Drawing.Point(966, 55);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
             this.button3.TabIndex = 22;
-            this.button3.Text = "Salva2";
+            this.button3.Text = "Save 2";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.btSalva2_Click);
             // 
             // tbCerca
             // 
-            this.tbCerca.Location = new System.Drawing.Point(1347, 50);
+            this.tbCerca.Location = new System.Drawing.Point(1517, 34);
             this.tbCerca.Margin = new System.Windows.Forms.Padding(4);
             this.tbCerca.Name = "tbCerca";
             this.tbCerca.Size = new System.Drawing.Size(132, 22);
@@ -385,17 +385,18 @@ namespace VisualizzatoreBinario
             // 
             // btCerca
             // 
-            this.btCerca.Location = new System.Drawing.Point(1488, 50);
+            this.btCerca.Location = new System.Drawing.Point(1538, 64);
             this.btCerca.Margin = new System.Windows.Forms.Padding(4);
             this.btCerca.Name = "btCerca";
             this.btCerca.Size = new System.Drawing.Size(100, 23);
             this.btCerca.TabIndex = 25;
-            this.btCerca.Text = "Cerca";
+            this.btCerca.Text = "Search";
             this.btCerca.UseVisualStyleBackColor = true;
             this.btCerca.Click += new System.EventHandler(this.btCerca_Click);
             // 
             // Form1
             // 
+            this.BackColor = Color.Ivory;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 807);
@@ -460,8 +461,8 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Button btPreviousDiff;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label labelFinoA;
         private System.Windows.Forms.TextBox txFinoA;
+        private System.Windows.Forms.Label labelFinoA;
         private System.Windows.Forms.Label labelDa;
         private System.Windows.Forms.TextBox txDa;
         private System.Windows.Forms.Label lbFloat;
