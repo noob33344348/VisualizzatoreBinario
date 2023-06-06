@@ -139,7 +139,7 @@ namespace VisualizzatoreBinario
                     nDiff++;
                 }
             }
-            lbNDiff.Text = "NDiff:" + nDiff.ToString();
+            lbNDiff.Text = "Differences : " + nDiff.ToString();
             ProcessFile(fData, dgvHeader, dgvData, Header);
             ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
         }
@@ -252,10 +252,10 @@ namespace VisualizzatoreBinario
                     }
                 }
                 else
-                    MessageBox.Show("Input inseriti errati!");
+                    MessageBox.Show("Wrong or impossible inputs!");
             }
             else
-                MessageBox.Show("I file devono essere caricati!");
+                MessageBox.Show("Files need to be opened!");
             
 
         }
