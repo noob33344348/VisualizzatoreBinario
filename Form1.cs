@@ -326,6 +326,32 @@ namespace VisualizzatoreBinario
                 srIndex = 0;
             }
         }
+        private void searchPrevious(object sender, EventArgs e)
+        {
+            bool found = false;
+            for (; !found && srIndex < Math.Min(dgvData.RowCount, dgvData2.RowCount); srIndex--)
+            {
+                for (; !found && scIndex < Math.Min(dgvData.Rows[srIndex].Cells.Count, dgvData2.Rows[srIndex].Cells.Count); scIndex--)
+                    if (dgvData.Rows[srIndex].Cells[scIndex].Style == GreenStyle)
+                    {
+                        dgvData.FirstDisplayedScrollingRowIndex = srIndex;
+                        dgvData2.FirstDisplayedScrollingRowIndex = srIndex;
+                        found = false;
+                    }
+                scIndex = dgvData2.Rows[srIndex-1].Cells.Count-1;
+            }
+
+            if (found)
+            {
+                srIndex++;
+                scIndex++;
+            }
+            else
+            {
+                srIndex = dgvData2.RowCount;
+                scIndex = dgvData2.Rows[srIndex].Cells.Count - 1;
+            }
+        }
         private void btCerca_Click(object sender, EventArgs e)
         {
             search(dgvData);
