@@ -47,6 +47,11 @@ namespace VisualizzatoreBinario
                     if (c.Value != null)
                         b.Add(Convert.ToByte(c.Value));
         }
+        private void clearDgv(DataGridView data)
+        {
+            data.Rows.Clear();
+            data.Columns.Clear();
+        }
         private void ProcessFile(ref byte[] inData,ref byte[] comparisonData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
@@ -330,23 +335,12 @@ namespace VisualizzatoreBinario
         private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
-            ProcessAll();
             this.SuspendLayout();
-        }
-        private void clearDgv(DataGridView data)
-        {
-            data.Rows.Clear();
-            data.Columns.Clear();
         }
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
-            this.ResumeLayout(true);
-            clearDgv(dgvHeader);
-            clearDgv(dgvHeader2);
-            clearDgv(dgvData);
-            clearDgv(dgvData2);
-            
+            this.ResumeLayout(true);            
         }
         private void btNext(object sender, EventArgs e)
         {
