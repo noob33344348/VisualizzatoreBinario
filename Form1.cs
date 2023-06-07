@@ -20,7 +20,7 @@ namespace VisualizzatoreBinario
         byte[] fData;
         byte[] fData2;
         //Valori inizializzati su comboBox1_SelectedIndexChanged
-        private int rIndex, frIndex, s1Index, s2Index;
+        private int rIndex, frIndex, srIndex;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
@@ -47,14 +47,17 @@ namespace VisualizzatoreBinario
                     if (c.Value != null)
                         b.Add(Convert.ToByte(c.Value));
         }
+        private void clearDgv(DataGridView data)
+        {
+            data.Rows.Clear();
+            data.Columns.Clear();
+        }
         private void ProcessFile(ref byte[] inData,ref byte[] comparisonData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
             {
-                dgvH.Rows.Clear();
-                dgvH.Columns.Clear();
-                dgvD.Rows.Clear();
-                dgvD.Columns.Clear();
+                clearDgv(dgvH);
+                clearDgv(dgvD);
                 if (inData == null)
                     return;
                 int nColonne = int.Parse(txColonne.Text);
@@ -193,8 +196,7 @@ namespace VisualizzatoreBinario
         {
             rIndex = -1;
             frIndex = -2;
-            s1Index = -1;
-            s2Index = -1;
+            srIndex = -1;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -267,7 +269,6 @@ namespace VisualizzatoreBinario
                 for (int i = 0; i < c.Length; i++)
                     c[i] = Convert.ToString(tbCerca.Text[i]);
             }
-
             else
                 c = tbCerca.Text.Split(' ');
 
@@ -294,11 +295,11 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref s2Index);
+            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void searchPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref s1Index);
+            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -313,28 +314,40 @@ namespace VisualizzatoreBinario
             if (this._mousePos.HasValue)
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
-                if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 100)
+                if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 20)
                 {
-                    btDgvData.Left = futPos;
-                    perc = btDgvData.Left * 500 / START;
+                    btDgvData.Left = futPos;                    
+                    //move bitmap
 
-                    dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
-                    dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
-
-                    dgvData2.Left = btDgvData.Right;
-                    dgvHeader2.Left = btDgvData.Right;
-                    dgvData2.Size = new System.Drawing.Size(TOTAL - dgvData.Size.Width, dgvData2.Size.Height);
-                    dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
                 }
             }
         }
         private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
+
+            //delete bitmap
+
+            //move dgvData e dgvHeader
+            perc = btDgvData.Left * 500 / START;
+            dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
+            dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
+            //dgvData2 e dgvHeader2
+            dgvData2.Left = btDgvData.Right;
+            dgvHeader2.Left = btDgvData.Right;
+            dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
+            dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
+
+            this.SuspendLayout();
         }
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
+
+            //load bitmap
+
+
+            this.ResumeLayout(true);            
         }
         private void btNext(object sender, EventArgs e)
         {
