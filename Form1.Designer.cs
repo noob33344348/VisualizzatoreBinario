@@ -404,7 +404,10 @@ namespace VisualizzatoreBinario
             this.btCercaNext.TabIndex = 28;
             this.btCercaNext.Text = "▼";
             this.btCercaNext.Click += new System.EventHandler(this.btCerca_Click);
+<<<<<<< HEAD
             this.btCercaNext.UseVisualStyleBackColor = true;
+=======
+>>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
             // 
             // btCercaPrevious
             // 
@@ -414,7 +417,10 @@ namespace VisualizzatoreBinario
             this.btCercaPrevious.TabIndex = 29;
             this.btCercaPrevious.Text = "▲";
             this.btCercaPrevious.Click += new System.EventHandler(this.btCerca_Click);
+<<<<<<< HEAD
             this.btCercaPrevious.UseVisualStyleBackColor = true;
+=======
+>>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
             // 
             // Form1
             // 
