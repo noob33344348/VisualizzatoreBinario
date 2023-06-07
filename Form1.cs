@@ -22,16 +22,22 @@ namespace VisualizzatoreBinario
         private int rIndex, frIndex, srIndex;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
+        private DataGridViewCellStyle SelectedRedStyle;
         private DataGridViewCellStyle GreenStyle;
+        private DataGridViewCellStyle SelectedGreenStyle;
         public Form1()
         {
             InitializeComponent();
 
             RedStyle = new DataGridViewCellStyle();
-            RedStyle.BackColor = Color.Red;
-
+            SelectedRedStyle = new DataGridViewCellStyle();
             GreenStyle = new DataGridViewCellStyle();
+            SelectedGreenStyle = new DataGridViewCellStyle();
+
+            RedStyle.BackColor = Color.Red;
+            SelectedRedStyle.BackColor = Color.DarkRed;
             GreenStyle.BackColor = Color.LightGreen;
+            SelectedGreenStyle.BackColor = Color.DarkOliveGreen;
         }
         private void ForEachRIn(ref DataGridView dgvGeneral, ref List<byte> b)
         {
@@ -198,9 +204,9 @@ namespace VisualizzatoreBinario
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rIndex = 0;
+            rIndex = -1;
             frIndex = -2;
-            srIndex = 0;
+            srIndex = -1;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -300,11 +306,11 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, GreenStyle, ref srIndex);
+            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void searchPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, GreenStyle, ref srIndex);
+            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -344,13 +350,19 @@ namespace VisualizzatoreBinario
         }
         private void btNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, RedStyle, ref rIndex);
+            generalNext(dgvData, dgvData2, RedStyle, SelectedRedStyle, ref rIndex);
         }
-        private void btPrevious(object sender, EventArgs e) 
+        private void btPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, RedStyle, ref rIndex);
+            generalPrevious(dgvData, dgvData2, RedStyle, SelectedRedStyle, ref rIndex);
         }
-        private void generalPrevious(DataGridView data, DataGridView data2, DataGridViewCellStyle color, ref int rIndex)
+        private void changeColorRow(DataGridView data, int index, DataGridViewCellStyle color, DataGridViewCellStyle newColor)
+        {
+            for (int i = 0; i < data.Rows[index].Cells.Count; i++)
+                if (data.Rows[frIndex].Cells[i].Style == color)
+                    data.Rows[frIndex].Cells[i].Style = newColor;
+        }
+        private void generalPrevious(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex)
         {
             bool found = false;
             if (data.Rows.Count > 0 && data2.Rows.Count > 0)
@@ -362,10 +374,9 @@ namespace VisualizzatoreBinario
 
                 if(frIndex > -2)
                 {
-                    data.Rows[frIndex].Selected = false;
-                    data2.Rows[frIndex].Selected = false;
+                    changeColorRow(data, frIndex, selectedColor, color);
+                    changeColorRow(data2, frIndex, selectedColor, color);
                 }
-                    
 
                 if (found)
                 {
@@ -373,8 +384,8 @@ namespace VisualizzatoreBinario
                     frIndex = rIndex;
                     try
                     {
-                        data.Rows[rIndex].Selected = true;
-                        data2.Rows[rIndex].Selected = true;
+                        changeColorRow(data, frIndex, color, selectedColor);
+                        changeColorRow(data2, frIndex, color, selectedColor);
                         data.FirstDisplayedScrollingRowIndex = rIndex;
                         data2.FirstDisplayedScrollingRowIndex = rIndex;
                     }
@@ -385,7 +396,7 @@ namespace VisualizzatoreBinario
                     rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
             }
         }
-        private void generalNext(DataGridView data, DataGridView data2, DataGridViewCellStyle color, ref int rIndex)
+        private void generalNext(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex)
         {
             bool found = false;
             if (data.Rows.Count > 0 && data2.Rows.Count > 0)
@@ -397,8 +408,8 @@ namespace VisualizzatoreBinario
 
                 if (frIndex > -2)
                 {
-                    data.Rows[frIndex].Selected = false;
-                    data2.Rows[frIndex].Selected = false;
+                    changeColorRow(data, frIndex, selectedColor, color);
+                    changeColorRow(data2, frIndex, selectedColor, color);
                 }
 
                 if (found)
@@ -407,15 +418,15 @@ namespace VisualizzatoreBinario
                     frIndex = rIndex;
                     try
                     {
-                        data.Rows[rIndex].Selected = true;
-                        data2.Rows[rIndex].Selected = true;
+                        changeColorRow(data, frIndex, color, selectedColor);
+                        changeColorRow(data2, frIndex, color, selectedColor);
                         data.FirstDisplayedScrollingRowIndex = rIndex;
                         data2.FirstDisplayedScrollingRowIndex = rIndex;
                     }
                     catch { }
                 }
                 else
-                    rIndex = 0;
+                    rIndex = -1;
             }
         }
     }
