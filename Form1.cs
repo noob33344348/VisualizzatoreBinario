@@ -19,8 +19,7 @@ namespace VisualizzatoreBinario
         byte[] fData2;
 
         //Valori inizializzati su comboBox1_SelectedIndexChanged
-        private int rIndex, frIndex;
-        private int srIndex;
+        private int rIndex, frIndex, srIndex;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle GreenStyle;
@@ -361,9 +360,17 @@ namespace VisualizzatoreBinario
                         if (data2.Rows[rIndex].Cells[cIndex].Style == color)
                             found = true;
 
+                if(frIndex > -2)
+                {
+                    data.Rows[frIndex].Selected = false;
+                    data2.Rows[frIndex].Selected = false;
+                }
+                    
+
                 if (found)
                 {
                     rIndex++;
+                    frIndex = rIndex;
                     try
                     {
                         data.Rows[rIndex].Selected = true;
@@ -388,11 +395,20 @@ namespace VisualizzatoreBinario
                         if (data2.Rows[rIndex].Cells[cIndex].Style == color)
                             found = true;
 
+                if (frIndex > -2)
+                {
+                    data.Rows[frIndex].Selected = false;
+                    data2.Rows[frIndex].Selected = false;
+                }
+
                 if (found)
                 {
                     rIndex--;
+                    frIndex = rIndex;
                     try
                     {
+                        data.Rows[rIndex].Selected = true;
+                        data2.Rows[rIndex].Selected = true;
                         data.FirstDisplayedScrollingRowIndex = rIndex;
                         data2.FirstDisplayedScrollingRowIndex = rIndex;
                     }
