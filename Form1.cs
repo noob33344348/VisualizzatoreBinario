@@ -51,10 +51,8 @@ namespace VisualizzatoreBinario
         {
             try
             {
-                dgvH.Rows.Clear();
-                dgvH.Columns.Clear();
-                dgvD.Rows.Clear();
-                dgvD.Columns.Clear();
+                clearDgv(dgvH);
+                clearDgv(dgvD);
                 if (inData == null)
                     return;
                 int nColonne = int.Parse(txColonne.Text);
@@ -325,19 +323,30 @@ namespace VisualizzatoreBinario
                     dgvData2.Size = new System.Drawing.Size(TOTAL * (1000-perc) / 1000, dgvData2.Size.Height);
                     dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
 
-                    //this.Refresh();
+                    
                 }
             }
         }
         private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
+            ProcessAll();
             this.SuspendLayout();
+        }
+        private void clearDgv(DataGridView data)
+        {
+            data.Rows.Clear();
+            data.Columns.Clear();
         }
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
             this.ResumeLayout(true);
+            clearDgv(dgvHeader);
+            clearDgv(dgvHeader2);
+            clearDgv(dgvData);
+            clearDgv(dgvData2);
+            
         }
         private void btNext(object sender, EventArgs e)
         {
