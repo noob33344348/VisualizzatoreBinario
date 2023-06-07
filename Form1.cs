@@ -1,20 +1,9 @@
-using DevComponents.DotNetBar.Controls;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.Odbc;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.UI.Design;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace VisualizzatoreBinario
 {
@@ -326,15 +315,13 @@ namespace VisualizzatoreBinario
             this._mousePos = null;
 
             perc = btDgvData.Left * 500 / START;
-            //move dgvData e dgvHeader
+            //move every dgv
             dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
             dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
-            //dgvData2 e dgvHeader2
             dgvData2.Left = btDgvData.Right;
             dgvHeader2.Left = btDgvData.Right;
             dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
             dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
-
             this.SuspendLayout();
         }
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
