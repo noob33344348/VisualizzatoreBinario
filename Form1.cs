@@ -9,8 +9,15 @@ namespace VisualizzatoreBinario
 {
     public partial class Form1 : Form
     {
-        byte[] fData;
-        byte[] fData2;
+        struct data
+        {
+            public byte[] value;
+            public bool[] diff;
+        }
+
+        data fData = new data();
+        data fData2 = new data();
+        int maxDiff = 20;
         //Valori inizializzati su comboBox1_SelectedIndexChanged
         private int rIndex, frIndex, srIndex;
         //Valori inizializzatu su Form1()
@@ -44,17 +51,51 @@ namespace VisualizzatoreBinario
             data.Rows.Clear();
             data.Columns.Clear();
         }
-        private void ProcessFile(ref byte[] inData,ref byte[] comparisonData, DataGridView dgvH, DataGridView dgvD, int Header)
+        private void processData()
+        {
+            int j = 0;
+            int i = 0;
+            while (i < fData.value.Length && j < fData2.value.Length)
+            {                
+                if (fData.value[i] == fData2.value[j])
+                {
+                    fData.diff[i++] = false;
+                    fData2.diff[j++] = false;
+                }
+                else
+                {
+                    int k;
+                    for (k = 0; k + j < fData2.value.Length && k < maxDiff && fData.value[i] != fData2.value[j+k]; k++)
+                    {
+                        fData2.diff[k + j] = true;
+                    }
+                    if (k == maxDiff)
+                    {
+                        for (int l=0; l<k; l++)
+                        {
+                            fData2.diff[l + j] = false;
+                        }
+                        fData.diff[i++] = true;
+                    }
+                    else
+                    {
+                        fData.diff[i] = false;
+                        j += k;
+                    }
+                }
+            }
+        }
+        private void ProcessFile(ref data data, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
             {
                 clearDgv(dgvH);
                 clearDgv(dgvD);
-                if (inData == null)
+                if (data.value == null)
                     return;
                 int nColonne = int.Parse(txColonne.Text);
                 int dCounter = 0;
-                int traslHeader = inData == fData ? 0 : int.Parse(txHeader2.Text) - int.Parse(txHeader.Text);
+                int traslHeader = data.value == fData.value ? 0 : int.Parse(txHeader2.Text) - int.Parse(txHeader.Text);
                 for (int i = 0; i < Header; i++)
                 {
                     DataGridViewTextBoxColumn dgvc = new DataGridViewTextBoxColumn();
@@ -67,28 +108,30 @@ namespace VisualizzatoreBinario
                     dgvr.HeaderCell.Value = dCounter.ToString();
                     for (int i = 0; dCounter < Header && i < 20; i++)
                     {
-                        dgvr.Cells.Add(getByteCell(inData[dCounter]));
+                        dgvr.Cells.Add(getByteCell(data.value[dCounter]));
                         dCounter++;
                     }
                     dgvr.HeaderCell.Value = (dgvH.Rows.Count + 1).ToString();
                     dgvH.Rows.Add(dgvr);
                 }
+
                 for (int i = 0; i < nColonne; i++)
                 {
                     DataGridViewTextBoxColumn dgvc = new DataGridViewTextBoxColumn();
                     dgvc.Width = 28;
                     dgvD.Columns.Add(dgvc);
                 }
-                while (dCounter < inData.Length)
+
+                while (dCounter < data.value.Length)
                 {
                     DataGridViewRow dgvr = new DataGridViewRow();
                     dgvr.HeaderCell.Value = dCounter.ToString();
-                    for (int i = 0; dCounter < inData.Length && i < nColonne; i++)
+                    for (int i = 0; dCounter < data.value.Length && i < nColonne; i++)
                     {
-                        if (fData.Length + traslHeader > dCounter && inData[dCounter - traslHeader] != comparisonData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
+                        if (fData.value.Length + traslHeader > dCounter && data.diff[dCounter] == true)
+                            dgvr.Cells.Add(getByteCellChanged(data.value[dCounter]));
                         else
-                            dgvr.Cells.Add(getByteCell(inData[dCounter]));
+                            dgvr.Cells.Add(getByteCell(data.value[dCounter]));
                         dCounter++;
                     }
                     dgvr.HeaderCell.Value = (dgvD.Rows.Count + 1).ToString();
@@ -97,7 +140,7 @@ namespace VisualizzatoreBinario
 
             }
             catch
-            {}
+            { }
         }
         private DataGridViewTextBoxCell getByteCellChanged(byte data)
         {
@@ -121,38 +164,40 @@ namespace VisualizzatoreBinario
         { }
         private void ProcessAll()
         {
-            int Header = Math.Min(fData.Length, int.Parse(txHeader.Text));
+            int Header = Math.Min(fData.value.Length, int.Parse(txHeader.Text));
             int Header2;
             if (!String.IsNullOrWhiteSpace(txHeader2.Text))
-                Header2 = Math.Min(fData2.Length, int.Parse(txHeader2.Text));
+                Header2 = Math.Min(fData2.value.Length, int.Parse(txHeader2.Text));
             else
                 Header2 = Header;
             idDiff.Clear();
             int iDiff = Header2 - Header;
             int nDiff = 0;
-            for (int i = 0; i < Math.Min(fData.Length, fData2.Length); i++)
+            for (int i = 0; i < Math.Min(fData.value.Length, fData2.value.Length); i++)
             {
-                if (i + iDiff >= 0 && i + iDiff < fData2.Length && fData[i] != fData2[i + iDiff])
+                if (i + iDiff >= 0 && i + iDiff < fData2.value.Length && fData.value[i] != fData2.value[i + iDiff])
                 {
                     idDiff.Add(i);
                     nDiff++;
                 }
             }
             lbNDiff.Text = "Differences : " + nDiff.ToString();
-            ProcessFile(ref fData, ref fData2, dgvHeader, dgvData, Header);
-            ProcessFile(ref fData2, ref fData,dgvHeader2, dgvData2, Header2);
+            processData();
+            ProcessFile(ref fData, dgvHeader, dgvData, Header);
+            ProcessFile(ref fData2, dgvHeader2, dgvData2, Header2);
         }
         List<int> idDiff = new List<int>();
-        private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
+        private void openFile(ref data fd, ref Label lb, ref Label lbName)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.ShowDialog();
             if (System.IO.File.Exists(ofd.FileName))
             {
-                fd = System.IO.File.ReadAllBytes(ofd.FileName);
-                lb.Text = "n. byte: " + fd.Length.ToString();
+                fd.value = System.IO.File.ReadAllBytes(ofd.FileName);
+                lb.Text = "n. byte: " + fd.value.Length.ToString();
                 FileInfo fi = new FileInfo(ofd.FileName);
                 lbName.Text = fi.Name;
+                fd.diff = new bool[fd.value.Length];
             }
         }
         private void btOpen_Click(object sender, EventArgs e)
@@ -167,7 +212,7 @@ namespace VisualizzatoreBinario
         {
             try
             {
-                if(dgv.Rows.Count == 4 || dgv.Rows.Count == 8)
+                if (dgv.Rows.Count == 4 || dgv.Rows.Count == 8)
                 {
                     byte[] data = new byte[dgv.SelectedCells.Count];
 
@@ -220,17 +265,17 @@ namespace VisualizzatoreBinario
         {
             int finoA = int.Parse(txFinoA.Text);
             int Da = int.Parse(txDa.Text);
-            if (fData != null && fData2 != null)
+            if (fData.value != null && fData2.value != null)
             {
-                if (finoA + fData2.Length - Da > 0 && Da < fData.Length && finoA >= 0 && Da >= 0)
+                if (finoA + fData2.value.Length - Da > 0 && Da < fData.value.Length && finoA >= 0 && Da >= 0)
                 {
-                    byte[] newData = new byte[finoA + fData2.Length - Da];
+                    byte[] newData = new byte[finoA + fData2.value.Length - Da];
                     int o = 0;
                     for (int i = 0; i < finoA; i++)
-                        newData[o++] = fData[i];
+                        newData[o++] = fData.value[i];
 
-                    for (int i = Da; i < fData2.Length; i++)
-                        newData[o++] = fData2[i];
+                    for (int i = Da; i < fData2.value.Length; i++)
+                        newData[o++] = fData2.value[i];
 
                     using (System.Windows.Forms.SaveFileDialog sfd = new SaveFileDialog())
                     {
@@ -327,7 +372,7 @@ namespace VisualizzatoreBinario
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
-            this.ResumeLayout(true);            
+            this.ResumeLayout(true);
         }
         private void btNext(object sender, EventArgs e)
         {
