@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace VisualizzatoreBinario
@@ -19,7 +20,7 @@ namespace VisualizzatoreBinario
         data fData2 = new data();
         int maxDiff = 20;
         //Valori inizializzati su comboBox1_SelectedIndexChanged
-        private int rIndex, frIndex, srIndex;
+        private int r1Index, fr1Index, r2Index, fr2Index, sr1Index, sr2Index;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
@@ -231,9 +232,12 @@ namespace VisualizzatoreBinario
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rIndex = -1;
-            frIndex = -2;
-            srIndex = -1;
+            r1Index = -1;
+            r2Index = -1;
+            fr1Index = -2;
+            fr2Index = -2;
+            sr1Index = -1;
+            sr2Index = -1;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -332,11 +336,13 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
+            generalNext(dgvData, GreenStyle, SelectedGreenStyle, ref sr1Index, ref fr1Index);
+            generalNext(dgvData2, GreenStyle, SelectedGreenStyle, ref sr2Index, ref fr2Index);
         }
         private void searchPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
+            generalPrevious(dgvData, GreenStyle, SelectedGreenStyle, ref sr1Index, ref fr1Index);
+            generalPrevious(dgvData2, GreenStyle, SelectedGreenStyle, ref sr2Index, ref fr2Index);
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -376,83 +382,75 @@ namespace VisualizzatoreBinario
         }
         private void btNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, RedStyle, SelectedRedStyle, ref rIndex);
+            generalNext(dgvData, RedStyle, SelectedRedStyle, ref r1Index, ref fr1Index);
+            generalNext(dgvData2, RedStyle, SelectedRedStyle, ref r2Index, ref fr2Index);
         }
         private void btPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, RedStyle, SelectedRedStyle, ref rIndex);
+            generalPrevious(dgvData, RedStyle, SelectedRedStyle, ref r1Index, ref fr1Index);
+            generalPrevious(dgvData2, RedStyle, SelectedRedStyle, ref r2Index, ref fr2Index);
         }
         private void changeColorRow(DataGridView data, int index, DataGridViewCellStyle color, DataGridViewCellStyle newColor)
         {
             for (int i = 0; i < data.Rows[index].Cells.Count; i++)
-                if (data.Rows[frIndex].Cells[i].Style == color)
-                    data.Rows[frIndex].Cells[i].Style = newColor;
+                if (data.Rows[index].Cells[i].Style == color)
+                    data.Rows[index].Cells[i].Style = newColor;
         }
-        private void generalPrevious(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex)
+        private void generalPrevious(DataGridView data, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int index, ref int fIndex)
         {
             bool found = false;
-            if (data.Rows.Count > 0 && data2.Rows.Count > 0)
+            if (data.Rows.Count > 0)
             {
-                for (rIndex--; !found && rIndex >= 0; rIndex--)
-                    for (int cIndex = data2.Rows[rIndex].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
-                        if (data2.Rows[rIndex].Cells[cIndex].Style == color)
+                for (index--; !found && index >= 0; index--)
+                    for (int cIndex = data.Rows[index].Cells.Count - 1; !found && cIndex >= 0; cIndex--)
+                        if (data.Rows[index].Cells[cIndex].Style == color)
                             found = true;
 
-                if (frIndex > -2)
-                {
-                    changeColorRow(data, frIndex, selectedColor, color);
-                    changeColorRow(data2, frIndex, selectedColor, color);
-                }
+                if (fIndex > -2)
+                    changeColorRow(data, fIndex, selectedColor, color);
 
                 if (found)
                 {
-                    rIndex++;
-                    frIndex = rIndex;
+                    index++;
+                    fIndex = index;
                     try
                     {
-                        changeColorRow(data, frIndex, color, selectedColor);
-                        changeColorRow(data2, frIndex, color, selectedColor);
-                        data2.FirstDisplayedScrollingRowIndex = rIndex;
-                        data.FirstDisplayedScrollingRowIndex = rIndex;
+                        changeColorRow(data, fIndex, color, selectedColor);
+                        data.FirstDisplayedScrollingRowIndex = index;
                     }
                     catch { }
                 }
                 else
-                    rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
+                    index = data.Rows.Count- 1;
             }
         }
-        private void generalNext(DataGridView data, DataGridView data2, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int rIndex)
+        private void generalNext(DataGridView data, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int index, ref int fIndex)
         {
             bool found = false;
-            if (data.Rows.Count > 0 && data2.Rows.Count > 0)
+            if(data.Rows.Count > 0) 
             {
-                for (rIndex++; !found && rIndex < data.Rows.Count; rIndex++)
-                    for (int cIndex = 0; !found && cIndex < data.Rows[rIndex].Cells.Count; cIndex++)
-                        if (data2.Rows[rIndex].Cells[cIndex].Style == color)
+                for(index++; !found && index < data.Rows.Count; index++)
+                    for (int cIndex = 0; !found && cIndex < data.Rows[index].Cells.Count; cIndex++)
+                        if (data.Rows[index].Cells[cIndex].Style == color)
                             found = true;
 
-                if (frIndex > -2)
-                {
-                    changeColorRow(data, frIndex, selectedColor, color);
-                    changeColorRow(data2, frIndex, selectedColor, color);
-                }
-
+                if (fIndex > -2)
+                    changeColorRow(data, fIndex, selectedColor, color);
                 if (found)
                 {
-                    rIndex--;
-                    frIndex = rIndex;
+                    index--;
+                    fIndex = index;
                     try
                     {
-                        changeColorRow(data, frIndex, color, selectedColor);
-                        changeColorRow(data2, frIndex, color, selectedColor);
-                        data2.FirstDisplayedScrollingRowIndex = rIndex;
-                        data.FirstDisplayedScrollingRowIndex = rIndex;
+                        changeColorRow(data, fIndex, color, selectedColor);
+                        data.FirstDisplayedScrollingRowIndex = index;
                     }
                     catch { }
                 }
                 else
-                    rIndex = -1;
+                    index = -1;
             }
         }
+        
     }
 }
