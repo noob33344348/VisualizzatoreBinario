@@ -5,13 +5,16 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.Design;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace VisualizzatoreBinario
 {
@@ -315,21 +318,15 @@ namespace VisualizzatoreBinario
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
                 if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 20)
-                {
-                    btDgvData.Left = futPos;                    
-                    //move bitmap
-
-                }
+                    btDgvData.Left = futPos;
             }
         }
         private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
 
-            //delete bitmap
-
-            //move dgvData e dgvHeader
             perc = btDgvData.Left * 500 / START;
+            //move dgvData e dgvHeader
             dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
             dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
             //dgvData2 e dgvHeader2
@@ -343,10 +340,6 @@ namespace VisualizzatoreBinario
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
         {
             this._mousePos = e.Location;
-
-            //load bitmap
-
-
             this.ResumeLayout(true);            
         }
         private void btNext(object sender, EventArgs e)
