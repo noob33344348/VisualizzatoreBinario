@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -330,5 +331,18 @@ namespace VisualizzatoreBinario
         {
             this._mousePos = e.Location;
         }
-    }
+        private void CreateBitmap(DataGridView dgv, string fileName)
+        {
+            int DGVOriginalHeight = dgvData.Height;
+            dgvData.Height = (dgvData.RowCount * dgvData.RowTemplate.Height) +
+            dgvData.ColumnHeadersHeight;
+
+            using (Bitmap bitmap = new Bitmap(dgvData.Width, dgvData.Height))
+            {
+                dgvData.DrawToBitmap(bitmap, new Rectangle(Point.Empty, dgvData.Size));
+                string DesktopFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                bitmap.Save(Path.Combine(DesktopFolder, fileName), ImageFormat.Png);
+            }
+            dgvData.Height = DGVOriginalHeight;
+        }
 }
