@@ -315,26 +315,21 @@ namespace VisualizzatoreBinario
             {
                 int futPos = btDgvData.Left + e.X - this._mousePos.Value.X;
                 if (futPos > MINX && futPos < MAXX && Math.Abs(futPos - btDgvData.Left) > 20)
-                {
                     btDgvData.Left = futPos;
-
-                    perc = btDgvData.Left * 500 / START;
-
-                    dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
-                    dgvHeader.Size = new System.Drawing.Size(futPos, dgvHeader.Size.Height);
-
-                    dgvData2.Left = btDgvData.Right;
-                    dgvHeader2.Left = btDgvData.Right;
-                    dgvData2.Size = new System.Drawing.Size(TOTAL * (1000-perc) / 1000, dgvData2.Size.Height);
-                    dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
-
-                    
-                }
             }
         }
         private void btDgvData_MouseUp(object sender, MouseEventArgs e)
         {
             this._mousePos = null;
+
+            perc = btDgvData.Left * 500 / START;
+            //move every dgv
+            dgvData.Size = new System.Drawing.Size(TOTAL * perc / 1000, dgvData.Size.Height);
+            dgvHeader.Size = new System.Drawing.Size(dgvData.Size.Width, dgvHeader.Size.Height);
+            dgvData2.Left = btDgvData.Right;
+            dgvHeader2.Left = btDgvData.Right;
+            dgvData2.Size = new System.Drawing.Size(TOTAL * (1000 - perc) / 1000, dgvData2.Size.Height);
+            dgvHeader2.Size = new System.Drawing.Size(dgvData2.Size.Width, dgvHeader2.Size.Height);
             this.SuspendLayout();
         }
         private void btDgvData_MouseDown(object sender, MouseEventArgs e)
