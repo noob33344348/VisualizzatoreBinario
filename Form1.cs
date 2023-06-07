@@ -422,7 +422,7 @@ namespace VisualizzatoreBinario
                     catch { }
                 }
                 else
-                    index = data.Rows.Count- 1;
+                    index = data.Rows.Count;
             }
         }
         private void generalNext(DataGridView data, DataGridViewCellStyle color, DataGridViewCellStyle selectedColor, ref int index, ref int fIndex)
