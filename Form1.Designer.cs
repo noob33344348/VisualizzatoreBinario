@@ -34,6 +34,9 @@ namespace VisualizzatoreBinario
 
         private void InitializeComponent()
         {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
+
             this.btDgvData = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.txHeader = new System.Windows.Forms.TextBox();

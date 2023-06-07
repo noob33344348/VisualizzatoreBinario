@@ -276,7 +276,7 @@ namespace VisualizzatoreBinario
             {
                 //Set every color to white
                 foreach (DataGridViewCell cell in row.Cells)
-                    cell.Style = new DataGridViewCellStyle() { BackColor = Color.White };
+                    cell.Style.BackColor = Color.Empty;
 
 
                 //Search c
