@@ -122,7 +122,7 @@ namespace VisualizzatoreBinario
             this.txColonne.Size = new System.Drawing.Size(132, 22);
             this.txColonne.TabIndex = 3;
             this.txColonne.Text = "24";
-            this.txColonne.TextChanged += new System.EventHandler(this.txColonne_TextChanged);
+            this.txColonne.TextChanged += new System.EventHandler(this.noChanged);
             // 
             // dgvHeader
             // 
