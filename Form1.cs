@@ -1,3 +1,4 @@
+using DevComponents.DotNetBar.Controls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,7 @@ using System.Data.Odbc;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.UI.Design;
@@ -17,9 +19,8 @@ namespace VisualizzatoreBinario
     {
         byte[] fData;
         byte[] fData2;
-
         //Valori inizializzati su comboBox1_SelectedIndexChanged
-        private int rIndex, frIndex, srIndex;
+        private int rIndex, frIndex, s1Index, s2Index;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
@@ -46,7 +47,7 @@ namespace VisualizzatoreBinario
                     if (c.Value != null)
                         b.Add(Convert.ToByte(c.Value));
         }
-        private void ProcessFile(byte[] inData, DataGridView dgvH, DataGridView dgvD, int Header)
+        private void ProcessFile(ref byte[] inData,ref byte[] comparisonData, DataGridView dgvH, DataGridView dgvD, int Header)
         {
             try
             {
@@ -71,10 +72,7 @@ namespace VisualizzatoreBinario
                     dgvr.HeaderCell.Value = dCounter.ToString();
                     for (int i = 0; dCounter < Header && i < 20; i++)
                     {
-                        if (fData.Length > dCounter && fData[dCounter] != inData[dCounter])
-                            dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
-                        else
-                            dgvr.Cells.Add(getByteCell(inData[dCounter]));
+                        dgvr.Cells.Add(getByteCell(inData[dCounter]));
                         dCounter++;
                     }
                     dgvr.HeaderCell.Value = (dgvH.Rows.Count + 1).ToString();
@@ -92,7 +90,7 @@ namespace VisualizzatoreBinario
                     dgvr.HeaderCell.Value = dCounter.ToString();
                     for (int i = 0; dCounter < inData.Length && i < nColonne; i++)
                     {
-                        if (fData.Length + traslHeader > dCounter && fData[dCounter - traslHeader] != inData[dCounter])
+                        if (fData.Length + traslHeader > dCounter && inData[dCounter - traslHeader] != comparisonData[dCounter])
                             dgvr.Cells.Add(getByteCellChanged(inData[dCounter]));
                         else
                             dgvr.Cells.Add(getByteCell(inData[dCounter]));
@@ -104,9 +102,7 @@ namespace VisualizzatoreBinario
 
             }
             catch
-            {
-
-            }
+            {}
         }
         private DataGridViewTextBoxCell getByteCellChanged(byte data)
         {
@@ -148,11 +144,9 @@ namespace VisualizzatoreBinario
                 }
             }
             lbNDiff.Text = "Differences : " + nDiff.ToString();
-            ProcessFile(fData, dgvHeader, dgvData, Header);
-            ProcessFile(fData2, dgvHeader2, dgvData2, Header2);
+            ProcessFile(ref fData, ref fData2, dgvHeader, dgvData, Header);
+            ProcessFile(ref fData2, ref fData,dgvHeader2, dgvData2, Header2);
         }
-        private void txColonne_TextChanged(object sender, EventArgs e)
-        { }
         List<int> idDiff = new List<int>();
         private void openFile(ref byte[] fd, ref Label lb, ref Label lbName)
         {
@@ -178,21 +172,14 @@ namespace VisualizzatoreBinario
         {
             try
             {
-                if (dgv.SelectedCells.Count == 4)
+                if(dgv.Rows.Count == 4 || dgv.Rows.Count == 8)
                 {
-                    byte[] data = new byte[4];
+                    byte[] data = new byte[dgv.SelectedCells.Count];
+
                     for (int i = 0; i < dgv.SelectedCells.Count; i++)
                         data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
 
                     lbInt.Text = BitConverter.ToInt32(data, 0).ToString();
-                }
-                if (dgv.SelectedCells.Count == 8)
-                {
-                    byte[] data = new byte[8];
-                    for (int i = 0; i < dgv.SelectedCells.Count; i++)
-                        data[i] = byte.Parse((string)dgv.SelectedCells[i].Value);
-
-                    lbInt.Text = BitConverter.ToInt64(data, 0).ToString();
                 }
             }
             catch
@@ -206,7 +193,8 @@ namespace VisualizzatoreBinario
         {
             rIndex = -1;
             frIndex = -2;
-            srIndex = -1;
+            s1Index = -1;
+            s2Index = -1;
             ProcessAll();
         }
         private void salvaFile(DataGridView header, DataGridView data)
@@ -306,11 +294,11 @@ namespace VisualizzatoreBinario
         }
         private void searchNext(object sender, EventArgs e)
         {
-            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
+            generalNext(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref s2Index);
         }
         private void searchPrevious(object sender, EventArgs e)
         {
-            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref srIndex);
+            generalPrevious(dgvData, dgvData2, GreenStyle, SelectedGreenStyle, ref s1Index);
         }
         private void btCerca_Click(object sender, EventArgs e)
         {
@@ -386,11 +374,10 @@ namespace VisualizzatoreBinario
                     {
                         changeColorRow(data, frIndex, color, selectedColor);
                         changeColorRow(data2, frIndex, color, selectedColor);
-                        data.FirstDisplayedScrollingRowIndex = rIndex;
                         data2.FirstDisplayedScrollingRowIndex = rIndex;
+                        data.FirstDisplayedScrollingRowIndex = rIndex;
                     }
                     catch { }
-
                 }
                 else
                     rIndex = Math.Max(data.Rows.Count, data2.Rows.Count) - 1;
@@ -420,8 +407,8 @@ namespace VisualizzatoreBinario
                     {
                         changeColorRow(data, frIndex, color, selectedColor);
                         changeColorRow(data2, frIndex, color, selectedColor);
-                        data.FirstDisplayedScrollingRowIndex = rIndex;
                         data2.FirstDisplayedScrollingRowIndex = rIndex;
+                        data.FirstDisplayedScrollingRowIndex = rIndex;
                     }
                     catch { }
                 }
