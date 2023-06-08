@@ -54,6 +54,7 @@ namespace VisualizzatoreBinario
             this.btNextDiff = new System.Windows.Forms.Button();
             this.btPreviousDiff = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btRefresh = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.labelFinoA = new System.Windows.Forms.Label();
             this.txFinoA = new System.Windows.Forms.TextBox();
@@ -298,6 +299,17 @@ namespace VisualizzatoreBinario
             this.comboBox1.TabIndex = 16;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // btRefresh
+            // 
+            this.btRefresh.Location = new System.Drawing.Point(917, 80);
+            this.btRefresh.Margin = new System.Windows.Forms.Padding(4);
+            this.btRefresh.Name = "btRefresh";
+            this.btRefresh.Size = new System.Drawing.Size(100, 28);
+            this.btRefresh.TabIndex = 9;
+            this.btRefresh.Text = "Refresh";
+            this.btRefresh.UseVisualStyleBackColor = true;
+            this.btRefresh.Click += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1189, 71);
@@ -358,7 +370,7 @@ namespace VisualizzatoreBinario
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(858, 55);
+            this.button2.Location = new System.Drawing.Point(858, 50);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(100, 28);
@@ -369,7 +381,7 @@ namespace VisualizzatoreBinario
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(966, 55);
+            this.button3.Location = new System.Drawing.Point(966, 50);
             this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(100, 28);
@@ -433,6 +445,7 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.txFinoA);
             this.Controls.Add(this.labelFinoA);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.btRefresh);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btPreviousDiff);
             this.Controls.Add(this.btNextDiff);
@@ -482,6 +495,7 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Button btNextDiff;
         private System.Windows.Forms.Button btPreviousDiff;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btRefresh;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.TextBox txFinoA;
         private System.Windows.Forms.Label labelFinoA;
