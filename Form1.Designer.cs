@@ -1,6 +1,4 @@
 ﻿using System.Windows.Forms;
-using System;
-using System.Drawing;
 
 namespace VisualizzatoreBinario
 {
@@ -34,6 +32,9 @@ namespace VisualizzatoreBinario
 
         private void InitializeComponent()
         {
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.UpdateStyles();
+
             this.btDgvData = new System.Windows.Forms.Button();
             this.dgvData = new System.Windows.Forms.DataGridView();
             this.txHeader = new System.Windows.Forms.TextBox();
@@ -122,7 +123,7 @@ namespace VisualizzatoreBinario
             this.txColonne.Size = new System.Drawing.Size(132, 22);
             this.txColonne.TabIndex = 3;
             this.txColonne.Text = "24";
-            this.txColonne.TextChanged += new System.EventHandler(this.txColonne_TextChanged);
+            this.txColonne.TextChanged += new System.EventHandler(this.noChanged);
             // 
             // dgvHeader
             // 
@@ -152,7 +153,7 @@ namespace VisualizzatoreBinario
             this.dgvData.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData.Name = "dgvData";
             this.dgvData.RowHeadersWidth = 51;
-            this.dgvData.Size = new System.Drawing.Size(968, 551);
+            this.dgvData.Size = new System.Drawing.Size(968, 450);
             this.dgvData.TabIndex = 0;
             this.dgvData.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
@@ -195,7 +196,7 @@ namespace VisualizzatoreBinario
             this.dgvData2.Margin = new System.Windows.Forms.Padding(4);
             this.dgvData2.Name = "dgvData2";
             this.dgvData2.RowHeadersWidth = 51;
-            this.dgvData2.Size = new System.Drawing.Size(730, 551);
+            this.dgvData2.Size = new System.Drawing.Size(730, 450);
             this.dgvData2.TabIndex = 7;
             this.dgvData2.SelectionChanged += new System.EventHandler(this.dgvGeneral_SelectionChanged);
             // 
@@ -269,7 +270,7 @@ namespace VisualizzatoreBinario
             this.btNextDiff.TabIndex = 31;
             this.btNextDiff.Text = "Next";
             this.btNextDiff.UseVisualStyleBackColor = true;
-            this.btNextDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
+            this.btNextDiff.Click += new System.EventHandler(this.btNext);
             // 
             // btPreviousDiff
             // 
@@ -280,16 +281,16 @@ namespace VisualizzatoreBinario
             this.btPreviousDiff.TabIndex = 30;
             this.btPreviousDiff.Text = "Previous";
             this.btPreviousDiff.UseVisualStyleBackColor = true;
-            this.btPreviousDiff.Click += new System.EventHandler(this.btOpen2_Click);//CHANGE
+            this.btPreviousDiff.Click += new System.EventHandler(this.btPrevious);
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
-            "Integer",
-            "Hex",
-            "String"});
+                "Integer",
+                "Hex",
+                "String"});
             this.comboBox1.Location = new System.Drawing.Point(883, 23);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
@@ -403,11 +404,7 @@ namespace VisualizzatoreBinario
             this.btCercaNext.Size = new System.Drawing.Size(24, 32);
             this.btCercaNext.TabIndex = 28;
             this.btCercaNext.Text = "▼";
-            this.btCercaNext.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
-            this.btCercaNext.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
+            this.btCercaNext.Click += new System.EventHandler(this.searchNext);
             // 
             // btCercaPrevious
             // 
@@ -416,11 +413,7 @@ namespace VisualizzatoreBinario
             this.btCercaPrevious.Size = new System.Drawing.Size(24, 32);
             this.btCercaPrevious.TabIndex = 29;
             this.btCercaPrevious.Text = "▲";
-            this.btCercaPrevious.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
-            this.btCercaPrevious.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
+            this.btCercaPrevious.Click += new System.EventHandler(this.searchPrevious);
             // 
             // Form1
             // 
