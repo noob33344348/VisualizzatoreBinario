@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace VisualizzatoreBinario
 {
@@ -57,7 +58,7 @@ namespace VisualizzatoreBinario
             int j = 0;
             int i = 0;
             while (i < fData.value.Length && j < fData2.value.Length)
-            {                
+            {
                 if (fData.value[i] == fData2.value[j])
                 {
                     fData.diff[i++] = false;
@@ -66,13 +67,13 @@ namespace VisualizzatoreBinario
                 else
                 {
                     int k;
-                    for (k = 0; k + j < fData2.value.Length && k < maxDiff && fData.value[i] != fData2.value[j+k]; k++)
+                    for (k = 0; k + j < fData2.value.Length && k < maxDiff && fData.value[i] != fData2.value[j + k]; k++)
                     {
                         fData2.diff[k + j] = true;
                     }
                     if (k == maxDiff)
                     {
-                        for (int l=0; l<k; l++)
+                        for (int l = 0; l < k; l++)
                         {
                             fData2.diff[l + j] = false;
                         }
@@ -236,13 +237,16 @@ namespace VisualizzatoreBinario
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            r1Index = -1;
-            r2Index = -1;
-            fr1Index = -2;
-            fr2Index = -2;
-            sr1Index = -1;
-            sr2Index = -1;
-            ProcessAll();
+            if (!string.IsNullOrEmpty(comboBox1.Text)){
+                r1Index = -1;
+                r2Index = -1;
+                fr1Index = -2;
+                fr2Index = -2;
+                sr1Index = -1;
+                sr2Index = -1;
+                ProcessAll();
+            }
+
         }
         private void salvaFile(DataGridView header, DataGridView data)
         {
