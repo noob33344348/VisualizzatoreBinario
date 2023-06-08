@@ -416,16 +416,9 @@ namespace VisualizzatoreBinario
             this.btCercaNext.Size = new System.Drawing.Size(24, 32);
             this.btCercaNext.TabIndex = 28;
             this.btCercaNext.Text = "▼";
-<<<<<<< HEAD
             this.btCercaNext.Click += new System.EventHandler(this.searchNext);
-=======
-            this.btCercaNext.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
             this.btCercaNext.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
->>>>>>> origin/Raoul
-            // 
+            //
             // btCercaPrevious
             // 
             this.btCercaPrevious.Location = new System.Drawing.Point(1663, 24);
@@ -433,15 +426,8 @@ namespace VisualizzatoreBinario
             this.btCercaPrevious.Size = new System.Drawing.Size(24, 32);
             this.btCercaPrevious.TabIndex = 29;
             this.btCercaPrevious.Text = "▲";
-<<<<<<< HEAD
             this.btCercaPrevious.Click += new System.EventHandler(this.searchPrevious);
-=======
-            this.btCercaPrevious.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
             this.btCercaPrevious.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
->>>>>>> origin/Raoul
             // 
             // Form1
             // 
