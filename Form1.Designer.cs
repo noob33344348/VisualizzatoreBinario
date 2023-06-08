@@ -48,7 +48,6 @@ namespace VisualizzatoreBinario
             this.lbF1Len = new System.Windows.Forms.Label();
             this.lbF2Len = new System.Windows.Forms.Label();
             this.lbNDiff = new System.Windows.Forms.Label();
-            this.tbMaxDiff = new System.Windows.Forms.TextBox();
             this.btNextDiff = new System.Windows.Forms.Button();
             this.btPreviousDiff = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -244,21 +243,12 @@ namespace VisualizzatoreBinario
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(1541, 42);
+            this.lbNDiff.Location = new System.Drawing.Point(1541, 18);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(91, 20);
             this.lbNDiff.TabIndex = 15;
             this.lbNDiff.Text = "Differences";
-            //
-            //tbMaxDiff
-            //
-            this.tbMaxDiff.Location = new System.Drawing.Point(1540, 80);
-            this.tbMaxDiff.Margin = new System.Windows.Forms.Padding(4);
-            this.tbCerca.Name = "tbMaxDiff";
-            this.tbMaxDiff.Size = new System.Drawing.Size(132, 22);
-            this.tbMaxDiff.TabIndex = 24;
-            this.tbMaxDiff.Text = "20";
             // 
             // btNextDiff
             // 
@@ -449,7 +439,6 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btPreviousDiff);
             this.Controls.Add(this.btNextDiff);
-            this.Controls.Add(this.tbMaxDiff);
             this.Controls.Add(this.lbNDiff);
             this.Controls.Add(this.lbF2Len);
             this.Controls.Add(this.lbF1Len);
@@ -494,7 +483,6 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Label lbF1Len;
         private System.Windows.Forms.Label lbF2Len;
         private System.Windows.Forms.Label lbNDiff;
-        private System.Windows.Forms.TextBox tbMaxDiff;
         private System.Windows.Forms.Button btNextDiff;
         private System.Windows.Forms.Button btPreviousDiff;
         private System.Windows.Forms.Button button1;
