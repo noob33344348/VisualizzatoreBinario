@@ -91,8 +91,6 @@ namespace VisualizzatoreBinario
         {
             try
             {
-                if (data.value == null)
-                    return;
                 int nColonne = int.Parse(txColonne.Text);
                 int dCounter = 0;
                 int traslHeader = data.value == fData.value ? 0 : int.Parse(txHeader2.Text) - int.Parse(txHeader.Text);
@@ -139,8 +137,7 @@ namespace VisualizzatoreBinario
                 }
 
             }
-            catch
-            { }
+            catch{ }
         }
         private DataGridViewTextBoxCell getByteCellChanged(byte data)
         {
@@ -164,6 +161,9 @@ namespace VisualizzatoreBinario
         { }
         private void ProcessAll()
         {
+            if (fData.value == null || fData2.value == null)
+                return;
+
             int Header = Math.Min(fData.value.Length, int.Parse(txHeader.Text));
             int Header2;
             if (!String.IsNullOrWhiteSpace(txHeader2.Text))
@@ -229,8 +229,7 @@ namespace VisualizzatoreBinario
                     lbInt.Text = BitConverter.ToInt32(data, 0).ToString();
                 }
             }
-            catch
-            { }
+            catch { }
         }
         private void dgvGeneral_SelectionChanged(object sender, EventArgs e)//funzione generale che agisce su Form1.Designer
         {
@@ -316,7 +315,7 @@ namespace VisualizzatoreBinario
             if (comboBox1.Text == "String")
             {
                 c = new string[tbCerca.Text.Length];
-                for (int i = 0; i < c.Length; i++)
+                for (int i = 0; i < c.Length; i++)  
                     c[i] = Convert.ToString(tbCerca.Text[i]);
             }
             else
@@ -330,6 +329,7 @@ namespace VisualizzatoreBinario
                 {
                     for (int j = 0; j < c.Length; j++)
                         s[j] = Convert.ToString(row.Cells[i + j].Value);
+                    
 
                     //Change color
                     if (s.SequenceEqual(c))
