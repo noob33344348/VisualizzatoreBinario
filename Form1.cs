@@ -20,7 +20,7 @@ namespace VisualizzatoreBinario
         data fData2 = new data();
         int maxDiff = 20;
         //Valori inizializzati su comboBox1_SelectedIndexChanged
-        private int r1Index, fr1Index, r2Index, fr2Index, sr1Index, sr2Index;
+        private int r1Index, r2Index, fr1Index, fr2Index, sr1Index, sr2Index;
         //Valori inizializzatu su Form1()
         private DataGridViewCellStyle RedStyle;
         private DataGridViewCellStyle SelectedRedStyle;
@@ -90,8 +90,6 @@ namespace VisualizzatoreBinario
         {
             try
             {
-                clearDgv(dgvH);
-                clearDgv(dgvD);
                 if (data.value == null)
                     return;
                 int nColonne = int.Parse(txColonne.Text);
@@ -183,7 +181,14 @@ namespace VisualizzatoreBinario
                 }
             }
             lbNDiff.Text = "Differences : " + nDiff.ToString();
+
+            clearDgv(dgvData);
+            clearDgv(dgvHeader);
+            clearDgv(dgvData2);
+            clearDgv(dgvHeader2);
+
             processData();
+
             ProcessFile(ref fData, dgvHeader, dgvData, Header);
             ProcessFile(ref fData2, dgvHeader2, dgvData2, Header2);
         }
@@ -316,11 +321,6 @@ namespace VisualizzatoreBinario
             string[] s = new string[c.Length];
             foreach (DataGridViewRow row in data.Rows)
             {
-                //Set every color to white
-                foreach (DataGridViewCell cell in row.Cells)
-                    cell.Style.BackColor = Color.Empty;
-
-
                 //Search c
                 for (int i = 0; i <= row.Cells.Count - c.Length; i++)
                 {
