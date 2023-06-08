@@ -244,7 +244,7 @@ namespace VisualizzatoreBinario
             // lbNDiff
             // 
             this.lbNDiff.AutoSize = true;
-            this.lbNDiff.Location = new System.Drawing.Point(1541, 18);
+            this.lbNDiff.Location = new System.Drawing.Point(1541, 42);
             this.lbNDiff.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNDiff.Name = "lbNDiff";
             this.lbNDiff.Size = new System.Drawing.Size(91, 20);
@@ -253,7 +253,7 @@ namespace VisualizzatoreBinario
             //
             //tbMaxDiff
             //
-            this.tbMaxDiff.Location = new System.Drawing.Point(1517, 34);
+            this.tbMaxDiff.Location = new System.Drawing.Point(1540, 80);
             this.tbMaxDiff.Margin = new System.Windows.Forms.Padding(4);
             this.tbCerca.Name = "tbMaxDiff";
             this.tbMaxDiff.Size = new System.Drawing.Size(132, 22);
