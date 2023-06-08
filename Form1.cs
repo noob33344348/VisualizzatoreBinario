@@ -123,6 +123,7 @@ namespace VisualizzatoreBinario
         { }
         private void ProcessAll()
         {
+
             int Header = Math.Min(fData.Length, int.Parse(txHeader.Text));
             int Header2;
             if (!String.IsNullOrWhiteSpace(txHeader2.Text))
