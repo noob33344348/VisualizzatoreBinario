@@ -51,6 +51,7 @@ namespace VisualizzatoreBinario
             this.lbF1Len = new System.Windows.Forms.Label();
             this.lbF2Len = new System.Windows.Forms.Label();
             this.lbNDiff = new System.Windows.Forms.Label();
+            this.tbMaxDiff = new System.Windows.Forms.TextBox();
             this.btNextDiff = new System.Windows.Forms.Button();
             this.btPreviousDiff = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -261,6 +262,15 @@ namespace VisualizzatoreBinario
             this.lbNDiff.Size = new System.Drawing.Size(33, 16);
             this.lbNDiff.TabIndex = 15;
             this.lbNDiff.Text = "Differences";
+            //
+            //tbMaxDiff
+            //
+            this.tbMaxDiff.Location = new System.Drawing.Point(1517, 34);
+            this.tbMaxDiff.Margin = new System.Windows.Forms.Padding(4);
+            this.tbCerca.Name = "tbMaxDiff";
+            this.tbMaxDiff.Size = new System.Drawing.Size(132, 22);
+            this.tbMaxDiff.TabIndex = 24;
+            this.tbMaxDiff.Text = "20";
             // 
             // btNextDiff
             // 
@@ -416,15 +426,9 @@ namespace VisualizzatoreBinario
             this.btCercaNext.Size = new System.Drawing.Size(24, 32);
             this.btCercaNext.TabIndex = 28;
             this.btCercaNext.Text = "▼";
-<<<<<<< HEAD
             this.btCercaNext.Click += new System.EventHandler(this.searchNext);
-=======
             this.btCercaNext.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
             this.btCercaNext.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
->>>>>>> origin/Raoul
             // 
             // btCercaPrevious
             // 
@@ -433,15 +437,9 @@ namespace VisualizzatoreBinario
             this.btCercaPrevious.Size = new System.Drawing.Size(24, 32);
             this.btCercaPrevious.TabIndex = 29;
             this.btCercaPrevious.Text = "▲";
-<<<<<<< HEAD
             this.btCercaPrevious.Click += new System.EventHandler(this.searchPrevious);
-=======
             this.btCercaPrevious.Click += new System.EventHandler(this.btCerca_Click);
-<<<<<<< HEAD
             this.btCercaPrevious.UseVisualStyleBackColor = true;
-=======
->>>>>>> f62a3c52cd3c9b7998ab1b0e0373756b9beab797
->>>>>>> origin/Raoul
             // 
             // Form1
             // 
@@ -465,6 +463,7 @@ namespace VisualizzatoreBinario
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btPreviousDiff);
             this.Controls.Add(this.btNextDiff);
+            this.Controls.Add(this.tbMaxDiff);
             this.Controls.Add(this.lbNDiff);
             this.Controls.Add(this.lbF2Len);
             this.Controls.Add(this.lbF1Len);
@@ -508,6 +507,7 @@ namespace VisualizzatoreBinario
         private System.Windows.Forms.Label lbF1Len;
         private System.Windows.Forms.Label lbF2Len;
         private System.Windows.Forms.Label lbNDiff;
+        private System.Windows.Forms.TextBox tbMaxDiff;
         private System.Windows.Forms.Button btNextDiff;
         private System.Windows.Forms.Button btPreviousDiff;
         private System.Windows.Forms.Button button1;

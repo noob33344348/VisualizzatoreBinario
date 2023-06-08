@@ -20,7 +20,7 @@ namespace VisualizzatoreBinario
 
         data fData = new data();
         data fData2 = new data();
-        int maxDiff = 20;
+        
         //Valori inizializzati su comboBox1_SelectedIndexChanged
         private int r1Index, r2Index, fr1Index, fr2Index, sr1Index, sr2Index;
         //Valori inizializzatu su Form1()
@@ -56,6 +56,7 @@ namespace VisualizzatoreBinario
         }
         private void processData()
         {
+            int maxDiff = Convert.ToInt32(tbMaxDiff.Text);
             int j = 0;
             int i = 0;
             while (i < fData.value.Length && j < fData2.value.Length)
